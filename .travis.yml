@@ -220,13 +220,14 @@ before_install:
   - travis_retry testbot/recipes/fetch.sh snopt7.tar.gz && mkdir snopt7 && tar -xf snopt7.tar.gz -C snopt7 && rm snopt7.tar.gz
   - mkdir -p /home/travis/build/casadi/testbot
   - |
-    if [ $NEEDMATLAB ]; then
+    if [ $NEEDMATLAB ]
+    then
       travis_retry testbot/recipes/fetch.sh swig_matlab.tar.gz && mkdir swig_matlab && tar -xf swig_matlab.tar.gz -C swig_matlab && rm swig_matlab.tar.gz
       pushd /home/travis/build/casadi/testbot && ln -s  /home/travis/build/swig_matlab  swig-matlab-install  && popd
-    ; else
+    else
       travis_retry testbot/recipes/fetch.sh swig.tar.gz && mkdir swig && tar -xf swig.tar.gz -C swig && rm swig.tar.gz
       pushd /home/travis/build/casadi/testbot && ln -s  /home/travis/build/swig  swig-install  && popd
-    ; fi
+    fi
   - export PATH=/home/travis/build/swig/bin:$PATH
   - pushd testbot/restricted/cplex && mkdir cplex && tar -xf cplex12.4.tar.gz -C cplex && mkdir concert && tar -xf cplex12.4-concert.tar.gz -C concert && rm cplex12.4-concert.tar.gz && popd
   - pushd testbot/restricted && mkdir -p worhp && cd  worhp && 7za e ../libworhp_debian7_amd64_gcc47_1.7-12970f3.7z -y && popd
