@@ -62,7 +62,7 @@ matrix:
         - make -j2
         - sudo make -j2 install
         - popd
-        - sudo apt-get install python-ipdb graphviz -y
+        - sudo apt-get install python-ipdb graphviz texlive-science texlive-latex-base texlive-latex-recommended texlive-latex-extra -y
         - sudo pip install --allow-unverified pydot pydot==1.0.28
         - python -c "from casadi.tools import *;loadAllCompiledPlugins()"
         - pushd test && make trunktesterbot_no_unittests_py && popd
