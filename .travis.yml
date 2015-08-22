@@ -181,10 +181,13 @@ matrix:
       os: linux
       env: NEEDMATLAB=1
       script:
-        - sudo apt-get install pv
+
+        # travis-wait seems to stop at 20 mins, regardless if output is being generated
+        - (while true ; do sleep 60 ; echo "ping" ; done ) &
+
         - pushd /home/travis/build/
         - testbot/recipes/fetch.sh matlab$MATLABRELEASE.tar.gz
-        - mkdir matlab && tar -xvf matlab$MATLABRELEASE.tar.gz -C matlab | pv -r > /dev/null
+        - mkdir matlab && tar -xvf matlab$MATLABRELEASE.tar.gz -C matlab
         - popd
         - mkdir build
         - pushd build
