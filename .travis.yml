@@ -62,7 +62,8 @@ matrix:
         - make -j2
         - sudo make -j2 install
         - popd
-        - sudo apt-get install python-ipdb -y
+        - sudo apt-get install python-ipdb graphviz -y
+        - sudo pip install --allow-unverified pydot pydot==1.0.28
         - python -c "from casadi.tools import *;loadAllCompiledPlugins()"
         - pushd test && make trunktesterbot_no_unittests_py && popd
         - pushd build && travis_wait make json && popd
@@ -152,7 +153,7 @@ matrix:
       after_success:
         - cd /home/travis/build/
         - git clone git@github.com:casadi/binaries.git
-        - pushd binaries && git checkout run && git submodule init && git submodule update&& popd
+        - pushd binaries && git checkout run && git submodule init && git submodule update ; popd
         - pushd binaries/casadi && git checkout $TRAVIS_COMMIT && popd
         - pushd binaries && git commit -a -m "automatic runner commit $TRAVIS_COMMIT" && git push origin run && popd
 
