@@ -286,13 +286,20 @@ for d in r.findall('*//namespace/cdecl'):
     code = code[1:-1]
     code = code.replace(";","")
     code = code.replace("return","")
+
+    if "reshape" in name:
+      print name, argnames, code
     
+    nargs = sum([2 if "pair" in i.attrib["value"] else 1 for i in d.findall('attributelist/parmlist/parm/attributelist/attribute[@name="type"]')])
     if re.search(r"\w\(",code):
       code_args = code.split(",")
-      if len(code_args)>len(argnames):
-        code_args = code_args[:len(argnames)]
+      if len(code_args)>nargs:
+        code_args = code_args[:nargs]
         code = ",".join(code_args)+")"
-        
+    if "reshape" in name:
+      print code
+    
+    
     code = code.strip()
         
     
