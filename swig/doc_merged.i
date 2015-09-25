@@ -28660,12 +28660,40 @@ General information
 |              |              |              | for          |              |
 |              |              |              | debugging    |              |
 +--------------+--------------+--------------+--------------+--------------+
+| verbose_init | OT_BOOLEAN   | false        | Print out    | casadi::NlpS |
+|              |              |              | timing       | olverInterna |
+|              |              |              | information  | l            |
+|              |              |              | about the    |              |
+|              |              |              | different    |              |
+|              |              |              | stages of in |              |
+|              |              |              | itialization |              |
++--------------+--------------+--------------+--------------+--------------+
 | warn_initial | OT_BOOLEAN   | false        | Warn if the  | casadi::NlpS |
 | _bounds      |              |              | initial      | olverInterna |
 |              |              |              | guess does   | l            |
 |              |              |              | not satisfy  |              |
 |              |              |              | LBX and UBX  |              |
 +--------------+--------------+--------------+--------------+--------------+
+
+>List of available stats
+
++------------------------------+---------------------------+
+|              Id              |          Used in          |
++==============================+===========================+
+| base class init time         | casadi::NlpSolverInternal |
++------------------------------+---------------------------+
+| constraint jacobian gen time | casadi::NlpSolverInternal |
++------------------------------+---------------------------+
+| grad lag gen time            | casadi::NlpSolverInternal |
++------------------------------+---------------------------+
+| hess lag gen time            | casadi::NlpSolverInternal |
++------------------------------+---------------------------+
+| hess lag sparsity time       | casadi::NlpSolverInternal |
++------------------------------+---------------------------+
+| objective gradient gen time  | casadi::NlpSolverInternal |
++------------------------------+---------------------------+
+| objective jacobian gen time  | casadi::NlpSolverInternal |
++------------------------------+---------------------------+
 
 List of plugins
 ===============
@@ -30776,73 +30804,57 @@ wrong for equality constraints. Change the 'fixed_variable_treatment' to
 
 >List of available stats
 
-+-------------------------+
-|           Id            |
-+=========================+
-| con_integer_md          |
-+-------------------------+
-| con_numeric_md          |
-+-------------------------+
-| con_string_md           |
-+-------------------------+
-| iter_count              |
-+-------------------------+
-| iteration               |
-+-------------------------+
-| iterations              |
-+-------------------------+
-| n_eval_callback         |
-+-------------------------+
-| n_eval_f                |
-+-------------------------+
-| n_eval_g                |
-+-------------------------+
-| n_eval_grad_f           |
-+-------------------------+
-| n_eval_h                |
-+-------------------------+
-| n_eval_jac_g            |
-+-------------------------+
-| return_status           |
-+-------------------------+
-| t_callback_fun.proc     |
-+-------------------------+
-| t_callback_fun.wall     |
-+-------------------------+
-| t_callback_prepare.proc |
-+-------------------------+
-| t_callback_prepare.wall |
-+-------------------------+
-| t_eval_f.proc           |
-+-------------------------+
-| t_eval_f.wall           |
-+-------------------------+
-| t_eval_g.proc           |
-+-------------------------+
-| t_eval_g.wall           |
-+-------------------------+
-| t_eval_grad_f.proc      |
-+-------------------------+
-| t_eval_grad_f.wall      |
-+-------------------------+
-| t_eval_h.proc           |
-+-------------------------+
-| t_eval_h.wall           |
-+-------------------------+
-| t_eval_jac_g.proc       |
-+-------------------------+
-| t_eval_jac_g.wall       |
-+-------------------------+
-| t_mainloop.proc         |
-+-------------------------+
-| t_mainloop.wall         |
-+-------------------------+
-| var_integer_md          |
-+-------------------------+
-| var_numeric_md          |
-+-------------------------+
-| var_string_md           |
-+-------------------------+
++--------------------+
+|         Id         |
++====================+
+| con_integer_md     |
++--------------------+
+| con_numeric_md     |
++--------------------+
+| con_string_md      |
++--------------------+
+| iter_count         |
++--------------------+
+| iteration          |
++--------------------+
+| iterations         |
++--------------------+
+| n_eval_callback    |
++--------------------+
+| n_eval_f           |
++--------------------+
+| n_eval_g           |
++--------------------+
+| n_eval_grad_f      |
++--------------------+
+| n_eval_h           |
++--------------------+
+| n_eval_jac_g       |
++--------------------+
+| return_status      |
++--------------------+
+| t_callback_fun     |
++--------------------+
+| t_callback_prepare |
++--------------------+
+| t_eval_f           |
++--------------------+
+| t_eval_g           |
++--------------------+
+| t_eval_grad_f      |
++--------------------+
+| t_eval_h           |
++--------------------+
+| t_eval_jac_g       |
++--------------------+
+| t_mainloop         |
++--------------------+
+| var_integer_md     |
++--------------------+
+| var_numeric_md     |
++--------------------+
+| var_string_md      |
++--------------------+
 
 --------------------------------------------------------------------------------
 
@@ -49549,6 +49561,8 @@ Output arguments of a dle solver
 
 ";
 
+%feature("docstring") casadi::timerPlusEq "[INTERNAL] ";
+
 %feature("docstring") casadi::hash_combine "
 
 >  void hash_combine(std.size_t &seed, T v)
@@ -49658,6 +49672,8 @@ Input arguments of a SDQP problem
 +------------------------+------------------------+------------------------+
 
 ";
+
+%feature("docstring") casadi::getTimerTime "[INTERNAL] ";
 
 %feature("docstring") casadi::read_matlab "
 
@@ -50527,6 +50543,8 @@ Get typename.
 
 ";
 
+%feature("docstring") casadi::diffTimers "[INTERNAL] ";
+
 %feature("docstring") casadi::socpOut "
 
 Output arguments of an SOCP Solver
@@ -50667,6 +50685,8 @@ Input arguments of a dle solver
 +-----------+-------+----------------------------------------+
 
 ";
+
+%feature("docstring") casadi::diffToDict "[INTERNAL] ";
 
 %feature("docstring") casadi::qcqpIn "
 
