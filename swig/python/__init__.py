@@ -27,8 +27,12 @@ import warnings
 import os
 import numpy as np
 
-from casadi.casadi import *
-#import casadi
+import sys
+if sys.version_info >= (3, 0):
+  from casadi.casadi import *
+else:
+  from casadi import *
+  import casadi
 
 # For plugin loading
 CasadiOptions.setCasadiPath(os.path.dirname(__file__))
