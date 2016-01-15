@@ -1149,7 +1149,7 @@ import_array();
         Py_DECREF(return_type);
         return false;
       }
-      bool res = PyClass_IsSubclass(return_type,function);
+      bool res = PyObject_IsSubclass(return_type,function);
       Py_DECREF(return_type);
       Py_DECREF(function);
       if (res) {
@@ -1393,9 +1393,11 @@ import_array();
       }
 
 #ifdef SWIGPYTHON
-      if (PyString_Check(p)) {
+      if (PyString_Check(p) || PyUnicode_Check(p)) {
         if (m) (*m)->clear();
-        if (m) (*m)->append(PyString_AsString(p));
+        char* my_char = SWIG_Python_str_AsChar(p);
+        if (m) (*m)->append(my_char);
+        SWIG_Python_str_DelForPy3(my_char);
         return true;
       }
 #endif // SWIGPYTHON
@@ -1835,9 +1837,12 @@ import_array();
     bool PyObjectHasClassName(PyObject* p, const char * name) {
       PyObject * classo = PyObject_GetAttrString( p, "__class__");
       PyObject * classname = PyObject_GetAttrString( classo, "__name__");
-
-      bool ret = strcmp(PyString_AsString(classname),name)==0;
+      
+      char* c_classname = SWIG_Python_str_AsChar(classname);
+      bool ret = strcmp(c_classname, name)==0;
+      
       Py_DECREF(classo);Py_DECREF(classname);
+      SWIG_Python_str_DelForPy3(c_classname);
       return ret;
     }
 #endif // SWIGPYTHON
@@ -4129,8 +4134,10 @@ def swig_typename_convertor_python2cpp(a):
   elif isinstance(a,np.ndarray):
     return "np.array(%s)" % ",".join(set([swig_typename_convertor_python2cpp(i) for i in np.array(a).flatten().tolist()]))
   elif isinstance(a,dict):
-    return "|".join(set([swig_typename_convertor_python2cpp(i) for i in a.keys()])) +":"+ "|".join(set([swig_typename_convertor_python2cpp(i) for i in a.values()]))
-
+    if len(a)>0:
+      return "|".join(set([swig_typename_convertor_python2cpp(i) for i in a.keys()])) +":"+ "|".join(set([swig_typename_convertor_python2cpp(i) for i in a.values()]))
+    else:
+      return "dict"
   return type(a).__name__
 
 
@@ -4144,7 +4151,7 @@ def swig_monkeypatch(v,cl=True):
     except NotImplementedError as e:
       import sys
       exc_info = sys.exc_info()
-      if e.message.startswith("Wrong number or type of arguments for overloaded function"):
+      if e.args[0].startswith("Wrong number or type of arguments for overloaded function"):
 
         s = e.args[0]
         s = s.replace("'new_","'")
@@ -4155,10 +4162,10 @@ def swig_monkeypatch(v,cl=True):
           name = name.replace(".__call__","")
         else:
           name = "method"
-        ne = NotImplementedError(swig_typename_convertor_cpp2python(s)+"You have: %s(%s)\n" % (name,", ".join(map(swig_typename_convertor_python2cpp,args[1:] if cl else args)+ ["%s=%s" % (k,swig_typename_convertor_python2cpp(vv)) for k,vv in kwargs.items()])))
-        raise ne.__class__, ne, exc_info[2].tb_next
+        ne = NotImplementedError(swig_typename_convertor_cpp2python(s)+"You have: %s(%s)\n" % (name,", ".join([swig_typename_convertor_python2cpp(i) for i in (args[1:] if cl else args)]+ ["%s=%s" % (k,swig_typename_convertor_python2cpp(vv)) for k,vv in kwargs.items()])))
+        raise ne.__class__(ne).with_traceback(exc_info[2].tb_next)
       else:
-        raise exc_info[1], None, exc_info[2].tb_next
+        raise exc_info[1](None).with_traceback(exc_info[2].tb_next)
     except TypeError as e:
       import sys
       exc_info = sys.exc_info()
@@ -4169,7 +4176,7 @@ def swig_monkeypatch(v,cl=True):
       except:
         pass
 
-      if e.message.startswith("in method '"):
+      if e.args[0].startswith("in method '"):
         s = e.args[0]
         s = re.sub(r"method '(\w+?)_(\w+)'",r"method '\1.\2'",s)
         m = re.search("method '([\w\.]+)'",s)
@@ -4178,9 +4185,9 @@ def swig_monkeypatch(v,cl=True):
           name = name.replace(".__call__","")
         else:
           name = "method"
-        ne = TypeError(swig_typename_convertor_cpp2python(s)+" expected.\nYou have: %s(%s)\n" % (name,", ".join(map(swig_typename_convertor_python2cpp,args[1:] if cl else args))))
-        raise ne.__class__, ne, exc_info[2].tb_next
-      elif e.message.startswith("Expecting one of"):
+        ne = TypeError(swig_typename_convertor_cpp2python(s)+" expected.\nYou have: %s(%s)\n" % (name,", ".join([swig_typename_convertor_python2cpp(i) for i in (args[1:] if cl else args)])))
+        raise ne.__class__(ne).with_traceback(exc_info[2].tb_next)
+      elif e.args[0].startswith("Expecting one of"):
         s = e.args[0]
         conversion = {"mul": "*", "div": "/", "add": "+", "sub": "-","le":"<=","ge":">=","lt":"<","gt":">","eq":"==","pow":"**"}
         if methodname.startswith("__") and methodname[2:-2] in conversion:
@@ -4188,25 +4195,25 @@ def swig_monkeypatch(v,cl=True):
         elif methodname.startswith("__r") and methodname[3:-2] in conversion:
           ne = TypeError(swig_typename_convertor_cpp2python(s)+"\nYou try to do: %s %s %s.\n" % ( swig_typename_convertor_python2cpp(args[1]),  conversion[methodname[3:-2]], swig_typename_convertor_python2cpp(args[0]) ))
         else:
-          ne = TypeError(swig_typename_convertor_cpp2python(s)+"\nYou have: (%s)\n" % (", ".join(map(swig_typename_convertor_python2cpp,args[1:] if cl else args))))
-        raise ne.__class__, ne, exc_info[2].tb_next
+          ne = TypeError(swig_typename_convertor_cpp2python(s)+"\nYou have: (%s)\n" % (", ".join([swig_typename_convertor_python2cpp(i) for i in (args[1:] if cl else args)])))
+        raise ne.__class__(ne).with_traceback(exc_info[2].tb_next)
       else:
         s = e.args[0]
-        ne = TypeError(s+"\nYou have: (%s)\n" % (", ".join(map(swig_typename_convertor_python2cpp,args[1:] if cl else args) + ["%s=%s" % (k,swig_typename_convertor_python2cpp(vv)) for k,vv in kwargs.items()]  )))
-        raise ne.__class__, ne, exc_info[2].tb_next
+        ne = TypeError(s+"\nYou have: (%s)\n" % (", ".join([swig_typename_convertor_python2cpp(i) for i in (args[1:] if cl else args)] + ["%s=%s" % (k,swig_typename_convertor_python2cpp(vv)) for k,vv in kwargs.items()]  )))
+        raise ne.__class__(ne).with_traceback(exc_info[2].tb_next)
     except AttributeError as e:
       import sys
       exc_info = sys.exc_info()
-      if e.message=="type object 'object' has no attribute '__getattr__'":
+      if e.args[0]=="type object 'object' has no attribute '__getattr__'":
         # swig 3.0 bug
         ne = AttributeError("Unkown attribute: %s has no attribute '%s'." % (str(args[1]),args[2]))
-        raise ne.__class__, ne, exc_info[2].tb_next
+        raise ne.__class__(ne).with_traceback(exc_info[2].tb_next)
       else:
-        raise exc_info[1], None, exc_info[2].tb_next
+        raise exc_info[1].__class__(None).with_traceback(exc_info[2].tb_next)
     except Exception as e:
       import sys
       exc_info = sys.exc_info()
-      raise exc_info[1], None, exc_info[2].tb_next
+      raise exc_info[1].__class____class__(None).with_traceback(exc_info[2].tb_next)
       
   if v.__doc__ is not None:
     foo.__doc__ = swig_typename_convertor_cpp2python(v.__doc__)
@@ -4229,18 +4236,21 @@ def swig_improvedcall(v):
   newcall.__doc__ = v.__doc__ + "\nYou can also call with keyword arguments if the Function has a known scheme\nExample: nlp(x=x)\n"
   return newcall
 
-for name,cl in locals().items():
+import copy
+locals_copy = copy.copy(locals())
+for name,cl in locals_copy.items():
   if not inspect.isclass(cl): continue
-  for k,v in inspect.getmembers(cl, inspect.ismethod):
+  for k,v in inspect.getmembers(cl, lambda x: inspect.ismethod(x) or inspect.isfunction(x)):
     if k == "__del__" or v.__name__ == "<lambda>": continue
     vv = v
     if k=="__call__" and issubclass(cl,Function):
       vv = swig_improvedcall(v)
     setattr(cl,k,swig_monkeypatch(vv))
-  for k,v in inspect.getmembers(cl, inspect.isfunction):
-    setattr(cl,k,staticmethod(swig_monkeypatch(v,cl=False)))
+#  for k,v in inspect.getmembers(cl, inspect.isfunction):
+#    setattr(cl,k,staticmethod(swig_monkeypatch(v,cl=False)))
   
-for name,v in locals().items():
+locals_copy = copy.copy(locals())
+for name,v in locals_copy.items():
   if not inspect.isfunction(v): continue
   if name.startswith("swig") : continue
   p = swig_monkeypatch(v,cl=False)

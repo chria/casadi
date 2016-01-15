@@ -24,8 +24,13 @@ if(APPLE)
 endif()
 
 # Find packages
+if(WITH_PYTHON3)
+find_package(PythonLibs 3 REQUIRED)
+find_package(PythonInterp 3 REQUIRED)
+elseif()
 find_package(PythonLibs REQUIRED)
 find_package(PythonInterp REQUIRED)
+endif()
 find_package(NUMPY REQUIRED)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
@@ -41,7 +46,9 @@ endif()
 
 set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS} "-DPy_USING_UNICODE")
 set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS} "-noproxydel")
-
+if(WITH_PYTHON3)
+set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS} "-py3")
+endif()
 # Generate SWIG wrapper
 set_source_files_properties(../casadi.i  PROPERTIES  CPLUSPLUS ON)
 swig_add_module(casadi python ../casadi.i)

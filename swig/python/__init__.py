@@ -27,8 +27,8 @@ import warnings
 import os
 import numpy as np
 
-from casadi import *
-import casadi
+from casadi.casadi import *
+#import casadi
 
 # For plugin loading
 CasadiOptions.setCasadiPath(os.path.dirname(__file__))
@@ -37,11 +37,11 @@ import types
   
 def wrapper(f, warning,error=False):
     def new(*args, **kwargs):
-        print "*" * 40
-        print "Deprecation Warning"
-        print "-" * 40
-        print warning
-        print "*" * 40
+        print(("*" * 40))
+        print("Deprecation Warning")
+        print(("-" * 40))
+        print(warning)
+        print(("*" * 40))
         if error:
             raise Exception("Deprecation error: " + warning)
         return f(*args, **kwargs)
