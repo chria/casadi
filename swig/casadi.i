@@ -4236,18 +4236,29 @@ def swig_improvedcall(v):
   newcall.__doc__ = v.__doc__ + "\nYou can also call with keyword arguments if the Function has a known scheme\nExample: nlp(x=x)\n"
   return newcall
 
+import sys
+
+
 import copy
 locals_copy = copy.copy(locals())
 for name,cl in locals_copy.items():
   if not inspect.isclass(cl): continue
-  for k,v in inspect.getmembers(cl, lambda x: inspect.ismethod(x) or inspect.isfunction(x)):
-    if k == "__del__" or v.__name__ == "<lambda>": continue
-    vv = v
-    if k=="__call__" and issubclass(cl,Function):
-      vv = swig_improvedcall(v)
-    setattr(cl,k,swig_monkeypatch(vv))
-#  for k,v in inspect.getmembers(cl, inspect.isfunction):
-#    setattr(cl,k,staticmethod(swig_monkeypatch(v,cl=False)))
+  if sys.version_info >= (3, 0):
+    for k,v in inspect.getmembers(cl, lambda x: inspect.ismethod(x) or inspect.isfunction(x)):
+      if k == "__del__" or v.__name__ == "<lambda>": continue
+      vv = v
+      if k=="__call__" and issubclass(cl,Function):
+        vv = swig_improvedcall(v)
+      setattr(cl,k,swig_monkeypatch(vv))
+  else:
+    for k,v in inspect.getmembers(cl, lambda x: inspect.ismethod):
+      if k == "__del__" or v.__name__ == "<lambda>": continue
+      vv = v
+      if k=="__call__" and issubclass(cl,Function):
+        vv = swig_improvedcall(v)
+      setattr(cl,k,swig_monkeypatch(vv))
+    for k,v in inspect.getmembers(cl, inspect.isfunction):
+      setattr(cl,k,staticmethod(swig_monkeypatch(v,cl=False)))
   
 locals_copy = copy.copy(locals())
 for name,v in locals_copy.items():
