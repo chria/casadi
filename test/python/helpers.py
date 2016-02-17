@@ -115,7 +115,7 @@ class FunctionPool:
 
 def toSX_fun(fun):
   ins = fun.sx_in()
-  return Function("f",ins,fun(ins))
+  return Function("f",ins,fun.call(ins))
   
 def toMX_fun(fun):
   ins = fun.mx_in()
