@@ -151,7 +151,7 @@ class typemaptests(casadiTestCase):
         f_out = f.newcall(f_in)
         
         f_=Function('f', [z],[z])
-        f__in = =DM(f_.sparsity_in(0),dummy[0:f.nnz_in(0)])
+        f__in = DM(f_.sparsity_in(0),dummy[0:f.nnz_in(0)])
         f__out = f_.newcall(f__in)
         
 
