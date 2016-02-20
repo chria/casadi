@@ -1671,13 +1671,6 @@ Add a function (name generated)
 
 ";
 
-%feature("docstring")  casadi::CodeGenerator::add(const Function &f, const
-std::string &fname) "
-
-Add a function.
-
-";
-
 %feature("docstring") casadi::CodeGenerator::CodeGenerator(const Dict
 &opts=Dict()) "
 
@@ -9724,13 +9717,6 @@ General information
 | grid            | OT_DOUBLEVECTOR | Time grid       | casadi::Integra |
 |                 |                 |                 | tor             |
 +-----------------+-----------------+-----------------+-----------------+
-| implicit_solver | OT_STRING       | An implicit     | casadi::Integra |
-|                 |                 | function solver | tor             |
-+-----------------+-----------------+-----------------+-----------------+
-| implicit_solver | OT_DICT         | Options to be   | casadi::Integra |
-| _options        |                 | passed to the   | tor             |
-|                 |                 | NLP Solver      |                 |
-+-----------------+-----------------+-----------------+-----------------+
 | input_scheme    | OT_STRINGVECTOR | Custom input    | casadi::Functio |
 |                 |                 | scheme          | nInternal       |
 +-----------------+-----------------+-----------------+-----------------+
@@ -9808,6 +9794,13 @@ General information
 |                 |                 | NaN or Inf      |                 |
 |                 |                 | appears during  |                 |
 |                 |                 | evaluation      |                 |
++-----------------+-----------------+-----------------+-----------------+
+| rootfinder      | OT_STRING       | An implicit     | casadi::Integra |
+|                 |                 | function solver | tor             |
++-----------------+-----------------+-----------------+-----------------+
+| rootfinder_opti | OT_DICT         | Options to be   | casadi::Integra |
+| ons             |                 | passed to the   | tor             |
+|                 |                 | NLP Solver      |                 |
 +-----------------+-----------------+-----------------+-----------------+
 | t0              | OT_DOUBLE       | Beginning of    | casadi::Integra |
 |                 |                 | the time        | tor             |
@@ -10381,12 +10374,6 @@ The method is still under development
 +------------------------+------------------------+------------------------+
 | grid                   | OT_DOUBLEVECTOR        | Time grid              |
 +------------------------+------------------------+------------------------+
-| implicit_solver        | OT_STRING              | An implicit function   |
-|                        |                        | solver                 |
-+------------------------+------------------------+------------------------+
-| implicit_solver_option | OT_DICT                | Options to be passed   |
-| s                      |                        | to the NLP Solver      |
-+------------------------+------------------------+------------------------+
 | interpolation_order    | OT_INT                 | Order of the           |
 |                        |                        | interpolating          |
 |                        |                        | polynomials            |
@@ -10399,6 +10386,12 @@ The method is still under development
 +------------------------+------------------------+------------------------+
 | print_stats            | OT_BOOL                | Print out statistics   |
 |                        |                        | after integration      |
++------------------------+------------------------+------------------------+
+| rootfinder             | OT_STRING              | An implicit function   |
+|                        |                        | solver                 |
++------------------------+------------------------+------------------------+
+| rootfinder_options     | OT_DICT                | Options to be passed   |
+|                        |                        | to the NLP Solver      |
 +------------------------+------------------------+------------------------+
 | t0                     | OT_DOUBLE              | Beginning of the time  |
 |                        |                        | horizon                |
@@ -10748,7 +10741,7 @@ List of plugins
 
 - kinsol
 
-- nlp
+- nlpsol
 
 - newton
 
@@ -10823,24 +10816,16 @@ KINSOL interface from the Sundials suite
 
 --------------------------------------------------------------------------------
 
-nlp
----
+nlpsol
+------
 
 
 
-Use an Nlpsol as Rootfinder solver
 
->List of available options
-
-+----------------+-----------+---------------------------------+
-|       Id       |   Type    |           Description           |
-+================+===========+=================================+
-| nlpsol         | OT_STRING | Name of solver.                 |
-+----------------+-----------+---------------------------------+
-| nlpsol_options | OT_DICT   | Options to be passed to solver. |
-+----------------+-----------+---------------------------------+
 
 --------------------------------------------------------------------------------
+
+
 
 
 
@@ -11753,6 +11738,18 @@ N:  Number of integrator steps
 order:  Order of interpolating polynomials
 
 scheme:  Collocation scheme, as excepted by collocationPoints function.
+
+";
+
+%feature("docstring")  casadi::nlpsol_default_in(int ind) "
+
+Default input for an NLP solver.
+
+";
+
+%feature("docstring")  casadi::nlpsol_default_in() "
+
+Default input for an NLP solver.
 
 ";
 
