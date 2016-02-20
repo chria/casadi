@@ -62,7 +62,7 @@ for tol in tolerances:
   opts['abstol'] = tol
   opts['tf'] = tend
   F = integrator('F', 'cvodes', dae, opts)
-  res = F({'x0':[1,0]})
+  res = F.newcall(x0=[1,0])
   endresult.append(res['xf'][0])
   
 figure()

@@ -70,7 +70,7 @@ opts["constraints"] = [2,-2]
 s=rootfinder("s", "kinsol", f, opts)
 
 #$ Initialize [$a$,$\gamma$] with a guess and solve
-[x_] = s([[1,-1], params_])
+x_ = s.newcall([1,-1], params_)
 print "Solution = ", x_
 
 #! Compare with the analytic solution:

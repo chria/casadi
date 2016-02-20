@@ -84,8 +84,7 @@ a_ = 2
 nlp={'x':x, 'p':a, 'f':(x-a)**2}
 
 solver = nlpsol('solver', 'ipopt', nlp)
-arg = {'lbx':-10, 'ubx':10, 'p':a_}
-sol = solver(arg)
+sol = solver.newcall(lbx=-10, ubx=10, p=a_)
 
 #! The solution is obviously a:
 print sol['x']

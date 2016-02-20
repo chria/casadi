@@ -33,7 +33,7 @@ z = sqrt(y)
 
 f = Function("f", [x], [z])
 
-[z0] = f([5])
+z0 = f.newcall(5)
 
 print z0
 
@@ -46,7 +46,7 @@ z = sqrt(y)
 f = Function("f", [x],[z])
 
 try:
-  [z0] = f([5])
+  z0 = f.newcall(5)
 except Exception as e:
   print "An exception was raised here:"
   print e
@@ -75,4 +75,4 @@ z = sqrt(y)
 
 f = Function("f", [x],[z])
 
-[z0] = f([5])
+z0 = f.newcall(5)
