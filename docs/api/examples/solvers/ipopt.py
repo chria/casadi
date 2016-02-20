@@ -91,8 +91,7 @@ print sol['x']
 assert(abs(sol['x']-a_)<1e-9)
 
 #! The parameter can change inbetween two solve calls:
-arg['p'] = 2*a_
-sol = solver.newcall(**arg)
+sol = solver.newcall(lbx=-10, ubx=10, p=2*a_)
 
 #! The solution is obviously 2*a:
 print sol['x']
