@@ -128,13 +128,11 @@ simulated_U = DM(cos(t[0:-1])).T # control input for the simulation
 simulated_U[:,Nsimulation/2:] = 0.0
 simulated_W = DM(sigma_w*NP.random.randn(Ndisturbances,Nsimulation-1)) # Process noise for the simulation
 for i in range(Nsimulation-1):
-  phires = phi.newcall(simulated_X[:,i], simulated_U[:,i], simulated_W[:,i])
-  simulated_X[:,i+1] = phires[0]
+  simulated_X[:,i+1] = phi.newcall(simulated_X[:,i], simulated_U[:,i], simulated_W[:,i])
 #Create the measurements from these states
 simulated_Y = DM.zeros(Nmeas,Nsimulation) # Holder for the measurements
 for i in range(Nsimulation):
-  h_res = h.newcall(simulated_X[:,i])
-  simulated_Y[:,i] = h_res[0]
+  simulated_Y[:,i] = h.newcall(simulated_X[:,i])
 # Add noise the the position measurements
 simulated_Y += sigma_p*NP.random.randn(simulated_Y.shape[0],simulated_Y.shape[1])
 
