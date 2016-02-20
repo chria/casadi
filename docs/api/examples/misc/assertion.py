@@ -70,7 +70,7 @@ foo = Dummy("foo")
 
 y = sin(x)
 
-y = y.attachAssert(foo([y])[0], "you are in trouble") # Add assertion here
+y = y.attachAssert(foo.newcall(y), "you are in trouble") # Add assertion here
 z = sqrt(y)
 
 f = Function("f", [x],[z])

@@ -78,7 +78,7 @@ x = [sqrt(4.0/3*sigma_/alpha_),-0.5*pi]
 print "Reference solution = ", x
 
 #! We show that the residual is indeed (close to) zero
-[residual] = f([x_, params_])
+residual = f.newcall(x_, params_)
 print "residual = ", residual
 
 for i in range(1):
