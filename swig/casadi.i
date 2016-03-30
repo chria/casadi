@@ -81,8 +81,11 @@
 
     // Flush the command window buffer (needed in gui mode)
     static void mexflush(bool error) {
-      mexEvalString("drawnow('update');");
-      mexEvalString("pause(0.0001);");
+      mexEvalString("drawnow('limitrate');");
+      mexEvalString("desktop = com.mathworks.mde.desk.MLDesktop.getInstance;"
+                    "cmdwin = desktop.getClient('Command Window');"
+                    "xwin = cmdwin.getComponent(0).getViewport.getComponent(0);"
+                    "xwin.repaint;");
     }
 
     // Undocumented matlab feature
