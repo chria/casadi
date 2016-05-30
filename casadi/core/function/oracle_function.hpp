@@ -55,6 +55,9 @@ namespace casadi {
 
     // All NLP functions
     std::map<std::string, Function> all_functions_;
+
+    // Monitor flags for all functions
+    std::map<std::string, bool> monitor_;
   public:
     /** \brief  Constructor */
     OracleFunction(const std::string& name, const Function& oracle);
@@ -81,6 +84,10 @@ namespace casadi {
 
     /** Register the function for evaluation and statistics gathering */
     void set_function(const Function& fcn) { set_function(fcn, fcn.name()); }
+
+    /** Flag the appropriate functions as to-be-monitored.
+    */
+    void set_monitor(const std::vector<std::string> &monitor);
 
     // Calculate an oracle function
     int calc_function(OracleMemory* m, const std::string& fcn,

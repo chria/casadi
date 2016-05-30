@@ -55,6 +55,26 @@ namespace casadi {
     auto res = all_functions_.insert(make_pair(fname, fcn));
     casadi_assert_message(res.second, "Duplicate function " + fname);
     alloc(fcn);
+
+    // By default, don't monitor functions
+    monitor_.insert(make_pair(fname, false));
+  }
+
+  void OracleFunction::
+  set_monitor(const std::vector<std::string> &monitor) {
+    for (const std::string& m : monitor) {
+      // Fail verbosely when an entry of monitor is not correct.
+      if (!has_function(m)) {
+        std::stringstream ss;
+        ss << "Unknown function '" << m <<
+            "' was asked to be monitored. Functions that can be monitored are: ";
+        for (const auto& e : all_functions_) {
+          ss << e.first << ", ";
+        }
+        casadi_error(ss.str());
+      }
+      monitor_[m] = true;
+    }
   }
 
   int OracleFunction::
@@ -66,6 +86,9 @@ namespace casadi {
 
     // Get function
     const Function& f = get_function(fcn);
+
+    // Get monitor flag
+    bool monitor = monitor_.find(fcn)->second;
 
     // Get statistics structure
     FStats& fstats = m->fstats.at(fcn);
@@ -82,6 +105,22 @@ namespace casadi {
       for (int i=0; i<n_in; ++i) m->arg[i] = *arg++;
     }
 
+    // Monitor inputs
+    if (monitor) {
+      stringstream ss;
+      ss << "Inputs '" << fcn << "'" << endl;
+      std::vector<std::string> name_in = f.name_in();
+      for (int i=0;i<n_in;++i) {
+        ss << "  " << name_in[i] << ": ";
+        if (m->arg==0 || m->arg[i]==0) {
+          ss << "null." << endl;
+        } else {
+          ss << std::vector<double>(m->arg[i], m->arg[i]+f.nnz_in(i)) << endl;
+        }
+      }
+      userOut() << ss.str();
+    }
+
     // Evaluate memory-less
     try {
       f(m->arg, m->res, m->iw, m->w, 0);
@@ -90,6 +129,22 @@ namespace casadi {
       userOut<true, PL_WARN>()
         << name() << ":" << fcn << " failed:" << ex.what() << endl;
       return 1;
+    }
+
+    // Monitor outputs
+    if (monitor) {
+      stringstream ss;
+      ss << "Outputs '" << fcn << "'" << endl;
+      std::vector<std::string> name_out = f.name_out();
+      for (int i=0;i<n_out;++i) {
+        ss << "  " << name_out[i] << ": ";
+        if (m->res==0 || m->res[i]==0) {
+          ss << "null." << endl;
+        } else {
+          ss << std::vector<double>(m->res[i], m->res[i]+f.nnz_out(i)) << endl;
+        }
+      }
+      userOut() << ss.str();
     }
 
     // Make sure not NaN or Inf

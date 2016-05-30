@@ -126,6 +126,9 @@ namespace casadi {
     pass_nonlinear_variables_ = false;
     Dict hess_lag_options, jac_g_options, grad_f_options;
 
+    // List of monitored functions
+    std::vector<std::string> monitor;
+
     // Read user options
     for (auto&& op : opts) {
       if (op.first=="ipopt") {
@@ -165,6 +168,8 @@ namespace casadi {
         casadi_assert(f.n_in()==2);
         casadi_assert(f.n_out()==2);
         set_function(f, "nlp_grad_f");
+      } else if (op.first=="monitor") {
+        monitor = op.second;
       }
     }
 
@@ -196,6 +201,8 @@ namespace casadi {
     } else if (pass_nonlinear_variables_) {
       nl_ex_ = oracle_.nl_var("x", {"f", "g"});
     }
+
+    set_monitor(monitor);
 
     // Allocate work vectors
     alloc_w(nx_, true); // xk_
