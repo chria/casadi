@@ -305,7 +305,7 @@ namespace std {
     SWIG_PYTHON_THREAD_BEGIN_BLOCK;
     PyErr_Print();
     SWIG_PYTHON_THREAD_END_BLOCK;
-		throw Swig::DirectorMethodException();
+		Swig::DirectorMethodException::raise("foo");
 	}
 }
 #endif //SWIGPYTHON
