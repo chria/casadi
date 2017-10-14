@@ -92,8 +92,10 @@ endif()
 # string-valued options with defaults don't work with option() so use this syntax:
 set(PLUGIN_INSTALL_PATH "${CMAKE_INSTALL_PREFIX}/lib/casadi" CACHE STRING "Where the plugins will be installed")
 
-
-
+if(" ${CMAKE_C_FLAGS} " MATCHES " -m64 " AND CMAKE_HOST_WIN32)
+    add_definitions(-DMS_WIN64)
+    message(STATUS "Adding MS_WIN64 definition")
+endif()
 
 ############################################################
 ####################### Fortran ############################
