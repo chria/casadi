@@ -46,6 +46,10 @@
 #define array_is_contiguous(a) (PyArray_ISCONTIGUOUS((PyArrayObject *)a))
 #define array_is_native(a)     (PyArray_ISNOTSWAPPED((PyArrayObject *)a))
 
+#if PY_MAJOR_VERSION >= 3
+#define PyInt_Type PyLong_Type
+#endif
+
 #if NDARRAY_VERSION < 0x01000009
 #define array_numdims(a)       (((PyArrayObject *)a)->nd)
 #define array_dimensions(a)    (((PyArrayObject *)a)->dimensions)
@@ -96,18 +100,20 @@
 /* Given a PyObject, return a string describing its type.
  */
 const char* pytype_string(PyObject* py_obj) {
-  if (py_obj == NULL          ) return "C NULL value";
-  if (py_obj == Py_None       ) return "Python None" ;
-  if (PyCallable_Check(py_obj)) return "callable"    ;
-  if (PyString_Check(  py_obj)) return "string"      ;
-  if (PyInt_Check(     py_obj)) return "int"         ;
-  if (PyFloat_Check(   py_obj)) return "float"       ;
-  if (PyDict_Check(    py_obj)) return "dict"        ;
-  if (PyList_Check(    py_obj)) return "list"        ;
-  if (PyTuple_Check(   py_obj)) return "tuple"       ;
-  if (PyFile_Check(    py_obj)) return "file"        ;
-  if (PyModule_Check(  py_obj)) return "module"      ;
-  if (PyInstance_Check(py_obj)) return "instance"    ;
+    if (py_obj == NULL          ) return "C NULL value";
+    if (py_obj == Py_None       ) return "Python None" ;
+    if (PyCallable_Check(py_obj)) return "callable"    ;
+    if (PyString_Check(  py_obj)) return "string"      ;
+    if (PyInt_Check(     py_obj)) return "int"         ;
+    if (PyFloat_Check(   py_obj)) return "float"       ;
+    if (PyDict_Check(    py_obj)) return "dict"        ;
+    if (PyList_Check(    py_obj)) return "list"        ;
+    if (PyTuple_Check(   py_obj)) return "tuple"       ;
+%#if PY_MAJOR_VERSION < 3
+    if (PyFile_Check(    py_obj)) return "file"        ;
+    if (PyModule_Check(  py_obj)) return "module"      ;
+    if (PyInstance_Check(py_obj)) return "instance"    ;
+%#endif
 
   return "unknown type";
 }
