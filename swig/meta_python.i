@@ -395,7 +395,7 @@ template<> bool meta< casadi::GenericType::Dictionary >::toPython(const casadi::
    if (!return_type) return false;
    PyObject* function = getCasadiObject("Function");
    if (!function) { Py_DECREF(return_type); return false; }
-   bool res = PyClass_IsSubclass(return_type,function);
+   bool res = PyObject_IsSubclass(return_type,function);
    Py_DECREF(return_type);Py_DECREF(function);
    if (res) {
      s = casadi::DerivativeGeneratorPython(p);
