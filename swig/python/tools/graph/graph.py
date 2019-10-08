@@ -637,7 +637,7 @@ def dotgraph(s,direction="BT"):
   for node in allnodes:
     artists[node] = createArtist(node,dep=dep,invdep=invdep,graph=graph,artists=artists)
     
-  for artist in artists.itervalues():
+  for artist in artists.values():
     if artist is None: continue
     artist.draw()
   

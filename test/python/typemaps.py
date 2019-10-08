@@ -441,7 +441,7 @@ class typemaptests(casadiTestCase):
     w=DMatrix(goal)
     self.checkarray(w,goal,"Constructor")
     
-    for name, value in test.items():
+    for name, value in list(test.items()):
       w.set(value)
       self.checkarray(w,goal,"name")
       

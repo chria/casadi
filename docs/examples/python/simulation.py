@@ -89,7 +89,7 @@ csim.evaluate()
 output = states.repeated(csim.getOutput())
 
 # Plot all states
-for k in states.keys():
+for k in list(states.keys()):
   plot(tgrid,output[vertcat,:,k])
 xlabel("t")
 legend(tuple(states.keys()))

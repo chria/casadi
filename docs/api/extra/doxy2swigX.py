@@ -241,7 +241,7 @@ class Doxy2SWIG_X(Doxy2SWIG):
                   self.parse(first[n])
           self.end_docstring()
           for n in node.childNodes:
-              if n not in first.values():
+              if n not in list(first.values()):
                   self.parse(n)
       elif kind in ('file', 'namespace'):
           nodes = node.getElementsByTagName('sectiondef')
@@ -296,7 +296,7 @@ class Doxy2SWIG_X(Doxy2SWIG):
 
           self.start_docstring(target,defn)
           for n in node.childNodes:
-              if n not in first.values():
+              if n not in list(first.values()):
                   self.parse(n)
           self.end_docstring()
 
@@ -330,7 +330,7 @@ class Doxy2SWIG_X(Doxy2SWIG):
       except Exception as e:
         publicapi = None
       Doxy2SWIG.generate(self)
-      for k, v in self.docstringmap.iteritems():
+      for k, v in self.docstringmap.items():
         if k.startswith("plugin_"):
           groupdoc[k] = v[0][1]
           break
@@ -449,12 +449,12 @@ if __name__ == '__main__':
     deprecated = dict()
     groupdoc = dict()
     convert(args[0], args[1], False, options.quiet,internal=internal,deprecated=deprecated,merge=options.merge,groupdoc=groupdoc)
-    file(args[2],'w').write("\n".join(sorted([x for x in internal.values() if len(x)>0])))
-    file(args[3],'w').write("\n".join(sorted([x for x in deprecated.values() if len(x)>0])))
+    file(args[2],'w').write("\n".join(sorted([x for x in list(internal.values()) if len(x)>0])))
+    file(args[3],'w').write("\n".join(sorted([x for x in list(deprecated.values()) if len(x)>0])))
     import pickle
     filemap = pickle.load(file('filemap.pkl','r'))
     
-    for k,v in groupdoc.iteritems():
+    for k,v in groupdoc.items():
       fn,n = filemap[k]
       f = file(fn.replace(".hpp","_meta.cpp"),"w")
       f.write(file('../../../misc/license_header.txt','r').read())

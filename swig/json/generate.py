@@ -76,7 +76,7 @@ for d in r.findall('*//enum'):
     name = getAttribute(e,"name")
     ev = getAttribute(e,"enumvalueex")
     docs = getDocstring(d)
-    ev = eval(ev,dict((k,v["ev"]) for k,v in dt["entries"].items()))
+    ev = eval(ev,dict((k,v["ev"]) for k,v in list(dt["entries"].items())))
 
     assert name not in dt["entries"], "overwriting an enum entry"
     dt["entries"][name] = {"docs": docs, "ev": ev}
@@ -150,7 +150,7 @@ def getCanonicalParams(d,debug=""):
 
   return params
 
-for name,c in classes0.items():
+for name,c in list(classes0.items()):
   docs = getDocstring(c)
   if name in classes:
     data = classes[name]
@@ -223,7 +223,7 @@ for name,c in classes0.items():
     #if isInternal(d,msg="bases"): continue
     data["bases"].append( getCanonicalType( base ) )
 
-for n,c in classes.items():
+for n,c in list(classes.items()):
   new_bases = []
   for base in c['bases']:
     assert not base.startswith('std::'), "baseclass rename fail"
@@ -289,7 +289,7 @@ def getAllMethods(name,base=None):
   return ret
 
 myclasses = []
-for k,v in classes.items():
+for k,v in list(classes.items()):
   methods = []
   if "methods" in v:
     for (name,pars,rettype,mkind,docs) in getAllMethods(k): # v["methods"]:
@@ -300,13 +300,13 @@ for k,v in classes.items():
 for (name,pars,rettype,docs) in functions:
   treedata["treeFunctions"].append({"funName": name, "funReturn": rettype, "funParams": pars, "funDocs":docs,"funDocslink":""})
 
-for k,v in enums.items():
+for k,v in list(enums.items()):
   treedata["treeEnums"][k] = {
     "enumDocs": v['docs'],
     "enumDocslink": "",
     "enumEntries": dict(
        (kk , {"enumEntryDocs": vv["docs"],"enumEntryDocslink":"","enumEntryVal": vv["ev"]})
-          for kk,vv in v["entries"].items())
+          for kk,vv in list(v["entries"].items()))
   }
 print("%5d classes %5d functions %5d enums" % (len(treedata['treeClasses']),
                                                len(treedata['treeFunctions']),
@@ -317,6 +317,6 @@ print("%5d classes %5d functions %5d enums" % (len(treedata['treeClasses']),
 #print "constructors: %5d exposed %5d internal" % (numExposedConstructors, numInternalConstructors)
 #print "functions:    %5d exposed %5d internal" % (len(functions),         numInternalFunctions)
 
-treedata["treeInheritance"] = dict((k, [i for i in v["bases"]]) for k,v in classes.items())
+treedata["treeInheritance"] = dict((k, [i for i in v["bases"]]) for k,v in list(classes.items()))
 
 json.dump(treedata,file(my_module+'.json','w'),indent=True)

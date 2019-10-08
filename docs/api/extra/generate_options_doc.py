@@ -97,7 +97,7 @@ for c in classes:
   if not(temp is None):
     meta['file']=temp.attrib["file"]
 
-for v in metadata.values(): # Remove templating if not in index.xml
+for v in list(metadata.values()): # Remove templating if not in index.xml
   for i,vv in enumerate(v['parents']):
     if not(vv in metadata):
       v['parents'][i] = vv.split("<")[0]
@@ -109,18 +109,18 @@ def parents(name):
   return metadata[name]['parents'] + sum(map(parents,metadata[name]['parents']),[])
 
 # Fill in 'hierarchy'
-for k in metadata.keys():
+for k in list(metadata.keys()):
   metadata[k]['hierarchy']=parents(k)
 
 # Get name by specifying xml-source
 def getNameByXMLsource(xmlsource):
-  for name,meta in metadata.items():
+  for name,meta in list(metadata.items()):
     if (meta['xmlsource']==xmlsource):
       return name
   return None
 
 # Fill in 'internalFor'
-for name,meta in metadata.items():
+for name,meta in list(metadata.items()):
   if ('hasInternal' in meta):
     name2 = getNameByXMLsource(meta['hasInternal'])
     if name2 is None:
@@ -188,7 +188,7 @@ parse_match = Literal("addOption(") + parse_quoted_string.setResultsName("name")
 
     
 # Inspect anything that has FXInternal as Base Class
-for name,meta in metadata.items():
+for name,meta in list(metadata.items()):
   if not('casadi::OptionsFunctionalityNode' in meta['hierarchy']) and not(name=='casadi::OptionsFunctionalityNode'):
     continue
   if not('file' in meta):
@@ -215,7 +215,7 @@ for name,meta in metadata.items():
         
       try:
         result = parse_match.parseString(l).asDict()
-        for k,v in result.iteritems():
+        for k,v in result.items():
           result[k]=v.strip()
       except:
         print("Ignoring ", name, l)
@@ -288,13 +288,13 @@ def monitorsashtml(monitor,used=True):
 
 
 def update_no_overwrite(orig,new):
-  for (k,v) in new.iteritems():
+  for (k,v) in new.items():
     if not(k in orig):
       orig[k] = v
         
 def update_overwrite(orig,new):
   import copy
-  for (k,v) in new.iteritems():
+  for (k,v) in new.items():
     if not(k in orig):
       orig[k] = copy.copy(v)
     else:
@@ -334,7 +334,7 @@ for name,meta in sorted(metadata.items()):
   for optionprovider in reversed(optionproviders):
       update_overwrite(alloptions,optionprovider)
       
-  myoptionskeys = alloptions.keys()
+  myoptionskeys = list(alloptions.keys())
   if len(myoptionskeys)==0:
     continue
   myoptionskeys.sort()
@@ -407,7 +407,7 @@ for name,meta in sorted(metadata.items()):
     if 'stats' in metadata[a]:
       update_no_overwrite(allstats,metadata[a]['stats'])
   
-  mystatskeys = allstats.keys()
+  mystatskeys = list(allstats.keys())
   mystatskeys.sort()
   if len(mystatskeys)==0:
     continue
@@ -469,7 +469,7 @@ for name,meta in sorted(metadata.items()):
     if 'monitors' in metadata[a]:
       update_no_overwrite(allmonitors,metadata[a]['monitors'])
   
-  mymonitorskeys = allmonitors.keys()
+  mymonitorskeys = list(allmonitors.keys())
   mymonitorskeys.sort()
   
   if len(mymonitorskeys)==0:

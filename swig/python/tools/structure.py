@@ -117,7 +117,7 @@ def properGetitem(f):
 class SafeDict(dict):
   def __getitem__(self,k):
     if k not in self:
-      raise Exception("Unknown keyword '%s'. Available entries: %s" % (k,str(self.keys())))
+      raise Exception("Unknown keyword '%s'. Available entries: %s" % (k,str(list(self.keys()))))
     return dict.__getitem__(self,k)
   
 # Placeholder classes and instances
@@ -294,11 +294,11 @@ class Structure(object):
   def __str__(self,compact=False):
      s=''
      if compact:
-       s+= "{" + ",".join(k + ": " +  v.__str__(compact=True) for k,v in self.dict.items()) + "}"
+       s+= "{" + ",".join(k + ": " +  v.__str__(compact=True) for k,v in list(self.dict.items())) + "}"
      else:
        s+= "Structure holding %d entries.\n" % len(self.dict)
        s+="  Order: %s\n" % str(self.order)
-       for k,v in self.dict.items():
+       for k,v in list(self.dict.items()):
           s+= "  " + k + " = " +  v.__str__(compact=True) + "\n"
      return s
      
@@ -326,7 +326,7 @@ class Structure(object):
 
   def getStruct(self,name):
     if name not in self.struct.dict:
-      raise Exception("Cannot find entry with key '%s'. Candidates: " % (str(name),str(name.keys())))
+      raise Exception("Cannot find entry with key '%s'. Candidates: " % (str(name),str(list(name.keys()))))
     ret = self.struct.dict[name].struct
     if ret is None:
       raise Exception("Entry '%s' has no structure." % (name))  
@@ -368,7 +368,7 @@ class Structure(object):
                         dispatcher=dispatcher,
                         payload=v
                       )
-                    ) for k,v in payload.iteritems()
+                    ) for k,v in payload.items()
                    ])
           else:
             return dict([
@@ -379,7 +379,7 @@ class Structure(object):
                         dispatcher=dispatcher,
                         payload=payload
                       )
-                    ) for k,v in self.dict.iteritems()
+                    ) for k,v in self.dict.items()
                    ])
         elif isinstance(p,set):
           if isinstance(payload,dict):
@@ -391,7 +391,7 @@ class Structure(object):
                         dispatcher=dispatcher,
                         payload=v
                       )
-                    ) for k,v in payload.iteritems() if k in p
+                    ) for k,v in payload.items() if k in p
                    ])
           else:
             return dict([
@@ -432,7 +432,7 @@ class Structure(object):
     
 class Dispatcher:
   def __init__(self,**args):
-    for k,v in args.items():
+    for k,v in list(args.items()):
       setattr(self,k,v)
       
   def callableInner(self):
@@ -795,7 +795,7 @@ class CasadiStructure(Structure,CasadiStructureDerivable):
         else:
           hmap[a] = [m]
     self.size = k
-    for k,v in hmap.iteritems():
+    for k,v in hmap.items():
       hmap[k] = vecNZcat(v)
     
     self.map.update(hmap)
@@ -874,7 +874,7 @@ class Structured(object):
       return self.description + " (" + self.struct.__str__(compact=True) + ")"
     
   def keys(self):
-    return self.struct.keys()
+    return list(self.struct.keys())
     
 class CasadiStructured(Structured,CasadiStructureDerivable):
   description = "Generic Structured object"
@@ -1102,7 +1102,7 @@ class MXVeccatStruct(CasadiStructured,MasterGettable):
   @property
   def master(self):
     if any(e is None for e in self.storage):
-      missing = [k for k in self.mapping.keys() if self.storage[self.mapping[k]] is None]
+      missing = [k for k in list(self.mapping.keys()) if self.storage[self.mapping[k]] is None]
       
       raise Exception("Problem in MX vecNZcat structure cat: missing expressions. The following entries are missing: %s" % str(missing))
       
@@ -1136,7 +1136,7 @@ class CasadiStructEntry(StructEntry):
       
     
 
-    kw = kwargs.keys()
+    kw = list(kwargs.keys())
     kws = ['repeat','shape','sym','expr','struct','shapestruct','type']
     for k in kw:
       if k not in kws:

@@ -509,7 +509,7 @@ class casadiTestCase(unittest.TestCase):
 
       # Remainder of eval testing
       for store,order in [(storage,"first-order"),(storage2,"second-order")][:evals]:
-        for stk,st in store.items():
+        for stk,st in list(store.items()):
           for i in range(len(st)-1):
             for k,(a,b) in enumerate(zip(st[0],st[i+1])):
               if b.numel()==0 and sparse(a).size()==0: continue

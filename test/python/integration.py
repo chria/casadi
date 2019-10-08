@@ -233,7 +233,7 @@ class Integrationtests(casadiTestCase):
             f = SXFunction(daeIn(**din),daeOut(**dout))
             f.init()
             
-            for k in solution.keys():
+            for k in list(solution.keys()):
               solution[k] = substitute(solution[k],vertcat([tstart,tend]),vertcat([tstart_,tend_]))
 
             fs = SXFunction(integratorIn(**solutionin),integratorOut(**solution))
@@ -274,7 +274,7 @@ class Integrationtests(casadiTestCase):
                 integrator.setOption(a_options)
                 integrator.init()
                 for ff in [fs,integrator]:
-                  for k,v in point.items():
+                  for k,v in list(point.items()):
                     i = getattr(casadi,('integrator_'+k).upper())
                     if not ff.getInput(i).isEmpty():
                       ff.setInput(v,i)
@@ -349,7 +349,7 @@ class Integrationtests(casadiTestCase):
           f = SXFunction(daeIn(**din),daeOut(**dout))
           f.init()
             
-          for k in solution.keys():
+          for k in list(solution.keys()):
             solution[k] = substitute(solution[k],vertcat([tstart,tend]),vertcat([tstart_,tend_]))
           
           fs = SXFunction(integratorIn(**solutionin),integratorOut(**solution))
@@ -387,7 +387,7 @@ class Integrationtests(casadiTestCase):
               integrator.init()
               
               for ff in [fs,integrator]:
-                for k,v in point.items():
+                for k,v in list(point.items()):
                   i = getattr(casadi,('integrator_'+k).upper())
                   if not ff.input(i).isEmpty():
                     ff.setInput(v,i)
@@ -518,7 +518,7 @@ class Integrationtests(casadiTestCase):
             f = SXFunction(daeIn(**din),daeOut(**dout))
             f.init()
             
-            for k in solution.keys():
+            for k in list(solution.keys()):
               solution[k] = substitute(solution[k],vertcat([tstart,tend]),vertcat([tstart_,tend_]))
             
             fs = SXFunction(integratorIn(**solutionin),integratorOut(**solution))
@@ -574,7 +574,7 @@ class Integrationtests(casadiTestCase):
                 
        
             for ff in [fs,integrator]:
-              for k,v in point.items():
+              for k,v in list(point.items()):
                 i = getattr(casadi,('integrator_'+k).upper())
                 if not ff.input(i).isEmpty():
                   ff.setInput(v,i)

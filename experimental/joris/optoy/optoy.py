@@ -254,7 +254,7 @@ def value(e,nums={}):
     f,xp = OptimizationContext.eval_cache[e]
   else:
     # Get an exhausive list of all casadi symbols that make up f and gl
-    vars = nums.keys() if nums else getSymbols(e)
+    vars = list(nums.keys()) if nums else getSymbols(e)
     
     # Find out which OptimizationParameter and 
     # OptimizationVariable objects correspond to those casadi symbols
