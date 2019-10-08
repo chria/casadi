@@ -370,8 +370,8 @@ class MXtests(casadiTestCase):
     self.message("trans")
     a = MX.sparse(0,1)
     b = a.T
-    self.assertEquals(b.size1(),1)
-    self.assertEquals(b.size2(),0)
+    self.assertEqual(b.size1(),1)
+    self.assertEqual(b.size2(),0)
     
   def test_MXtrans(self):
     self.message("trans(MX)")

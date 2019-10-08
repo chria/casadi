@@ -451,7 +451,7 @@ class typemaptests(casadiTestCase):
     x=SXElement.sym("x")
     f=SXFunction([x],[2*x])
     f.setOption("name","foo")
-    self.assertEquals(f.getOption("name"),"foo")
+    self.assertEqual(f.getOption("name"),"foo")
     f.setOption("verbose",True)
     #self.assertTrue(isinstance(f.getOption("verbose"),bool))
     self.assertTrue(f.getOption("verbose"))

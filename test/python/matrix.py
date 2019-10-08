@@ -53,25 +53,25 @@ class Matrixtests(casadiTestCase):
     L = []
     for i in DMatrix([5,6,7,8]):
       L.append(i)
-    self.assertEquals(L[0],5)
-    self.assertEquals(L[1],6)
-    self.assertEquals(L[2],7)
-    self.assertEquals(L[3],8)
+    self.assertEqual(L[0],5)
+    self.assertEqual(L[1],6)
+    self.assertEqual(L[2],7)
+    self.assertEqual(L[3],8)
     
   def test_tuple_unpacking(self):
     self.message("tuple unpacking")
     (a,b,c,d) = DMatrix([5,6,7,8])
-    self.assertEquals(a,5)
-    self.assertEquals(b,6)
-    self.assertEquals(c,7)
-    self.assertEquals(d,8)
+    self.assertEqual(a,5)
+    self.assertEqual(b,6)
+    self.assertEqual(c,7)
+    self.assertEqual(d,8)
     
   def test_trans(self):
     self.message("trans")
     a = DMatrix.sparse(0,1)
     b = a.T
-    self.assertEquals(b.size1(),1)
-    self.assertEquals(b.size2(),0)
+    self.assertEqual(b.size1(),1)
+    self.assertEqual(b.size2(),0)
     
   def test_numpy(self):
     self.message("numpy check")

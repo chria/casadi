@@ -214,23 +214,23 @@ class OCPtests(casadiTestCase):
     m = ocp.mterm
     self.assertTrue(isinstance(m,SX))
     self.assertTrue(isinstance(ocp.t,SX))
-    self.assertEquals(str(m),'cost')
+    self.assertEqual(str(m),'cost')
     print(dir(ocp))
-    self.assertEquals(ocp.dae.size(),3)
+    self.assertEqual(ocp.dae.size(),3)
     print(type(ocp.s))
-    self.assertEquals(ocp.s.size(),3) # there are three states
+    self.assertEqual(ocp.s.size(),3) # there are three states
     c = ocp("cstr.c")
     T = ocp("cstr.T")
     cost = ocp("cost")
     self.assertTrue(isinstance(c,SX))
     
-    self.assertEquals(c.getName(),"cstr.c")
-    self.assertEquals(T.getName(),"cstr.T")
-    self.assertEquals(cost.getName(),"cost")
-    self.assertEquals(ocp.nominal("cstr.c"),1000)
+    self.assertEqual(c.getName(),"cstr.c")
+    self.assertEqual(T.getName(),"cstr.T")
+    self.assertEqual(cost.getName(),"cost")
+    self.assertEqual(ocp.nominal("cstr.c"),1000)
    
     u = ocp("u")
-    self.assertEquals(ocp.path.size(),3)
+    self.assertEqual(ocp.path.size(),3)
     #self.assertEquals(len(ocp.cfcn_lb),3)
     #self.assertEquals(len(ocp.cfcn_ub),3)
     #self.assertTrue(ocp.cfcn[0].isEqual(T)) 

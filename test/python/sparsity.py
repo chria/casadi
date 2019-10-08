@@ -50,18 +50,18 @@ class Sparsitytests(casadiTestCase):
       b.getNZ(i[0],i[1])
       
     c,w =a.patternUnion(b)
-    self.assertEquals(len(w),len(nza.union(nzb)))
+    self.assertEqual(len(w),len(nza.union(nzb)))
     for k in range(len(w)):
       ind = (c.row(k),c.getCol()[k])
       if (ind in nza and ind in nzb):
-        self.assertEquals(w[k],1 | 2)
+        self.assertEqual(w[k],1 | 2)
       elif (ind in nza):
-        self.assertEquals(w[k],1)
+        self.assertEqual(w[k],1)
       elif (ind in nzb):
-        self.assertEquals(w[k],2)
+        self.assertEqual(w[k],2)
         
     c = a + b
-    self.assertEquals(c.size(),len(nza.union(nzb)))
+    self.assertEqual(c.size(),len(nza.union(nzb)))
     for k in range(c.size()):
       ind = (c.row(k),c.getCol()[k])
       self.assertTrue(ind in nza or ind in nzb)
@@ -92,7 +92,7 @@ class Sparsitytests(casadiTestCase):
       self.assertTrue(ind in nza and ind in nzb)
         
     c = a * b
-    self.assertEquals(c.size(),len(nza.intersection(nzb)))
+    self.assertEqual(c.size(),len(nza.intersection(nzb)))
     for k in range(c.size()):
       ind = (c.row(k),c.getCol()[k])
       self.assertTrue(ind in nza and ind in nzb)
