@@ -376,7 +376,7 @@ class QuadcopterModel:
         p_["rotors_I",i] = casadi.diag([I_ref/2,I_ref/2,I_ref])
 
     if debug:
-        print p.vecNZcat()
+        print(p.vecNZcat())
         
     dist_ = dist(0)
         
@@ -598,7 +598,7 @@ par = struct_symMX([
 
 T,Tw = optvar[["T","Tw"]]
 
-print "number of variables", optvar.shape
+print("number of variables", optvar.shape)
 
 # A vertical stack of d-by-1 Langrange functions that together form a basis on the collocation interval tau = [0..1]
 Le = vertcat([numpy.prod([(tau - tau_root[r])/(tau_root[j]-tau_root[r]) for r in range(d) if not(r==j)]) for j in range(d)])
@@ -817,7 +817,7 @@ nl.init()
 jacG = nl.jacobian("x","g")
 jacG.init()
 
-print nl
+print(nl)
 
 
 

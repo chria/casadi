@@ -407,7 +407,7 @@ solver.setInput(np.concatenate(ubg),"ubg")
 solver.evaluate()
 
 # Print the optimal cost
-print "optimal cost: ", float(solver.getOutput("f"))
+print("optimal cost: ", float(solver.getOutput("f")))
 
 # Retrieve the solution
 v_opt = np.array(solver.getOutput("x"))

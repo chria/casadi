@@ -65,7 +65,7 @@ except:
   pass
 
 for qpsolver in qpsolvers:
-  print qpsolver
+  print(qpsolver)
 
   solver = qpsolver(qp.H.sparsity(),qp.A.sparsity())
   solver.init()
@@ -80,11 +80,11 @@ for qpsolver in qpsolvers:
 
     solver.solve()
 
-    print solver.getOutput("primal")
-    print qp.x_opt[i,:].T
-    print qp.y_opt[i,:].T
-    print qp.obj_opt[i]
-    print solver.getOutput("cost")
-    print fabs(solver.getOutput("primal")-qp.x_opt[i,:].T)
+    print(solver.getOutput("primal"))
+    print(qp.x_opt[i,:].T)
+    print(qp.y_opt[i,:].T)
+    print(qp.obj_opt[i])
+    print(solver.getOutput("cost"))
+    print(fabs(solver.getOutput("primal")-qp.x_opt[i,:].T))
     assert(all(fabs(solver.getOutput("primal")-qp.x_opt[i,:].T)<1e-4))
     assert(fabs(qp.obj_opt[i]-solver.getOutput("cost"))<1e-5)

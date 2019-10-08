@@ -47,22 +47,22 @@ ocp = casadi.SymbolicOCP()
 #ocp.parseFMI('modelDescription.xml')
 ocp.parseFMI('modelDescription.xml',{'sort_equations':False,'eliminate_dependent':False})
 ocp.sortType(True) # temporary solution: enables the new sorting
-print ocp
+print(ocp)
 
 x = ocp.variable('x')
 x_start = ocp.variable('x_start')
 u = ocp.variable('u')
 u_cost = ocp.variable('u_cost')
 
-print(x_start.getStart()), " == 1.0"
+print((x_start.getStart()), " == 1.0")
 casadi.updateDependent(ocp)
-print(u_cost.getStart()), " == 2.0?"
-print(u.getMax()), " == 0.2"
+print((u_cost.getStart()), " == 2.0?")
+print((u.getMax()), " == 0.2")
 x_start.setStart(2)
-print(x_start.getStart()), " == 2.0"
-print(x.getStart()), " == 2.0"
-print(u.getMax()), " == 0.4"
-print(u_cost.getStart()), " == 4.0"
+print((x_start.getStart()), " == 2.0")
+print((x.getStart()), " == 2.0")
+print((u.getMax()), " == 0.4")
+print((u_cost.getStart()), " == 4.0")
 u_cost.setStart(3) # Error since u_cost is a dependent parameter?
 x.setStart(4) # Not sure what we want here! What should happen if x_start changes value afterwards?
 

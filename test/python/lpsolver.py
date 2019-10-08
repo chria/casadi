@@ -49,7 +49,7 @@ if QpSolver.hasPlugin("ooqp"):
 # except:
 #  pass
 
-print lpsolvers
+print(lpsolvers)
 
 class LpSolverTests(casadiTestCase):
 

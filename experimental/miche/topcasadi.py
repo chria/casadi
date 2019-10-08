@@ -95,7 +95,7 @@ class mbb2d:
 		pH[0]=0
 
 		k = 0
-		print "Construction of H"
+		print("Construction of H")
 		for ielx in range(nelx):
 			for iely in range(nely):
 				ielem = iely + nely * ielx
@@ -145,8 +145,8 @@ x = vertcat([ssym("x",nelem),ssym("u",nfreedofs)])
 for i in range(nelem,nelem+nfreedofs-2,2):
 	x[i]=-1;
 	
-print "filtering of H"
+print("filtering of H")
 			
 xf = mbb.dfilter(x)
 
-print xf
+print(xf)

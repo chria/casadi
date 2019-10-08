@@ -29,7 +29,7 @@ from casadi.tools import *
 try:
   DpleSolver.loadPlugin("slicot")
 except:
-  print "Slicot is not available as plugin"
+  print("Slicot is not available as plugin")
   import sys
   sys.exit(0)
 

@@ -865,7 +865,7 @@ class Matrixtests(casadiTestCase):
     with self.assertRaises(Exception):
       tril2symm(DMatrix.ones(5,3))
     
-    print DMatrix.ones(5,5).sizeU()-DMatrix.ones(5,5).sizeD()
+    print(DMatrix.ones(5,5).sizeU()-DMatrix.ones(5,5).sizeD())
     
     with self.assertRaises(Exception):
       tril2symm(DMatrix.ones(5,5))
@@ -1026,16 +1026,16 @@ class Matrixtests(casadiTestCase):
         
         c = f.getOutput()
         
-        print sA.dimString(), sB.dimString()
+        print(sA.dimString(), sB.dimString())
 
         try:
           self.checkarray(c,c_ref)
           self.assertTrue(min(IMatrix(c_ref.sparsity(),1)-IMatrix(c.sparsity(),1))==0)
         except Exception as e:
           c.printDense()
-          print "sol:"
+          print("sol:")
           c.sparsity().spy()
-          print "ref:"
+          print("ref:")
           c_ref.sparsity().spy()
           c_ref.printDense()
           a.sparsity().sanityCheck()

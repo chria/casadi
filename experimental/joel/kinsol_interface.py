@@ -45,12 +45,12 @@ fun.setInput(0.1)
 # Evalute
 fun.setOutput([1E-7,1E-7]) # initial guess to the implicitly defined variable ([x,y])
 fun.evaluate()
-print fun.getOutput()
+print(fun.getOutput())
 
 # Change output initial guess and evaluate again
 fun.setOutput([1,1],0) # initial guess to the implicitly defined variable ([x,y])
 fun.evaluate()
-print fun.getOutput()
+print(fun.getOutput())
 
 # Give forward seeds
 fun.setFwdSeed(1.0)
@@ -62,8 +62,8 @@ fun.setAdjSeed([0.0,1.0])
 fun.evaluate(1,1)
 
 # Print sensitivities
-print "forward sensitivities = ", fun.getFwdSens()
-print "adjoint sensitivities = ", fun.getAdjSens()
+print("forward sensitivities = ", fun.getFwdSens())
+print("adjoint sensitivities = ", fun.getAdjSens())
 
 
 

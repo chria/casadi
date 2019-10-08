@@ -62,10 +62,10 @@ for solver in ['ipopt','ip_method']:
   nlp_solver.solve()
   
   # Print the solution
-  print "Solution for ", solver, ": ", nlp_solver.getOutput("x_opt")
+  print("Solution for ", solver, ": ", nlp_solver.getOutput("x_opt"))
   
   # Check if feasible
-  print "Residual = ", mul(A,nlp_solver.getOutput("x_opt"))-b
+  print("Residual = ", mul(A,nlp_solver.getOutput("x_opt"))-b)
 
 
 

@@ -30,7 +30,7 @@ fun.init()
 
 for f,sym,Function,X in [(fun,msym,MXFunction,MX),]:
   f.init()
-  print Function
+  print(Function)
   
   a = sym("a",sp_diag(2))
 
@@ -38,7 +38,7 @@ for f,sym,Function,X in [(fun,msym,MXFunction,MX),]:
 
   vf = Function([a],[f1])
   vf.init()
-  print vf
+  print(vf)
 
   vf.setInput(1.0)
   vf.setAdjSeed([0,1])

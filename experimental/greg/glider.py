@@ -184,8 +184,8 @@ if __name__ == '__main__':
     # Get the solution
     xopt = solver.getOutput(C.NLP_SOLVER_X)
 
-    print ""
-    print "optimal time: "+str(xopt[gliderOcp._getIdx('tEnd')])+" seconds"
+    print("")
+    print("optimal time: "+str(xopt[gliderOcp._getIdx('tEnd')])+" seconds")
 
     # make plots
     time = np.linspace(0, xopt[gliderOcp._getIdx('tEnd')], gliderOcp.N)

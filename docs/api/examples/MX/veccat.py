@@ -33,7 +33,7 @@ D = MX.sym("D",Sparsity.tril(4))  # Triangular matrix
 
 
 L = veccat([A,B,C,D])
-print L
+print(L)
 
 #! The following statement does the same:
 L = map(vecNZ,[A,B,C,D])

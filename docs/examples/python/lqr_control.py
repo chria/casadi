@@ -49,7 +49,7 @@ B = DMatrix([[1,1],[0,1],[1,0]])
 
 # Inspect the open-loop system
 [D,V] = linalg.eig(A)
-print "Open-loop eigenvalues: ", D
+print("Open-loop eigenvalues: ", D)
 
 tn = linspace(0,te,N)
 
@@ -317,33 +317,33 @@ for i in range(1,40):
   integrator.integrate(1*i)
   xe = integrator.getOutput()
   e = max(fabs(xe-x0))
-  print "it. %02d - deviation from steady state: %.2e" % (i, e)
+  print("it. %02d - deviation from steady state: %.2e" % (i, e))
   if e < 1e-11:
     break
   
 # Obtain the solution of the ricatti equation
 P_ = integrator.output().reshape((ns,ns))
-print "P=", P_
+print("P=", P_)
 
 [D,V] = linalg.eig(P_)
 assert (min(real(D))>0)
-print "(positive definite)"
+print("(positive definite)")
 
 
 # Check that it does indeed satisfy the ricatti equation
 dae.setInput(integrator.getOutput(),"x")
 dae.evaluate()
-print max(fabs(dae.getOutput()))
+print(max(fabs(dae.getOutput())))
 assert(max(fabs(dae.getOutput()))<1e-8)
 
 # From P, obtain a feedback matrix K
 K = mul([inv(R),B.T,P_])
 
-print "feedback matrix= ", K
+print("feedback matrix= ", K)
 
 # Inspect closed-loop eigenvalues
 [D,V] = linalg.eig(A-mul(B,K))
-print "Open-loop eigenvalues: ", D
+print("Open-loop eigenvalues: ", D)
 
 # Check what happens if we integrate the Riccati equation forward in time
 dae = SXFunction(daeIn(x = vec(P)),daeOut(ode=vec(-ric)))
@@ -363,7 +363,7 @@ for i in range(1,10):
   integrator.integrate(0.4*i)
   xe = integrator.getOutput()
   e = max(fabs(xe-x0))
-  print "Forward riccati simulation %d; error: %.2e" % (i, e)
+  print("Forward riccati simulation %d; error: %.2e" % (i, e))
 
 # We notice divergence. Why?
 stabric = SXFunction([P],[jacobian(-ric,P)])
@@ -375,7 +375,7 @@ S = stabric.getOutput()
 
 [D,V] = linalg.eig(S)
 
-print "Forward riccati eigenvalues = ", D
+print("Forward riccati eigenvalues = ", D)
 
 
 # Simulation of the closed-loop system:
@@ -520,10 +520,10 @@ for k,(caption,K_) in enumerate([("K: zero",DMatrix.zeros((nu,ns))),("K: LQR",K)
   
   # print max(abs(D))
 
-print "Spectral radius of exp((A-BK)*te): "
+print("Spectral radius of exp((A-BK)*te): ")
 
 [D,V] = linalg.eig(scipy.linalg.expm(numpy.array((A-mul(B,K))*te)))
-print max(abs(D))
+print(max(abs(D)))
 
 # Simulation of the controller:
 # discrete reference, continuous control action

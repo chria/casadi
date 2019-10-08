@@ -48,7 +48,7 @@ fac.setInput(4)
 #! Evaluate
 fac.evaluate()
 
-print "4! = ", fac.getOutput()
+print("4! = ", fac.getOutput())
 
 #! Using the function in a graph
 #!==============================
@@ -63,7 +63,7 @@ f.init()
 f.setInput(5)
 f.evaluate()
 
-print "5! = ", f.getOutput()
+print("5! = ", f.getOutput())
 
 
 #! Passing userdata
@@ -81,7 +81,7 @@ class Fun:
     # sin(x+3*y)
         
   def evaluate(self,(x,y),(z,)):
-    print "userdata: " , self.userdata
+    print("userdata: " , self.userdata)
     
     z0 = 3*y
     z1 = x+z0
@@ -95,7 +95,7 @@ c.setInput(1.2,0)
 c.setInput(1.5,1)
 c.evaluate()
 
-print c.getOutput(), sin(1.2+3*1.5)
+print(c.getOutput(), sin(1.2+3*1.5))
 
 #! Providing sensitivities
 #!==============================
@@ -107,7 +107,7 @@ try:
   J = c.jacobian()
   J.init()
 except Exception as e:
-  print e
+  print(e)
   
 #! There are several ways to provide sensitivities.
 #! The easiest way is using the class-approach and providing a 'fwd' and/or 'adj' method:
@@ -162,7 +162,7 @@ J.setInput(1.5,1)
 J.init()
 J.evaluate()
 
-print J.getOutput(), cos(1.2+3*1.5)*3
+print(J.getOutput(), cos(1.2+3*1.5)*3)
 
   
 #! Another way to provide sensitivities is by providing the full Jacobian, i.e. the Jacobian of all inputs strung together with respect to all outputs strung together.
@@ -200,7 +200,7 @@ J.setInput(1.2,0)
 J.setInput(1.5,1)
 J.evaluate()
 
-print J.getOutput(0), cos(1.2+3*1.5)*3
+print(J.getOutput(0), cos(1.2+3*1.5)*3)
 
 
 #! The most advanced way is to provide a 'getDerivative' method in the class-approach that takes the number of fwd seeds and adjoint seeds and returns an Function.
@@ -273,7 +273,7 @@ J.setInput(1.2,0)
 J.setInput(1.5,1)
 J.evaluate()
 
-print J.getOutput(0), cos(1.2+3*1.5)*3
+print(J.getOutput(0), cos(1.2+3*1.5)*3)
 
 #! Note that this last approach allows to make return 'getDerivative' another PyFunction which in turn implements its own 'getDerivative' in order to provide higher prder sensitivities.
 

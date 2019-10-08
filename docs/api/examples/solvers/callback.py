@@ -44,12 +44,12 @@ it = 0
 @pycallback
 def simplecallback(f):
   global it
-  print "====Hey, I'm an iteration===="
-  print "X_OPT = ", f.getOutput("x")
-  print f.getStat("iteration")
+  print("====Hey, I'm an iteration====")
+  print("X_OPT = ", f.getOutput("x"))
+  print(f.getStat("iteration"))
   it = it + 1
   if it > 5:
-    print "5 Iterations, that is quite enough!"
+    print("5 Iterations, that is quite enough!")
     return 1 # With this statement you can halt the iterations
   else:
     return 0

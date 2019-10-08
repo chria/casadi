@@ -220,9 +220,9 @@ class Sparsitytests(casadiTestCase):
       
   def test_splower(self):
     sp = Sparsity(4,3,[0,2,2,3],[1,2,1])
-    print array(sp)
-    print array(tril(sp))
-    print sp.getLowerNZ()
+    print(array(sp))
+    print(array(tril(sp)))
+    print(sp.getLowerNZ())
     
     
   def test_diag(self):
@@ -346,8 +346,8 @@ class Sparsitytests(casadiTestCase):
     
     A2, B2 = (a.T).getCRS()
     
-    print A1, B1
-    print A2, B2
+    print(A1, B1)
+    print(A2, B2)
     
   def test_dm_blkdiag_dense(self):
     self.message("Dulmage-Mendelsohn")

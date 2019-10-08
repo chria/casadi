@@ -314,7 +314,7 @@ class Functiontests(casadiTestCase):
     
     for n in ([63,64,65,127,128,129] if args.run_slow else [63,64,65]):
       for m in ([63,64,65,127,128,129] if args.run_slow else [63,64,65]):
-        print (n,m)
+        print((n,m))
         sp = Sparsity.dense(n,m)
         
         test(sp)
@@ -1001,7 +1001,7 @@ class Functiontests(casadiTestCase):
                 
       self.checkfunction(f,g,sens_der=False,hessian=False,evals=1)
 
-      print f
+      print(f)
       f = getP(max_fwd=1,max_adj=0,indirect=indirect)
                 
       self.checkfunction(f,g,sens_der=False,hessian=False,adj=False,evals=1)
@@ -1067,9 +1067,9 @@ class Functiontests(casadiTestCase):
     Fun.setInput(0.2,0)
     Fun.setInput(0.7,1)
     
-    print Fun.input(0),Fun.input(1)
+    print(Fun.input(0),Fun.input(1))
     
-    print g.input(0),g.input(1)
+    print(g.input(0),g.input(1))
     
     self.checkfunction(Fun,g,fwd=False,adj=False,indirect=False)
 
@@ -1105,7 +1105,7 @@ class Functiontests(casadiTestCase):
     
     @pyevaluate
     def dummy(f):
-      print f
+      print(f)
       f.setOutput(1)
 
     foo = CustomFunction(dummy, [x.sparsity()], [Sparsity.dense(1,1)] )
@@ -1136,7 +1136,7 @@ class Functiontests(casadiTestCase):
     J.setInput([0.1])
     J.evaluate()
     
-    print J
+    print(J)
 
     self.assertFalse("derivative" in str(J))
 
@@ -1147,7 +1147,7 @@ class Functiontests(casadiTestCase):
     J.setInput([0.1])
     J.evaluate()
     
-    print J
+    print(J)
 
     self.assertFalse("derivative" in str(J))
     

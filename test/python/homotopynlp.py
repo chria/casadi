@@ -35,7 +35,7 @@ solvers= []
  
 try:
   solvers.append((SimpleHomotopyNlpSolver,{"nlp_solver":"ipopt","nlp_solver_options": {"tol": 1e-12} }))
-  print "Will test SimpleHomotopyNlpSolver"
+  print("Will test SimpleHomotopyNlpSolver")
 except:
   pass
   
@@ -70,5 +70,5 @@ class NLPtests(casadiTestCase):
       
 if __name__ == '__main__':
     unittest.main()
-    print solvers
+    print(solvers)
 

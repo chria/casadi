@@ -35,7 +35,7 @@ D = MX.sym("D",Sparsity.tril(4))  # Triangular matrix
 L = [A,B,C,D]
 
 for m in L:
-  print m, " = ", array(m.sparsity())
+  print(m, " = ", array(m.sparsity()))
 
 V, (A,B,C,D) = createParent(L)
 

@@ -38,12 +38,12 @@ class Log:
   def __init__(self):
     self.iter = 0 
   def __call__(self,f,*args):
-    print "====Hey, I'm an iteration===="
-    print "X_OPT = ", f.getInput("x")
-    print f.getStats()
+    print("====Hey, I'm an iteration====")
+    print("X_OPT = ", f.getInput("x"))
+    print(f.getStats())
     self.iter = self.iter + 1
     if self.iter > 5:
-      print "This is quite enough."
+      print("This is quite enough.")
       f.setOutput(1,0)
 
 log = Log()
@@ -60,5 +60,5 @@ solv.setInput(0,"ubg")
 solv.setInput(0,"lbg")
 solv.solve()
 
-print solv.getOutput("x")
+print(solv.getOutput("x"))
 

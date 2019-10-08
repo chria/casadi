@@ -93,8 +93,8 @@ for p in problems:
     source.close()
     destination.close()
   
-    print "Successfully copied " + filename
+    print("Successfully copied " + filename)
   except IOError:
-    print "Failed to copy " + filename
+    print("Failed to copy " + filename)
 
 

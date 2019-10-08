@@ -161,9 +161,9 @@ p_val = 0.2
 
 # Make sure that both integrators give consistent results
 for integrator in (irk_integrator,ref_integrator):
-  print "-------"
-  print "Testing ", integrator.getOption("name")
-  print "-------"
+  print("-------")
+  print("Testing ", integrator.getOption("name"))
+  print("-------")
 
   # Generate a new function that calculates two forward directions and one adjoint direction
   dintegrator = integrator.derivative(2,1)
@@ -187,13 +187,13 @@ for integrator in (irk_integrator,ref_integrator):
   dintegrator.evaluate()
 
   # Get the nondifferentiated results
-  print "%15s = " % "xf", dintegrator.getOutput("der_xf")
+  print("%15s = " % "xf", dintegrator.getOutput("der_xf"))
 
   # Get the forward sensitivities
-  print "%15s = " % "d(xf)/d(p)", dintegrator.getOutput("fwd0_xf")
-  print "%15s = " % "d(xf)/d(x0[0])", dintegrator.getOutput("fwd1_xf")
+  print("%15s = " % "d(xf)/d(p)", dintegrator.getOutput("fwd0_xf"))
+  print("%15s = " % "d(xf)/d(x0[0])", dintegrator.getOutput("fwd1_xf"))
 
   # Get the adjoint sensitivities
-  print "%15s = " % "d(xf[2])/d(x0)", dintegrator.getOutput("adj0_x0")
-  print "%15s = " % "d(xf[2])/d(p)", dintegrator.getOutput("adj0_p")
+  print("%15s = " % "d(xf[2])/d(x0)", dintegrator.getOutput("adj0_x0"))
+  print("%15s = " % "d(xf[2])/d(p)", dintegrator.getOutput("adj0_p"))
 

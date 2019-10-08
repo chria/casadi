@@ -39,7 +39,7 @@ for line in file('../Doxyfile.in','r'):
     if m:
       aliases[m.group(1)]=m.group(2)
 
-print aliases
+print(aliases)
 
 
 def astext(node,whitespace=False,escape=True):
@@ -166,7 +166,7 @@ class Doxy2SWIG_X(Doxy2SWIG):
           if not os.path.exists(fname):
               fname = os.path.join(self.my_dir,  fname)
           if not self.quiet:
-              print "parsing file: %s"%fname
+              print("parsing file: %s"%fname)
           p = Doxy2SWIG_X(fname, self.include_function_definition, self.quiet,internal=self.internal,deprecated=self.deprecated,merge=self.merge,groupdoc=self.groupdoc)
           p.generate()
           self.pieces.extend(self.clean_pieces(p.pieces))
@@ -394,7 +394,7 @@ class Doxy2SWIG_X(Doxy2SWIG):
           total = u"".join(pieces)
           totalnowrap = total.replace("\n"," ")
           if (aliases["noswig"] in totalnowrap) or (aliases["nopython"] in totalnowrap):
-             print "skipping", origin
+             print("skipping", origin)
              continue
           if total in grouped_dict:
              grouped_dict[total][0].append(origin)

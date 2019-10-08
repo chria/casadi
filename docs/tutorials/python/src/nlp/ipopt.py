@@ -72,7 +72,7 @@ nlp.init()
 nlp.setInput([1,1,1,1,1],"x")
 nlp.evaluate()
 #! Test the objective for some value of x:
-print nlp.output("f").toArray()
+print(nlp.output("f").toArray())
 
 solver = NlpSolver("ipopt", nlp)
 solver.printOptions()
@@ -91,5 +91,5 @@ solver.setInput([-100,-100,-100,-100,-100],"lbg")
 
 
 solver.evaluate()
-print solver.getOutput("x")
+print(solver.getOutput("x"))
 #! Nested optimization

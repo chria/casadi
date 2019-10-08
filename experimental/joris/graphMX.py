@@ -42,7 +42,7 @@ z = x+y
 
 z = mul(msym("a",2,2),msym("p",2,2))
 
-print z
+print(z)
 
 dotsave(z,filename='MX2.pdf')
 

@@ -50,5 +50,5 @@ assert(p.getNumInputs() == n*f.getNumInputs())
 
 p.evaluate()
 
-print p.getStats()
+print(p.getStats())
 

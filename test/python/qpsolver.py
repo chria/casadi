@@ -59,7 +59,7 @@ if SdpSolver.hasPlugin("dsdp"):
 if SdpSolver.hasPlugin("dsdp"):
   qpsolvers.append(("qcqp.socp.sdp.dsdp",{"qcqp_solver_options": {"socp_solver_options": {"sdp_solver_options": {"gapTol":1e-10}} }}))
 
-print qpsolvers
+print(qpsolvers)
 
 class QpSolverTests(casadiTestCase):
 

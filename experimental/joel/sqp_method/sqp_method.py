@@ -195,7 +195,7 @@ qp_solver.setInput(-inf,"lbx")
 qp_solver.setInput( inf,"ubx")
 
 # Header
-print ' k  nls | dx         gradL      eq viol    ineq viol'
+print(' k  nls | dx         gradL      eq viol    ineq viol')
 k = 0
 
 while True:
@@ -316,14 +316,14 @@ while True:
   eq_viol = sumRows(fabs(gk)) # constraint violation
   ineq_viol = nan # sumRows(max(0,-hk)); % inequality constraint violation
 
-  print "%3d %3d |%0.4e %0.4e %0.4e %0.4e" % (k,lsiter,normdx,normgradL,eq_viol,ineq_viol)
+  print("%3d %3d |%0.4e %0.4e %0.4e %0.4e" % (k,lsiter,normdx,normgradL,eq_viol,ineq_viol))
 
   # Check convergence on dx
   if float(normdx) < float(toldx):
-    print "Convergence (small dx)"
+    print("Convergence (small dx)")
     break
   elif float(normgradL) < float(tolgL):
-    print "Convergence (small gradL)"
+    print("Convergence (small gradL)")
     break
     
   # Evaluate the constraint function
@@ -345,7 +345,7 @@ while True:
 
   # Check if maximum number of iterations reached
   if k >= max_iter:
-    print "Maximum number of SQP iterations reached!"
+    print("Maximum number of SQP iterations reached!")
     break
 
   # Complete the damped BFGS update (Procedure 18.2 in Nocedal)
@@ -360,7 +360,7 @@ while True:
     thetak = 0.8*dxBdx/(dxBdx - ydx)
   rk = thetak*dx + (1-thetak)*Bdx # rk replaces yk to assure Bk pos.def.
   Bk = Bk - outer_prod(Bdx,Bdx)/dxBdx + outer_prod(rk,rk)/ inner_prod(rk,dx)
-print "SQP algorithm terminated after %d iterations" % (k-1)
+print("SQP algorithm terminated after %d iterations" % (k-1))
 
 plt.show()
 

@@ -31,7 +31,7 @@ class Symbolictests(casadiTestCase):
   @slow()
   @memory_heavy()
   def test_in_place_simplification(self):
-    print "In place simplification"
+    print("In place simplification")
 
     variables = ["a","b"]
     numbers = [1.3,0.7001]
@@ -74,7 +74,7 @@ class Symbolictests(casadiTestCase):
         yield b1
         
     for a_s, b_s, xfunction in [(SX.sym("a"),SX.sym("b"),SXFunction),(MX.sym("a"),MX.sym("b"),MXFunction)]:
-      print  xfunction
+      print(xfunction)
       i=0
       for op1 in operations_node():
         for op2 in operations_node():
@@ -96,7 +96,7 @@ class Symbolictests(casadiTestCase):
                self.assertTrue(numpy.isnan(r.at(0)) or numpy.isinf(r.at(0)))
                continue
              if (abs(num-r)>1e-10):
-               print i , op3, " -> ", e
+               print(i , op3, " -> ", e)
                self.assertTrue(False)
 
 if __name__ == '__main__':

@@ -258,15 +258,15 @@ class NLPtests(casadiTestCase):
     G.init()
     G.setInput(x0_val)
     G.evaluate()
-    print G.getOutput()
-    print G
+    print(G.getOutput())
+    print(G)
 
     J = F.jacobian(0,0)
     J.init()
     J.setInput(x0_val)
     J.evaluate()
-    print J.getOutput()
-    print J
+    print(J.getOutput())
+    print(J)
     
     self.checkarray(G.getOutput(),DMatrix([2]))
     self.checkarray(J.getOutput(),DMatrix([2]))

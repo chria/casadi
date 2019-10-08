@@ -27,7 +27,7 @@ a = ssym("a",5)
 b = ssym("b",5)
 
 for jac_for_sens in (True,False):
-  print "jac_for_sens = ", jac_for_sens, ":"
+  print("jac_for_sens = ", jac_for_sens, ":")
   f = SXFunction([a,b],[sqrt(b-sin(a)),inner_prod(a,b),outer_prod(a,b)])
   f.setOption("jac_for_sens",jac_for_sens)
   f.init()
@@ -45,10 +45,10 @@ for jac_for_sens in (True,False):
 
   f.evaluate(1,1)
 
-  print "f.getFwdSens(0) = ", f.fwdSens(0).data()
-  print "f.getFwdSens(1) = ", f.fwdSens(1).data()
-  print "f.getFwdSens(2) = ", f.fwdSens(2).data()
-  print "f.getAdjSens(0) = ", f.adjSens(0).data()
-  print "f.getAdjSens(1) = ", f.adjSens(1).data()
+  print("f.getFwdSens(0) = ", f.fwdSens(0).data())
+  print("f.getFwdSens(1) = ", f.fwdSens(1).data())
+  print("f.getFwdSens(2) = ", f.fwdSens(2).data())
+  print("f.getAdjSens(0) = ", f.adjSens(0).data())
+  print("f.getAdjSens(1) = ", f.adjSens(1).data())
 
-  print "--"
+  print("--")

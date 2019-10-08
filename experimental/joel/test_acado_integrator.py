@@ -75,8 +75,8 @@ integrator.evaluate(1,0)
 #integrator.evaluate(1,1) # NOTE ACADO does not support adjoint mode AD using interfaced functions
 
 # Result
-print "final state =           ", integrator.output("xf").data(), " (XF)"
-print "forward sensitivities = ", integrator.fwdSens("xf").data(), " (XF)"
+print("final state =           ", integrator.output("xf").data(), " (XF)")
+print("forward sensitivities = ", integrator.fwdSens("xf").data(), " (XF)")
 #print "adjoint sensitivities = ", integrator.adjSens("x0").data(), " (X0), ", integrator.adjSens("p").data(), " (P)"
 
 # Create a simulator
@@ -93,5 +93,5 @@ plt.legend(('differential state', 'algebraic state'))
 plt.grid(True)
 plt.show()
 
-print "Script finished"
+print("Script finished")
 

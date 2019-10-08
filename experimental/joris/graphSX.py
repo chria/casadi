@@ -30,7 +30,7 @@ y = ssym("y")
 dotsave(x**8,filename='SX0.pdf')
 
 z = jacobian(sqrt(x**2+y**2),x)
-print "done"
+print("done")
 
 dotsave(z,filename='SX1.pdf')
 

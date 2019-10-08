@@ -111,7 +111,7 @@ class Enum:
       if not(len(e))==3:
          raise Exception("Consistency"+str(e))
 
-    print self.enum, self.__class__.__name__
+    print(self.enum, self.__class__.__name__)
     assert(self.enum.endswith(self.__class__.__name__))
     prefix = self.enum[:-len(self.__class__.__name__)]
 
@@ -280,13 +280,13 @@ class LazyFile(object):
       with open(self._path,'r') as content_file:
         old_content = content_file.read()
       if old_content == new_content:
-        print '(unchanged) "' + self._path + '"'
+        print('(unchanged) "' + self._path + '"')
       else:
-        print '(changed)   "' + self._path + '"'
+        print('(changed)   "' + self._path + '"')
         self._reallyWrite(new_content)
 
     else:
-      print '(new)       "' + self._path + '"'
+      print('(new)       "' + self._path + '"')
       self._reallyWrite(new_content)
 
 
@@ -395,7 +395,7 @@ def IOSchemeVector(arg,io_scheme):
 autogenpy.write("%}\n")
 autogenpy.write("#endif //SWIGPYTHON\n")
 for p in schemes:
-  print p.name
+  print(p.name)
   autogencpp.write(p.cppcode())
   autogenhelpershpp.write(p.hppcode())
   autogenpy.write("#ifdef SWIGPYTHON\n")

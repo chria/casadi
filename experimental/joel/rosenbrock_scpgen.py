@@ -71,10 +71,10 @@ solv.setInput(0,"lbg")
 solv.evaluate()
 
 # Print solution
-print
-print 
-print "%50s " % "Optimal cost:", solv.getOutput("f")
-print "%50s " % "Primal solution:", solv.getOutput("x")
-print "%50s " % "Dual solution (simple bounds):", solv.getOutput("lam_x")
-print "%50s " % "Dual solution (nonlinear bounds):", solv.getOutput("lam_g")
+print()
+print() 
+print("%50s " % "Optimal cost:", solv.getOutput("f"))
+print("%50s " % "Primal solution:", solv.getOutput("x"))
+print("%50s " % "Dual solution (simple bounds):", solv.getOutput("lam_x"))
+print("%50s " % "Dual solution (nonlinear bounds):", solv.getOutput("lam_g"))
 

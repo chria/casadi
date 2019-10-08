@@ -52,9 +52,9 @@ J1 = fcn.jacobian(iind,oind)
 J1.init()
 J1.setInput(x0)
 J1.evaluate()
-print "J1.output().size() = ", J1.output().size()
-print "J1.output().numel() = ", J1.output().numel()
-print "J1(x0)", array(J1.getOutput())
+print("J1.output().size() = ", J1.output().size())
+print("J1.output().numel() = ", J1.output().numel())
+print("J1(x0)", array(J1.getOutput()))
 
 # create the jacobian using compression techniques
 J2 = Jacobian(fcn,iind,oind) # create a "Jacobian" function instance explicitly
@@ -62,11 +62,11 @@ J2.setOption("verbose",True) # so that it prints the number of directions
 J2.init()
 J2.setInput(x0)
 J2.evaluate()
-print "J2.output().size() = ", J2.output().size()
-print "J2.output().numel() = ", J2.output().numel()
-print "J2(x0)", array(J2.getOutput())
+print("J2.output().size() = ", J2.output().size())
+print("J2.output().numel() = ", J2.output().numel())
+print("J2(x0)", array(J2.getOutput()))
 
 # Print difference
-print "Difference: ", J2.getOutput()-J1.getOutput()
+print("Difference: ", J2.getOutput()-J1.getOutput())
 assert isEqual(J1.getOutput(),J2.getOutput())
 

@@ -45,9 +45,9 @@ F.setInput(20,1)
 F.evaluate()
   
 # Print the LLVM IR
-print F
+print(F)
 
 # Print results
-print F.getOutput(0)
-print F.getOutput(1)
+print(F.getOutput(0))
+print(F.getOutput(1))
 

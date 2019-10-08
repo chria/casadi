@@ -308,9 +308,9 @@ for k,v in enums.items():
        (kk , {"enumEntryDocs": vv["docs"],"enumEntryDocslink":"","enumEntryVal": vv["ev"]})
           for kk,vv in v["entries"].items())
   }
-print "%5d classes %5d functions %5d enums" % (len(treedata['treeClasses']),
+print("%5d classes %5d functions %5d enums" % (len(treedata['treeClasses']),
                                                len(treedata['treeFunctions']),
-                                               len(treedata['treeEnums']))
+                                               len(treedata['treeEnums'])))
 
 #print "classes:      %5d exposed %5d internal" % (len(classes),           len(internalClasses))
 #print "methods:      %5d exposed %5d internal" % (numExposedMethods,      numInternalMethods)

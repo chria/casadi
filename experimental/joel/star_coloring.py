@@ -29,7 +29,7 @@ A[0,:] = 1
 
 # Unidirectional coloring
 coloring = A.sparsity().unidirectionalColoring()
-print coloring
+print(coloring)
 
 # Create a symmetric matrix with a for unidirectional coloring "bad" sparsity pattern
 A = DMatrix.eye(5)
@@ -39,15 +39,15 @@ A[-1,:] = 1
 
 # Unidirectional coloring
 coloring = A.sparsity().unidirectionalColoring()
-print coloring
+print(coloring)
 
 # Star coloring
 coloring = A.sparsity().starColoring()
-print coloring
+print(coloring)
 
 # Largest first ordering
 ordering = A.sparsity().largestFirstOrdering()
-print "ordering = ", ordering
+print("ordering = ", ordering)
 
 # Create a function whose hessian has the corresponding sparsity pattern
 x = ssym("x",5)

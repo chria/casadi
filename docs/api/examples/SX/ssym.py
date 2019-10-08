@@ -32,38 +32,38 @@ from casadi import *
 #! Without shape arguments, a 1-by-1 matrix is constructed:
 
 x = SX.sym("x")
-print type(x), x
+print(type(x), x)
 
 #! Create a column matrix 
-print SX.sym("x",2,1)
+print(SX.sym("x",2,1))
 
 #! Create a row matrix 
-print SX.sym("x",1,2)
+print(SX.sym("x",1,2))
 
 #! Create a matrix 
-print SX.sym("x",2,3)
+print(SX.sym("x",2,3))
 
 #! Construct using multiple names
 #! =====================================
 
 #! casADi defaults to a column matrix when no shape arguments are provided
-print SX.sym("[a,b,c]")
+print(SX.sym("[a,b,c]"))
 
 #! Create a row matrix 
-print SX.sym("[a,b,c]",1,3)
+print(SX.sym("[a,b,c]",1,3))
 
 #! Space can be used as a separator, too:
-print SX.sym("[a b c]")
+print(SX.sym("[a b c]"))
 
 #! Other brackets work fine as well:
-print SX.sym("{a b c}")
-print SX.sym("(a b c)")
+print(SX.sym("{a b c}"))
+print(SX.sym("(a b c)"))
 
 #! Or you can omit the brackets entirely:
-print SX.sym("a b c")
+print(SX.sym("a b c"))
 
 #! Create a matrix 
-print SX.sym("[a b c;d e f]",2,3) 
+print(SX.sym("[a b c;d e f]",2,3)) 
 
 #! The pythonic way to create a bunch of SX'es
 #! ===========================================
@@ -72,7 +72,7 @@ print SX.sym("[a b c;d e f]",2,3)
 a,b,c = SX.sym("[a,b,c]")
 
 #! This assigns three variables a, b and c:
-print type(a), a
-print type(b), b
-print type(c), c
+print(type(a), a)
+print(type(b), b)
+print(type(c), c)
 

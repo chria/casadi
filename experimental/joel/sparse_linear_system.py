@@ -36,25 +36,25 @@ A = array( [[ 0.0,  0.0, 6.0, 7.0, 8.0, 0.0 ],
 b = array([1.0, 2.0, 3.0, 4.0, 5.0, 6.0])
 
 x = linalg.solve(A,b)
-print "x  = ", x
+print("x  = ", x)
 
 cA = DMatrix(A)
 makeSparse(cA)
 
 cb = DMatrix(b)
 cx = casadi.solve(cA,cb)
-print "cx = ", array(trans(cx))[0]
+print("cx = ", array(trans(cx))[0])
 
 A = array( [[ 0.0,  1.0 ],
             [ 1.0,  0.0 ]] )
 b = array([1.0, 2.0])
 
 x = linalg.solve(A,b)
-print "x  = ", x
+print("x  = ", x)
 
 cA = DMatrix(A)
 makeSparse(cA)
 
 cb = DMatrix(b)
 cx = casadi.solve(cA,cb)
-print "cx = ", array(trans(cx))[0]
+print("cx = ", array(trans(cx))[0])

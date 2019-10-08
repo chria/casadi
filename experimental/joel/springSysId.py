@@ -284,9 +284,9 @@ def idSystem(makePlots=False):
     xopt = solver.getOutput(C.NLP_SOLVER_X)
     
     # estimated parameters:
-    print ""
-    print "(estimated, real) k = ("+str(k)+", "+str(xopt[0])+"),\t"+str(100.0*(k-xopt[0])/k)+" % error"
-    print "(estimated, real) b = ("+str(b)+", "+str(xopt[1])+"),\t"+str(100.0*(b-xopt[1])/b)+" % error"
+    print("")
+    print("(estimated, real) k = ("+str(k)+", "+str(xopt[0])+"),\t"+str(100.0*(k-xopt[0])/k)+" % error")
+    print("(estimated, real) b = ("+str(b)+", "+str(xopt[1])+"),\t"+str(100.0*(b-xopt[1])/b)+" % error")
     
     # estimated state:
     s_est = []

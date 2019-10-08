@@ -61,7 +61,7 @@ for fullname in glob.glob('cuter_nl/*.nl'):
   # Filename
   nlfile = os.path.basename(fullname)
   problem = os.path.splitext(nlfile)[0]
-  print 'current file is: ' + problem
+  print('current file is: ' + problem)
   
   # Start new line in summary
   summary.write('"' + problem + '", ')
@@ -109,9 +109,9 @@ for fullname in glob.glob('cuter_nl/*.nl'):
 
       
   
-    print "Successfully processed " + problem
+    print("Successfully processed " + problem)
   except IOError:
-    print "Failed to process " + problem
+    print("Failed to process " + problem)
 
 
 # Close the summary file

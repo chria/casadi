@@ -31,11 +31,11 @@ for i in range(5):
   x = sin(x)*x
   
 #! With default printlimit
-print x
+print(x)
 
 SX.setMaxNumCallsInPrint(3)
 
-print x
+print(x)
 
 
 #! MX
@@ -46,8 +46,8 @@ for i in range(5):
   x = sin(x)*x
   
 #! With default printlimit
-print x
+print(x)
 
 MX.setMaxNumCallsInPrint(3)
 
-print x
+print(x)

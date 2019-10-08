@@ -27,11 +27,11 @@ from numpy import *
 import matplotlib.pyplot as plt
 
 # Excercise 1, chapter 10 from Larry Biegler's book
-print "program started"
+print("program started")
 
 # Test with different number of elements
 for N in range(1,11):
-  print "N = ", N
+  print("N = ", N)
   
   # Degree of interpolating polynomial
   K = 2
@@ -71,7 +71,7 @@ for N in range(1,11):
       if(k != j):
         L *= (tau-tau_root[k])/(tau_root[j]-tau_root[k])
 
-    print "l(", j, ") = ", L
+    print("l(", j, ") = ", L)
 
     f = SXFunction([tau],[L])
     f.setOption("name", "l(" + str(j) + ")")
@@ -86,7 +86,7 @@ for N in range(1,11):
     l[j].setInput(1.)
     l[j].evaluate()
     D[j] = l[j].getOutput()
-  print "D = ", D
+  print("D = ", D)
 
   # Get the coefficients of the collocation equation using AD
   C = DMatrix.zeros(K+1,K+1)
@@ -97,7 +97,7 @@ for N in range(1,11):
       tfcn.setInput(tau_root[k])
       tfcn.evaluate()
       C[j,k] = tfcn.getOutput()
-  print "C = ", C
+  print("C = ", C)
   
   # Collocated states
   Z = SX.sym("Z",N,K+1)
@@ -122,7 +122,7 @@ for N in range(1,11):
     if(i<N-1):
       g.append(Z[i+1,0] - rhs)
 
-  print "g = ", g
+  print("g = ", g)
 
   # NLP
   nlp = SXFunction(nlpIn(x=x),nlpOut(f=x[0]**2,g=g))
@@ -165,14 +165,14 @@ for N in range(1,11):
     for j in range(K+1):
       t_opt[j + (K+1)*i] = h*(i + tau_root[j])
   
-  print "time points: ", t_opt
+  print("time points: ", t_opt)
 
   # Print the optimal cost
-  print "optimal cost: ", float(solver.getOutput("f"))
+  print("optimal cost: ", float(solver.getOutput("f")))
 
   # Print the optimal solution
   xopt = solver.output("x").data()
-  print "optimal solution: ", xopt
+  print("optimal solution: ", xopt)
  
   # plot to screen
   plt.plot(t_opt,xopt)

@@ -218,7 +218,7 @@ for name,meta in metadata.items():
         for k,v in result.iteritems():
           result[k]=v.strip()
       except:
-        print "Ignoring ", name, l
+        print("Ignoring ", name, l)
       d = meta['options'][result["name"]]={'name': result["name"],"type": result["type"],'used': name,'default':'','description':'','inherit': False}
       if 'default' in result:
         d["default"]= result["default"]
@@ -361,7 +361,7 @@ for name,meta in sorted(metadata.items()):
         
     m = re.search("'(\w+)' plugin for (\w+)",meta["brief"])
     if not m:
-      print "This plugin is undocumented. add \\pluginbrief{class,name} to it: " + meta["file"]
+      print("This plugin is undocumented. add \\pluginbrief{class,name} to it: " + meta["file"])
       #print meta["file"]
     else:
       f.write("/** \\addtogroup plugin_%s_%s\n\\n\n\\par\n" % (m.group(2),m.group(1)))
@@ -428,7 +428,7 @@ for name,meta in sorted(metadata.items()):
         
     m = re.search("'(\w+)' plugin for (\w+)",meta["brief"])
     if not m:
-      print "This plugin is undocumented. add \\pluginbrief{class,name} to it: " + meta["file"]
+      print("This plugin is undocumented. add \\pluginbrief{class,name} to it: " + meta["file"])
       #print meta["file"]
     else:
       f.write("/** \\addtogroup plugin_%s_%s\n\\n\n\\par\n" % (m.group(2),m.group(1)))
@@ -491,7 +491,7 @@ for name,meta in sorted(metadata.items()):
         
     m = re.search("'(\w+)' plugin for (\w+)",meta["brief"])
     if not m:
-      print "This plugin is undocumented. add \\pluginbrief{class,name} to it: " + meta["file"]
+      print("This plugin is undocumented. add \\pluginbrief{class,name} to it: " + meta["file"])
       #print meta["file"]
     else:
       f.write("/** \\addtogroup plugin_%s_%s\n\\n\n\\par\n" % (m.group(2),m.group(1)))

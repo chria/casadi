@@ -44,7 +44,7 @@ class Misctests(casadiTestCase):
     f = SXFunction([x], [2 * x])
     f.init()
     y = f.call([x])[0].data()
-    print y
+    print(y)
     
   def test_issue179B(self):
     self.message('Regression test #179 (B)')
@@ -86,7 +86,7 @@ class Misctests(casadiTestCase):
     nlp = SXFunction(nlpIn(x=x),nlpOut(f=x))
 
     try:
-        print "ipopt"
+        print("ipopt")
         g = NlpSolver("ipopt", nlp)
     except:
         return
@@ -363,7 +363,7 @@ class Misctests(casadiTestCase):
       NlpSolver(123)
       self.assertTrue(False)
     except NotImplementedError as e:
-      print e.message
+      print(e.message)
       assert "NlpSolver(str,Function)" in e.message
       assert "You have: NlpSolver(int)" in e.message
       assert "::" not in e.message
@@ -373,7 +373,7 @@ class Misctests(casadiTestCase):
       vertcat(123)
       self.assertTrue(False)
     except NotImplementedError as e:
-      print e.message
+      print(e.message)
       assert "vertcat([SX]" in e.message
       assert "vertcat([array(double)" in e.message
       assert "You have: vertcat(int)" in e.message
@@ -384,7 +384,7 @@ class Misctests(casadiTestCase):
       substitute(123)
       self.assertTrue(False)
     except NotImplementedError as e:
-      print e.message
+      print(e.message)
       assert "substitute(SX,SX,SX)" in e.message
       assert "substitute([SX] ,[SX] ,[SX] )" in e.message
       assert "You have: substitute(int)" in e.message
@@ -395,7 +395,7 @@ class Misctests(casadiTestCase):
       SXFunction(daeIn(x=SX.sym("x")))
       self.assertTrue(False)
     except NotImplementedError as e:
-      print e.message
+      print(e.message)
       assert "SXFunction(scheme(SX),[SX] )" in e.message
       assert "You have: SXFunction(scheme(SX))" in e.message
       assert "::" not in e.message
@@ -405,7 +405,7 @@ class Misctests(casadiTestCase):
       NlpSolver.loadPlugin(132)
       self.assertTrue(False)
     except TypeError as e:
-      print e.message
+      print(e.message)
       assert "type 'str' expected" in e.message
       assert "NlpSolver.loadPlugin" in e.message
       assert "You have: NlpSolver.loadPlugin(int)" in e.message
@@ -418,14 +418,14 @@ class Misctests(casadiTestCase):
       [x]+ x
       self.assertTrue(False)
     except TypeError as e:
-      print e.message
+      print(e.message)
       assert "You try to do: [SX] + SX" in e.message
 
     try:
       x + [x]
       self.assertTrue(False)
     except TypeError as e:
-      print e.message
+      print(e.message)
       assert "You try to do: SX + [SX]" in e.message
 
 
@@ -433,21 +433,21 @@ class Misctests(casadiTestCase):
       daeIn(x=x,p=[x])
       self.assertTrue(False)
     except TypeError as e:
-      print e.message
+      print(e.message)
       assert "You have: (x=SX, p=[SX])" in e.message
 
     try:
       QpSolver("qp",123)
       self.assertTrue(False)
     except NotImplementedError as e:
-      print e.message
+      print(e.message)
       assert "QpSolver(str,QPStructure)" in e.message
       
     try:
       SXFunction(qpStruct(a=12),[x])
       self.assertTrue(False)
     except NotImplementedError as e:
-      print e.message
+      print(e.message)
       assert "QPStructure([Sparsity] )" in e.message
       assert "You have: QPStructure([int,Sparsity])" in e.message
       assert "QPStructure(a=int)" in e.message
@@ -456,21 +456,21 @@ class Misctests(casadiTestCase):
       x.reshape(2)
       self.assertTrue(False)
     except NotImplementedError as e:
-      print e.message
+      print(e.message)
       assert "reshape(SX,(int,int) )" in e.message
 
     try:
       x.reshape(("a",2))
       self.assertTrue(False)
     except NotImplementedError as e:
-      print e.message
+      print(e.message)
       assert "You have: reshape((str,int))" in e.message
       
     try:
       diagsplit("s")
       self.assertTrue(False)
     except NotImplementedError as e:
-      print e.message
+      print(e.message)
       assert "diagsplit(SX ,int)" in e.message
       assert "diagsplit(array(double) ,int)" in e.message
       
@@ -536,7 +536,7 @@ class Misctests(casadiTestCase):
     f = MXFunction([x],[v])
     f.init()
     
-    print f
+    print(f)
     
     f.setInput(-6)
     f.evaluate()
@@ -546,7 +546,7 @@ class Misctests(casadiTestCase):
     try :
       f.evaluate()
     except Exception as e:
-      print str(e)
+      print(str(e))
       self.assertTrue("x must be larger than 3" in str(e))
     
 

@@ -147,9 +147,9 @@ def checkfile(f,lock):
     localsuccess = False
   if not localsuccess:
     lock.acquire()
-    print "In file %s" % f
-    print "\n".join(out.split("\n")[2:-2])
-    print outh
+    print("In file %s" % f)
+    print("\n".join(out.split("\n")[2:-2]))
+    print(outh)
     lock.release()
     return False
   else:

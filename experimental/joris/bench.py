@@ -37,35 +37,35 @@ x_s = x.toCsr_matrix()
 
 t = time()
 dummy = n.dot(x_s.T,x_s)
-print "Scipy pure = %.4f s" % (time()-t)
+print("Scipy pure = %.4f s" % (time()-t))
 
 t = time()
 dummy = c.mul(x.T,x)
-print "CasADi pure = %.4f s" % (time()-t)
+print("CasADi pure = %.4f s" % (time()-t))
 
 X = MX("X",x.sparsity())
 
 t = time()
 f = MXFunction([X],[c.mul(X.T,X)])
 f.init()
-print "CasADi MX wrapped init overhead = %.4f s" % (time()-t)
+print("CasADi MX wrapped init overhead = %.4f s" % (time()-t))
 f.setInput(x)
 
 t = time()
 f.evaluate()
-print "CasADi MX wrapped = %.4f s" % (time()-t)
+print("CasADi MX wrapped = %.4f s" % (time()-t))
 
 t = time()
 # Create the sparsity pattern for the matrix-matrix product
 spres = x.sparsity().patternProduct(x.sparsity())
-print "CasADi generating procuct sparsity pattern = %.4f s" % (time()-t)
+print("CasADi generating procuct sparsity pattern = %.4f s" % (time()-t))
 
 t = time()
 # Create the return object with correct sparsity
 ret = c.DMatrix(spres)
-print "CasADi allocating resulting = %.4f s" % (time()-t)
+print("CasADi allocating resulting = %.4f s" % (time()-t))
 
 t = time()
 # Carry out the matrix product
 c.DMatrix.mul_no_alloc(x,x,ret)
-print "CasADi actual multiplication = %.4f s" % (time()-t)
+print("CasADi actual multiplication = %.4f s" % (time()-t))

@@ -38,7 +38,7 @@ q.dot = x**2+y**2
 
 ocp(q.end,[u>=-1,u<=1,q.start==0,x.start==1,y.start==0],T=10,N=20)
 
-print x.sol
+print(x.sol)
 
 plot(x.sol)
 plot(y.sol)
@@ -62,7 +62,7 @@ q.dot = x**2+y**2
 
 ocp(T,[u>=-1,u<=1,q.start==0,x.start==1,y.start==0,x.end==0,y.end==0],T=T,N=20)
 
-print T.sol, x.sol
+print(T.sol, x.sol)
 plot(x.sol)
 plot(y.sol)
 plot(u.sol)

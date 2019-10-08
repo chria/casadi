@@ -37,15 +37,15 @@ f.init()
 
 
 #! The default representation is just the name of the function
-print f.__repr__()
+print(f.__repr__())
 
 #! A print statement will call __str__()
 #! The result will look like a node-by-node tree evaluation
-print f
+print(f)
 
 #! The generateCode method will insert this node-by-node evaluation in exported C code
 f.generateCode("generateCode.txt")
 
 #! This is how the exported code looks like:
-print file('generateCode.txt').read()
+print(file('generateCode.txt').read())
 

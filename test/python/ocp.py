@@ -215,9 +215,9 @@ class OCPtests(casadiTestCase):
     self.assertTrue(isinstance(m,SX))
     self.assertTrue(isinstance(ocp.t,SX))
     self.assertEquals(str(m),'cost')
-    print dir(ocp)
+    print(dir(ocp))
     self.assertEquals(ocp.dae.size(),3)
-    print type(ocp.s)
+    print(type(ocp.s))
     self.assertEquals(ocp.s.size(),3) # there are three states
     c = ocp("cstr.c")
     T = ocp("cstr.T")
@@ -242,8 +242,8 @@ class OCPtests(casadiTestCase):
     #self.assertEquals(ocp.cfcn_ub[0].getValue(),350) 
     #self.assertTrue(ocp.cfcn_ub[1].isInf())
     #self.assertEquals(ocp.cfcn_ub[2].getValue(),370) 
-    print ocp.initial
-    print c,T,cost
+    print(ocp.initial)
+    print(c,T,cost)
     #print c.atTime(0)
     f=SXFunction([vertcat([c,T,cost])],[ocp.initial])
     f.init()

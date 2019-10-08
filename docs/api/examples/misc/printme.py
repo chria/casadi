@@ -31,7 +31,7 @@ c = c.printme(13)
 
 d = c**2
 
-print d
+print(d)
 
 f = SXFunction([a,b],[d])
 f.init()

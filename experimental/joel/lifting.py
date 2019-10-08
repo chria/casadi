@@ -106,7 +106,7 @@ Z.getOutput(fk,1)
 
 
 # Print header
-print " %4s" % "iter", " %20s" % "norm_fk", " %20s" % "norm_dk"
+print(" %4s" % "iter", " %20s" % "norm_fk", " %20s" % "norm_dk")
 
 # Iterate
 k = 0
@@ -149,11 +149,11 @@ while True:
   norm_dk = float(norm_2(dk))
   
   # Print
-  print " %4d" % k, " %20e" % norm_fk, " %20e" % norm_dk
+  print(" %4d" % k, " %20e" % norm_fk, " %20e" % norm_dk)
   
   # Check if stopping criteria achieved
   if norm_fk + norm_dk < TOL:
-    print "Convergens achieved!"
+    print("Convergens achieved!")
     break
   
   # Increase iteration count
@@ -161,7 +161,7 @@ while True:
   
   # Check if number of iterations have been reached
   if k >= max_iter:
-    print "Maximum number of iterations (", max_iter, ") reached"
+    print("Maximum number of iterations (", max_iter, ") reached")
     break
 
 

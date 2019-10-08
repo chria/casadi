@@ -25,11 +25,11 @@ from casadi import *
 
 #! Read all about coloring in the seminal paper "What color is your Jacobian?" http://www.cs.odu.edu/~pothen/Papers/sirev2005.pdf
 def color(A):
-  print "="*80
-  print "Original:"
-  print repr(IMatrix(A,1))
-  print "Colored: "
-  print repr(IMatrix(A.unidirectionalColoring(),1))
+  print("="*80)
+  print("Original:")
+  print(repr(IMatrix(A,1)))
+  print("Colored: ")
+  print(repr(IMatrix(A.unidirectionalColoring(),1)))
 
 A = Sparsity.diag(5)
 color(A)
@@ -54,11 +54,11 @@ color(A+Sparsity.triplet(5,5,range(5),[0]*5))
 #! Next, we look at starColoring
 
 def color(A):
-  print "="*80
-  print "Original:"
-  print repr(IMatrix(A,1))
-  print "Star colored: "
-  print repr(IMatrix(A.starColoring(1),1))
+  print("="*80)
+  print("Original:")
+  print(repr(IMatrix(A,1)))
+  print("Star colored: ")
+  print(repr(IMatrix(A.starColoring(1),1)))
   
 color(A)
 #! One direction needed to capture all

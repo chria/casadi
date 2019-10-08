@@ -55,66 +55,66 @@ Ldx = jacobian(L,dx)       # partial dL/dx
 dt = lambda L: mul(jacobian(L,x),dx) + mul(jacobian(L,dx),ddx)  
 
 
-print "L = ", L
+print("L = ", L)
 
-print "Some intermediary results:"
-print "Ldx = diff(L,dx)   =   ", Ldx
-print "diff(L,x)          =   ", jacobian(L,x)
-print "diff(Ldx,t)        =   diff(Ldx,x)*dx + diff(Ldx,dx)*ddx"
-print "diff(Ldx,x)        =   ", jacobian(Ldx,x)
-print "diff(Ldx,dx)       =   ", jacobian(Ldx,dx)
+print("Some intermediary results:")
+print("Ldx = diff(L,dx)   =   ", Ldx)
+print("diff(L,x)          =   ", jacobian(L,x))
+print("diff(Ldx,t)        =   diff(Ldx,x)*dx + diff(Ldx,dx)*ddx")
+print("diff(Ldx,x)        =   ", jacobian(Ldx,x))
+print("diff(Ldx,dx)       =   ", jacobian(Ldx,dx))
 
-print ""
+print("")
 
 
-print "Finally Lagrange provides us with these equations:"
+print("Finally Lagrange provides us with these equations:")
 
 U = dt(Ldx) - jacobian(L,x).T
 
-print U
+print(U)
 
-print 
-print "But we want a first-order ODE, so we will introduce helper variables " ,u
+print() 
+print("But we want a first-order ODE, so we will introduce helper variables " ,u)
 
 
 U = vertcat([substitute(U,vertcat([dx,ddx]),vertcat([u,du])),u-dx])
 
 g = C
 
-print " DAE in fully implicit form:"
-print "  0 = U(y,y',z,t)"
-print "  0 = g(y,z,t)"
-print ""
-print " U: ", U
-print " g: ", g
+print(" DAE in fully implicit form:")
+print("  0 = U(y,y',z,t)")
+print("  0 = g(y,z,t)")
+print("")
+print(" U: ", U)
+print(" g: ", g)
 
-print ""
-print ""
+print("")
+print("")
 
-print "DAE index is a concept defined for semi-explicit DAE's:"
-print "  y' = f(y,z,t)"
-print "  0  = g(y,z,t)"
+print("DAE index is a concept defined for semi-explicit DAE's:")
+print("  y' = f(y,z,t)")
+print("  0  = g(y,z,t)")
 
-print ""
-print "  We can find f as jacobian(U,y')^-1*U(y,0,z,t)"
-print "   U(y,0,z,t) : " , substitute(U,dq,[0,0,0,0])
-print "   jacobian(U,y') : " ,    jacobian(U,dq)
-print "   jacobian(U,y')^-1 : " , inv(jacobian(U,dq))
-print ""
+print("")
+print("  We can find f as jacobian(U,y')^-1*U(y,0,z,t)")
+print("   U(y,0,z,t) : " , substitute(U,dq,[0,0,0,0]))
+print("   jacobian(U,y') : " ,    jacobian(U,dq))
+print("   jacobian(U,y')^-1 : " , inv(jacobian(U,dq)))
+print("")
 f =  -mul(inv(jacobian(U,dq)),substitute(U,dq,[0,0,0,0]))
 
 
-print "This DAE has a y' = f(y,z,t) part:"
-print "f : " , f
-print "g : " , C
-print "y : ", q
-print "z : ", lambd
+print("This DAE has a y' = f(y,z,t) part:")
+print("f : " , f)
+print("g : " , C)
+print("y : ", q)
+print("z : ", lambd)
 
 
-print ""
-print ""
-print "Will determine index of DAE"
-print "Start out with g as before"
+print("")
+print("")
+print("Will determine index of DAE")
+print("Start out with g as before")
 
 g = C
 
@@ -124,36 +124,36 @@ dt = lambda L: mul(jacobian(L,q),dq) + mul(jacobian(L,dq),ddq)
 
 
 for i in range(1,4):
-  print " Is it index-%d ?" %  i
-  print " ==================="
-  print "  Is J=jacobian(g,z) invertible?"
+  print(" Is it index-%d ?" %  i)
+  print(" ===================")
+  print("  Is J=jacobian(g,z) invertible?")
   
   J = jacobian(g,lambd)
-  print "  J =", J
-  print ""
+  print("  J =", J)
+  print("")
   if J.size()==1:
-    print "  Yes. You are finished"
+    print("  Yes. You are finished")
     break
   else:
-    print "  No. Find a new g:    g ->    diff(g)  & substitute y' = f(y,z,t) "
+    print("  No. Find a new g:    g ->    diff(g)  & substitute y' = f(y,z,t) ")
 
-    print "  This is diff(g): ", dt(g)
+    print("  This is diff(g): ", dt(g))
     g =  substitute(dt(g),dq,f)
-    print "  This is after substitution: ", g
+    print("  This is after substitution: ", g)
     
-  print ""
+  print("")
   
   
-print ""
+print("")
 sys = vertcat([U,g])
-print "So we end up with this %s residual: " % (str(sys.shape))
+print("So we end up with this %s residual: " % (str(sys.shape)))
 
-print sys
+print(sys)
 
-print "But wait, there's too much symbols in there. This is not a closed system!"
-print "We are screwed"
+print("But wait, there's too much symbols in there. This is not a closed system!")
+print("We are screwed")
 
-print "Check that there's no second derivatives left: ", jacobian(sys,ddq).size()==0
+print("Check that there's no second derivatives left: ", jacobian(sys,ddq).size()==0)
 
 dae = SXFunction({'NUM': DAE_NUM_IN, DAE_Y: vertcat([q,lambd]), DAE_YDOT: vertcat([dq,SX("dlambda")]), DAE_P: vertcat([length,m,gravity])},[sys])
 dae.init()
@@ -169,7 +169,7 @@ dae.setInput(dx_,"ydot")
 dae.setInput(p_,"p")
 
 dae.evaluate()
-print "res @ inital consitions: ", dae.getOutput()
+print("res @ inital consitions: ", dae.getOutput())
 
 integr = IdasIntegrator(dae)
 #integr.setOption('is_differential',[1]*4 + [0])
@@ -179,5 +179,5 @@ integr.setInput(p_,"p")
 integr.setInput(dx_,"xp0")
 integr.evaluate()
 
-print integr.getOutput()
+print(integr.getOutput())
 

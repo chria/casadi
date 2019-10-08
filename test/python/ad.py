@@ -97,7 +97,7 @@ class ADtests(casadiTestCase):
       return [X]
 
     def testje(xyz):
-      print vertcat([xyz.nz[0],xyz.nz[0]+2*xyz.nz[1]**2,xyz.nz[0]+2*xyz.nz[1]**3+3*xyz.nz[2]**4,xyz.nz[3]]).shape
+      print(vertcat([xyz.nz[0],xyz.nz[0]+2*xyz.nz[1]**2,xyz.nz[0]+2*xyz.nz[1]**3+3*xyz.nz[2]**4,xyz.nz[3]]).shape)
       
     self.mxoutputs = {
        "column": {
@@ -462,7 +462,7 @@ class ADtests(casadiTestCase):
 
     f=SXFunction([inp],[vertcat([x+y,x,y])])
     f.init()
-    print f.input().shape
+    print(f.input().shape)
     J=f.jacobian(0,0)
     
     
@@ -616,7 +616,7 @@ class ADtests(casadiTestCase):
           (in1,v1,x.nz[IMatrix([[1,0]])]*y.nz[IMatrix([[0,2]])],blockcat([[MX.sparse(1,1),y.nz[0]],[y.nz[2],MX.sparse(1,1)]])),
           (in1,v1,x.nz[c.diag([1,0])]*y.nz[c.diag([0,2])],blockcat([[MX.sparse(1,1),y.nz[0]],[MX.sparse(1,1),MX.sparse(1,1)],[MX.sparse(1,1),MX.sparse(1,1)],[y.nz[2],MX.sparse(1,1)]])),
      ]:
-      print out
+      print(out)
       fun = MXFunction(inputs,[out,jac])
       fun.init()
       

@@ -36,7 +36,7 @@ class Toolstests(casadiTestCase):
   
     s = struct(['x','y','z'])
     
-    print s
+    print(s)
   
     with self.assertRaises(Exception):
       struct_symSX(['x','x','z'])
@@ -375,25 +375,25 @@ class Toolstests(casadiTestCase):
 
     init['X',:,:,['x','y']] = repeated(repeated([6,5]))
 
-    print init.cat
+    print(init.cat)
 
     init['X',:,:,{}] = repeated(repeated({'x': 9,'y': 3}))
 
-    print init.cat
+    print(init.cat)
     
     V = struct_SX(shooting)
     
     V['X',:,:,['x','y']] = repeated(repeated([6,5]))
     
-    print V
+    print(V)
     
     V = struct_symMX(shooting)
     
-    print V
+    print(V)
     
     V = struct_MX(shooting)
     
-    print V
+    print(V)
     
     
     init = shooting(nan)
@@ -429,7 +429,7 @@ class Toolstests(casadiTestCase):
     init['X',0,0,'p',:] = range(9)
     
     
-    print index["a"]
+    print(index["a"])
 
     init = shooting(range(shooting.size))
     for i in range(shooting.size):
@@ -443,8 +443,8 @@ class Toolstests(casadiTestCase):
 
     S = struct_symSX([entry("X",repeat=12,struct=s)])
 
-    print S.__class__
-    print S.prefix
+    print(S.__class__)
+    print(S.prefix)
 
     a = S.prefix["X"]
 
@@ -509,9 +509,9 @@ class Toolstests(casadiTestCase):
     d = DMatrix.zeros(3,3)
     a = s.squared(d)
     
-    print type(a)
-    print sin(a)
-    print a+1
+    print(type(a))
+    print(sin(a))
+    print(a+1)
     
   def test_sparse(self):
     a = struct_symSX([entry("a",shape=Sparsity.diag(5))])
@@ -631,9 +631,9 @@ class Toolstests(casadiTestCase):
     
   def test_numpyint(self):
     s = struct_symSX(map(entry, 'xyz')) # OK 
-    print s['x']
+    print(s['x'])
     s = struct_symSX(map(entry, u'xyz')) # IndexError: list index out of range
-    print s[u'x']
+    print(s[u'x'])
     
   def test_pickling_null(self):
     import pickle
@@ -644,7 +644,7 @@ class Toolstests(casadiTestCase):
 
     tt = pickle.dumps(s)
 
-    print pickle.loads(tt)
+    print(pickle.loads(tt))
     
   def test_bug_structSXMX(self):
     n= 2
@@ -742,7 +742,7 @@ class Toolstests(casadiTestCase):
 
     d = s(V)
 
-    print d["b"]
+    print(d["b"])
 
     f = MXFunction([V],[d["a"],d["b"],d["c"]])
     f.init()

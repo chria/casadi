@@ -47,19 +47,19 @@ from casadi.tools import *
 #! Create a structured SX.sym
 states = struct_symSX(["x","y","z"])
 
-print states
+print(states)
 
 #! Superficially, states behaves like a dictionary
-print states["y"]
+print(states["y"])
 
 #! To obtain aliases, use the Ellipsis index:
 x,y,z = states[...]
 
 #! The cat attribute will return the concatenated version of the struct. This will always be a column vector
-print states.cat
+print(states.cat)
 
 #! This structure is of size:
-print states.size, "=", states.cat.shape
+print(states.size, "=", states.cat.shape)
   
   
 f = SXFunction([states.cat],[x*y*z])
@@ -85,12 +85,12 @@ states = struct_symSX([
     entry("z",shape=Sparsity.tril(2))
   ])
   
-print states["x"]
-print states["y"]
-print states["z"]
+print(states["x"])
+print(states["y"])
+print(states["z"])
 
 #! Note that the cat version of this structure does only contain the nonzeros
-print states.cat
+print(states.cat)
 
 #!   repeat argument  : specify nested lists
 states = struct_symSX([
@@ -98,12 +98,12 @@ states = struct_symSX([
     entry("v",repeat=[2,3]),
   ])
 
-print states["w"]
-print states["v"]
+print(states["w"])
+print(states["v"])
 
 #! Notice that all v variables come before the v entries:
 for i,s in enumerate(states.labels()):
-  print i, s
+  print(i, s)
   
 #! We can influency this order by introducing a grouping bracket:
 
@@ -117,7 +117,7 @@ states = struct_symSX([
   
 #! Notice how the w and v variables are now interleaved:
 for i,s in enumerate(states.labels()):
-  print i, s
+  print(i, s)
   
 #! Nesting, Values and PowerIndex
 #! -------------------------------
@@ -130,35 +130,35 @@ shooting = struct_symSX([
   entry("U",repeat=4,shape=1),
 ])
 
-print shooting.size
+print(shooting.size)
 
 #! The canonicalIndex is the combination of strings and numbers that uniquely defines the entries of a structure:
-print shooting["X",0,0,"x"]
+print(shooting["X",0,0,"x"])
 
 #! If we use more exoctic indices, we call this a powerIndex
-print shooting["X",:,0,"x"]
+print(shooting["X",:,0,"x"])
 
 #! Having structured symbolics is one thing. The numeric structures can be derived:
 #! The following line allocates a DMatrix of correct size, initialised with zeros
 init = shooting(0)
 
-print init.cat
+print(init.cat)
 
 # We can use the powerIndex in the context of indexed assignent, too:
 init["X",0,-1,"y"] = 12
 
 #! The corresponding numerical value has changed now:
-print init.cat
+print(init.cat)
 
 #! The entry that changed is in fact this one:
-print init.f["X",0,-1,"y"]
-print init.cat[13]
+print(init.f["X",0,-1,"y"])
+print(init.cat[13])
 
 #! One can lookup the meaning of the 13th entry in the cat version as such:
 #! Note that the canonicalIndex does not contain negative numbers
-print shooting.getCanonicalIndex(13)
+print(shooting.getCanonicalIndex(13))
 
-print shooting.labels()[13]
+print(shooting.labels()[13])
 
 #! Other datatypes
 #! ----------------
@@ -168,7 +168,7 @@ print shooting.labels()[13]
 try:
   states["x"] = states["x"]**2
 except Exception as e:
-  print "Oops:", e
+  print("Oops:", e)
   
 #! If you want to have a mutable variant, for example to contian the right hand side of an ode, use struct_SX:
 rhs = struct_SX(states)
@@ -177,7 +177,7 @@ rhs["x"] = states["x"]**2
 rhs["y"] = states["y"]*states["x"]
 rhs["q"] = -states["q"]
 
-print rhs.cat
+print(rhs.cat)
 
 #! Alternatively, you can supply the expressions at defintion time:
 x,y,q = states[...]
@@ -187,18 +187,18 @@ rhs = struct_SX([
     entry("q",expr=-q)
   ])
   
-print rhs.cat
+print(rhs.cat)
 
 
 #! One can also construct symbolic MX structures
 V = struct_symMX(shooting)
 
-print V
+print(V)
 
 #! The catted version is one single MX from which all entries are derived:
-print V.cat
-print V.shape
-print V["X",0,-1,"y"]
+print(V.cat)
+print(V.shape)
+print(V["X",0,-1,"y"])
 
 #! Similar to struct_SX, we have struct_MX:
 V = struct_MX([
@@ -212,7 +212,7 @@ V = struct_MX([
 #! To recycle one that is already available, use the 'sym' argument: 
 qsym = SX.sym("quaternion",4)
 states = struct_symSX(["x","y",entry("q",sym=qsym)])
-print states.cat
+print(states.cat)
 
 #! The 'sym' feature is not available for struct_MX, since it will construct one parent MX.
 
@@ -220,19 +220,19 @@ print states.cat
 #! ----------------
 
 #! As illustrated before, powerIndex allows slicing
-print init["X",:,:,"x"]
+print(init["X",:,:,"x"])
 
 #! The repeated method duplicates its argument a number of times such that it matches the length that is needed at the lhs
 init["X",:,:,"x"] = repeated(range(3))
 
-print init["X",:,:,"x"]
+print(init["X",:,:,"x"])
 
 #! Callables/functions can be thrown in in the powerIndex at any location.
 #! They operate on subresults obtain from resolving the remainder of the powerIndex
 
-print init["X",:,horzcat,:,"x"]
-print init["X",vertcat,:,horzcat,:,"x"]
-print init["X",blockcat,:,:,"x"]
+print(init["X",:,horzcat,:,"x"])
+print(init["X",vertcat,:,horzcat,:,"x"])
+print(init["X",blockcat,:,:,"x"])
 
 #! Set all quaternions to 1,0,0,0
 init["X",:,:,"q"] = repeated(repeated(DMatrix([1,0,0,0])))
@@ -240,25 +240,25 @@ init["X",:,:,"q"] = repeated(repeated(DMatrix([1,0,0,0])))
 #! {} can be used in the powerIndex to expand into a dictionary once
 init["X",:,0,{}] = repeated({"y": 9})
 
-print init["X",:,0,{}]
+print(init["X",:,0,{}])
 
 #! lists can be used in powerIndex in both list context or dict context:
-print shooting["X",[0,1],[0,1],"x"]
-print shooting["X",[0,1],0,["x","y"]]
+print(shooting["X",[0,1],[0,1],"x"])
+print(shooting["X",[0,1],0,["x","y"]])
 
 #! nesteddict can be used to expand into a dictionary recursively
-print init[nesteddict]
+print(init[nesteddict])
 
 #! ... will expand entries as an ordered list
-print init["X",:,0,...]
+print(init["X",:,0,...])
 
 #! If the powerIndex ends at the boundary of a structure, it's catted version is returned:
-print init["X",0,0]
+print(init["X",0,0])
 
 #! If the powerIndex is longer than what could be resolved as structure, the remainder, extraIndex, is passed onto the resulting Casadi-matrix-type
-print init["X",blockcat,:,:,"q",0]
+print(init["X",blockcat,:,:,"q",0])
 
-print init["X",blockcat,:,:,"q",0,0]
+print(init["X",blockcat,:,:,"q",0,0])
 
 #! shapeStruct and delegated indexing
 #! -----------------------------------
@@ -272,10 +272,10 @@ V = struct_symSX([
     ])
 
 #! P has a 4x4 shape
-print V["P",0]
+print(V["P",0])
 
 #! Now we can use powerIndex-style in the extraIndex:
-print V["P",0,["x","y"],["x","y"]]
+print(V["P",0,["x","y"],["x","y"]])
 
 #! There is a problem when we wich to use the full potential of powerIndex in these extraIndices:
 #! The following is in fact invalid python syntax:
@@ -283,10 +283,10 @@ print V["P",0,["x","y"],["x","y"]]
 
 #! We resolve this by using delegater objects index/indexf:
 
-print V["P",0,indexf["q",:],indexf["q",:]] 
+print(V["P",0,indexf["q",:],indexf["q",:]]) 
 
 #! Of course, in this basic example, also the following would be allowed
-print V["P",0,"q","q"] 
+print(V["P",0,"q","q"]) 
 
 #! Prefixing
 #! -----------
@@ -336,8 +336,8 @@ outputs = states.repeated(output)
 outputs[-1] = DMatrix([1,2,3])
 outputs[:,"x"] = range(8) 
 
-print output
-print outputs[5,{}]
+print(output)
+print(outputs[5,{}])
 
 #! Next we represent the 'squared' helper construct
 #! Imagine we somehow obtain a matrix that represents covariance
@@ -348,13 +348,13 @@ P = states.squared(P0)
 P["x","y"] = 2
 P["y","x"] = 3
 
-print P0
+print(P0)
 
 #! P itself is a rather queer object
-print P
+print(P)
 
 #! You can access its concents with a call:
-print P()
+print(P())
 
 #! But often, it will behave like a DMatrix transparantly:
 P0.set(P)
@@ -368,7 +368,7 @@ P = states.squared_repeated(P0)
 P[0,"x","y"] = 2
 P[:,"y","x"] = 3
 
-print P0
+print(P0)
 
 #! Finally, we present the 'product' helper construct
 controls = struct(["u","v"])
@@ -380,7 +380,7 @@ J = states.product(controls,J0)
 J[:,"u"] = 3
 J[["x","z"],:] = 2
 
-print J()
+print(J())
 
 #! Saving and loading
 #! -------------------

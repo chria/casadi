@@ -73,21 +73,21 @@ s.evaluate()
 
 #! Our output is:
 x_ = s.getOutput()
-print "Solution = ", x_
+print("Solution = ", x_)
 
 #! Compare with the analytic solution:
 x = [sqrt(4.0/3*sigma_/alpha_),-0.5*pi]
-print "Reference solution = ", x
+print("Reference solution = ", x)
 
 #! We show that the residual is indeed (close to) zero
 f.setInput(s.getOutput(),0)
 f.setInput(params_,1)
 f.evaluate()
-print "residual = ", f.getOutput()
+print("residual = ", f.getOutput())
 
 for i in range(1):
   assert(abs(x_[i]-x[i])<1e-6)
   
 #! Solver statistics
-print s.getStats()
+print(s.getStats())
 

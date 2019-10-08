@@ -57,7 +57,7 @@ check_mx_sx_sct = True
 
 # Check scalar representation
 if check_sx_oo:
-  print "SX OO"
+  print("SX OO")
   for n in range(5,10):
     # Create function
     x = ssym("X",n,n)
@@ -67,16 +67,16 @@ if check_sx_oo:
     # Calculate gradient
     F.setInput(x0[n])
     F.setAdjSeed(1.0)
-    print "starting evaluation: ", F.countNodes(), " nodes"
+    print("starting evaluation: ", F.countNodes(), " nodes")
     t1 = time()
     n_repeats = 100
     for _ in range(n_repeats):
       F.evaluate(0,1)
     t2 = time()
-    print n, ": ", (t2-t1)/n_repeats, " s, ", F.getAdjSens()
+    print(n, ": ", (t2-t1)/n_repeats, " s, ", F.getAdjSens())
 
 if check_sx_sct:
-  print "SX SCT"
+  print("SX SCT")
   for n in range(5,10):
     # Create function
     x = ssym("X",n,n)
@@ -86,17 +86,17 @@ if check_sx_sct:
     
     # Calculate gradient
     F.setInput(x0[n])
-    print "starting evaluation: ", F.countNodes(), " nodes"
+    print("starting evaluation: ", F.countNodes(), " nodes")
     t1 = time()
     n_repeats = 100
     for _ in range(n_repeats):
       F.evaluate(0)
     t2 = time()
-    print n, ": ", (t2-t1)/n_repeats, " s, ", F.getOutput()
+    print(n, ": ", (t2-t1)/n_repeats, " s, ", F.getOutput())
 
 # Check matrix representation
 if check_mx_oo:
-  print "MX OO"
+  print("MX OO")
   for n in range(5,9):
     # Create function
     x = msym("X",n,n)
@@ -106,13 +106,13 @@ if check_mx_oo:
     # Calculate gradient
     F.setInput(x0[n])
     F.setAdjSeed(1.0)
-    print "starting evaluation: ", F.countNodes(), " nodes"
+    print("starting evaluation: ", F.countNodes(), " nodes")
     t1 = time()
     n_repeats = 100
     for _ in range(n_repeats):
       F.evaluate(0,1)
     t2 = time()
-    print n, ": ", (t2-t1)/n_repeats, " s, ", F.getAdjSens()
+    print(n, ": ", (t2-t1)/n_repeats, " s, ", F.getAdjSens())
 
 # Create a function for calculating the determinant of a "small" matrix
 n_small = 5
@@ -140,7 +140,7 @@ def f_mod(A,n_min,F_min):
 
 # Check matrix representation
 if check_mx_sx_oo:
-  print "MX+SX OO"
+  print("MX+SX OO")
   for n in range(n_small,12):
     # Create function
     x = msym("X",n,n)
@@ -150,13 +150,13 @@ if check_mx_sx_oo:
     # Calculate gradient
     F.setInput(x0[n])
     F.setAdjSeed(1.0)
-    print "starting evaluation: ", F.countNodes(), " nodes"
+    print("starting evaluation: ", F.countNodes(), " nodes")
     t1 = time()
     n_repeats = 100
     for _ in range(n_repeats):
       F.evaluate(0,1)
     t2 = time()
-    print n, ": ", (t2-t1)/n_repeats, " s, ", F.getAdjSens()
+    print(n, ": ", (t2-t1)/n_repeats, " s, ", F.getAdjSens())
   
 #X = ssym("X",2,2)
 #print "f(X) = ", f(X)
@@ -166,7 +166,7 @@ if check_mx_sx_oo:
 
 # Check matrix representation
 if check_mx_sx_sct:
-  print "MX+SX SCT"
+  print("MX+SX SCT")
   FF = [F_small]
   for n in range(n_small+1,10):
     # Create function
@@ -183,24 +183,24 @@ if check_mx_sx_sct:
     fname = "grad_det_mx" + str(n)
     cname = fname + ".c"    
     GF.generateCode(fname+".c")
-    print "Generated ", cname
+    print("Generated ", cname)
 
     # Compile the c-code to a DLL
     dllname = fname + ".so"
     system("gcc -fPIC -shared " + cname + " -o " + dllname)
-    print "Compiled ", dllname
+    print("Compiled ", dllname)
 
     # Load the DLL
     GFE = ExternalFunction("./" + dllname)
     GFE.init()
-    print "Loaded ", dllname
+    print("Loaded ", dllname)
 
     # Calculate gradient
     GFE.setInput(x0[n])
-    print "starting evaluation "
+    print("starting evaluation ")
     t1 = time()
     n_repeats = 100
     for _ in range(n_repeats):
       GFE.evaluate()
     t2 = time()
-    print n, ": ", (t2-t1)/n_repeats, " s, ", GFE.getOutput()
+    print(n, ": ", (t2-t1)/n_repeats, " s, ", GFE.getOutput())

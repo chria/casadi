@@ -66,8 +66,8 @@ compilerscript.write(compiler)
 compilerscript.close()
 link.close()
 
-print compiler
-print linker
+print(compiler)
+print(linker)
 
-print "Done"
+print("Done")
 

@@ -94,7 +94,7 @@ for k in states.keys():
 xlabel("t")
 legend(tuple(states.keys()))
 
-print "xf=", output[-1]
+print("xf=", output[-1])
 
 # The remainder of this file deals with methods to calculate the state covariance matrix as it propagates through the system dynamics
 
@@ -151,7 +151,7 @@ output = states_aug.repeated(csim_aug.getOutput())
 
 PF_method2 = output[-1,"P"]
 
-print "State cov (method 2) = ", PF_method2
+print("State cov (method 2) = ", PF_method2)
 
 # === Method 3:  Unscented propagation ===
 # Sample and simulate 2n+1 initial points
@@ -180,6 +180,6 @@ Xf_mean = mul(simulated_x,W)
 x_dev = simulated_x-mul(Xf_mean,DMatrix.ones(1,2*n+1))
 
 PF_method3 = mul([x_dev,diag(W),x_dev.T])
-print "State cov (method 3) = ", PF_method3
+print("State cov (method 3) = ", PF_method3)
 
 show()

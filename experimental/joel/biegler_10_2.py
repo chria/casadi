@@ -149,7 +149,7 @@ c_ub = NP.repeat(inf,nc)
 nx = len(x)
 nu = len(u)
 
-print "modelling done"
+print("modelling done")
 
 
 # Legendre collocation points
@@ -350,7 +350,7 @@ solver.setInput(NP.concatenate(ubg),"ubg")
 solver.solve()
 
 # Print the optimal cost
-print "optimal cost: ", solver.getOutput("f")[0]
+print("optimal cost: ", solver.getOutput("f")[0])
 
 # Retrieve the solution
 v_opt = array(solver.getOutput("x"))

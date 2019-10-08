@@ -38,7 +38,7 @@ try:
   import pymodelica
   use_precompiled = False
 except:
-  print "No jmodelica installation, falling back to precompiled XML-files"
+  print("No jmodelica installation, falling back to precompiled XML-files")
   use_precompiled = True
 
 # CasADi
@@ -248,7 +248,7 @@ ocp.parseFMI('CtrlFlowSystem.xml')
 ocp.makeSemiExplicit()
 
 # Print the ocp
-print ocp
+print(ocp)
 
 # The problem has no differential states, so instead of integrating, we just solve for mdot...
 

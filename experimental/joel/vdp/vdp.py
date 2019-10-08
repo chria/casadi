@@ -84,14 +84,14 @@ os.rename('modelDescription.xml','vdp.xml')
 parser = FMIParser('vdp.xml')
 
 # Dump representation to screen
-print "XML representation"
-print parser
+print("XML representation")
+print(parser)
 
 # Obtain the symbolic representation of the OCP
 ocp = parser.parse()
 
 # Print the ocp to screen
-print ocp
+print(ocp)
 
 # Sort the variables according to type
 var = OCPVariables(ocp.variables)
@@ -197,11 +197,11 @@ ocp_solver.solve()
 
 # Print optimal cost
 cost = ocp_solver.getOutputData(ACADO_COST)[0]
-print "optimal cost = ", cost
+print("optimal cost = ", cost)
 
 # Print optimal parameters
 popt = ocp_solver.getOutputData(ACADO_P_OPT)
-print "optimal parameter values = ", popt
+print("optimal parameter values = ", popt)
 
 # Time grid
 t_opt = NP.linspace(0,ocp.tf,num_nodes+1)

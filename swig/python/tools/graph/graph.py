@@ -680,7 +680,7 @@ def dotdraw(s,direction="RL"):
     from pylab import imread, imshow,show,figure, axes
   except:
     # We don't have pylab, so just write out to file
-    print "casadi.tools.graph.dotdraw: no pylab detected, will not show drawing on screen."
+    print("casadi.tools.graph.dotdraw: no pylab detected, will not show drawing on screen.")
     dotgraph(s,direction=direction).write_ps("temp.ps")
     return
    
@@ -689,7 +689,7 @@ def dotdraw(s,direction="RL"):
     figure_name = '%s%d.%s' % ( show.basename, len(show.figure_list), show.figure_extension )
     show.figure_list += (figure_name, )
     dotgraph(s,direction=direction).write_pdf(figure_name)
-    print "Here goes figure %s (dotdraw)" % figure_name
+    print("Here goes figure %s (dotdraw)" % figure_name)
   else:
     # Matplotlib does not allow to display vector graphics on screen, 
     # so we fall back to png

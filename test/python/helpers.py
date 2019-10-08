@@ -150,7 +150,7 @@ class casadiTestCase(unittest.TestCase):
         return ret
   
   def message(self,s):
-      print s
+      print(s)
       sys.stdout.flush()
 
   def assertAlmostEqual(self,first, second, places=7, msg=""):
@@ -250,7 +250,7 @@ class casadiTestCase(unittest.TestCase):
       try:
         f.setInput(setx0[i],i)
       except Exception as e:
-         print f.getInput(i).shape
+         print(f.getInput(i).shape)
          raise e
          raise Exception("ERROR! Tried to set input with %s which is of type  %s \n%s" %(str(x0[i]), str(type(x0[i])),name))
     f.evaluate()
@@ -275,7 +275,7 @@ class casadiTestCase(unittest.TestCase):
       function=ft(x)
       frx=fr(x0)
     except Exception as e:
-      print "Error calling functions in %s" % name
+      print("Error calling functions in %s" % name)
       raise e
     self.evaluationCheck([function],frx,x,x0,name,failmessage,fmod=fmod,setx0=setx0)
 
@@ -530,14 +530,14 @@ class run_only(object):
       self.args.append(a)
 
   def __call__(self, c):
-    print "run_only:"
+    print("run_only:")
     for i in dir(c):
       if i.startswith('test_'):
         n = i[5:]
         if not n in self.args:
           delattr(c,i)
         else:
-          print i
+          print(i)
     return c
 
 class requires(object):
@@ -548,7 +548,7 @@ class requires(object):
     if hasattr(casadi,self.att):
       return c
     else:
-      print "Not available %s, skipping unittests" % self.att
+      print("Not available %s, skipping unittests" % self.att)
       return None
       
 class requiresPlugin(object):
@@ -561,7 +561,7 @@ class requiresPlugin(object):
       self.att.loadPlugin(self.n)
       return c
     except:
-      print "Not available %s plugin %s, skipping unittests" % (str(self.att),self.n)
+      print("Not available %s plugin %s, skipping unittests" % (str(self.att),self.n))
       return None
 
 class skip(object):
@@ -575,7 +575,7 @@ class skip(object):
         delattr(c,i)
       return c
     else:
-      print self.skiptext(c.__name__)
+      print(self.skiptext(c.__name__))
       return None
    
   def skiptext(self,name):
@@ -589,7 +589,7 @@ class memory_heavy(object):
     pass
     
   def __call__(self, c):
-    print c
+    print(c)
     c.tag_memory_heavy = True
     return c
     
@@ -598,6 +598,6 @@ class slow(object):
     pass
     
   def __call__(self, c):
-    print "slow", c
+    print("slow", c)
     c.tag_slow = True
     return c

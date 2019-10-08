@@ -79,21 +79,21 @@ solver.setInput(ubg, "ubg")
 solver.evaluate()
 
 # Print the solution
-print "----" 
-print "Minimal cost " , solver.getOutput("f") 
-print "----" 
+print("----") 
+print("Minimal cost " , solver.getOutput("f")) 
+print("----") 
 
-print "Solution" 
-print "x = " , solver.output("x").data() 
-print "----" 
+print("Solution") 
+print("x = " , solver.output("x").data()) 
+print("----") 
 
 # Obtain the reduced Hessian
 try:
         red_hess = NP.array(solver.getReducedHessian())
-        print "Reduced Hessian:"
-        print red_hess
+        print("Reduced Hessian:")
+        print(red_hess)
 except:
-        print "Support for retrieving the reduced Hessian not enabled."
+        print("Support for retrieving the reduced Hessian not enabled.")
 
 
 

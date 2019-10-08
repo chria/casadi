@@ -32,7 +32,7 @@ X=SX.sym('X',2,2)
 Y=SX.sym('Y',2,2)
 f=SXFunction ([X], [X])
 f.init()
-print f([Y])
+print(f([Y]))
 
 a=SXElement.sym("a")
 b=SXElement.sym("b")

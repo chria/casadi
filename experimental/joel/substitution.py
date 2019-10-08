@@ -31,9 +31,9 @@ z = SX("z")
 var = SX([x,y,z])
 dd = SX([5,sin(x),x+y])
 
-print var
-print dd
+print(var)
+print(dd)
 
 substituteInPlace(var,dd,True)
 
-print dd
+print(dd)

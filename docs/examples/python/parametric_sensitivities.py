@@ -109,26 +109,26 @@ solver.setInput(ubg, "ubg")
 solver.evaluate()
   
 # Print the solution
-print "----"
-print "Minimal cost " , solver.getOutput("f")
-print "----"
+print("----")
+print("Minimal cost " , solver.getOutput("f"))
+print("----")
 
-print "Nominal solution"
-print "x = " , solver.output("x").data()
-print "----"
+print("Nominal solution")
+print("x = " , solver.output("x").data())
+print("----")
   
-print "perturbed solution"
+print("perturbed solution")
 var_numeric_md = solver.getStat("var_numeric_md")
-print "x = " , var_numeric_md["sens_sol_state_1"]
-print "----"
+print("x = " , var_numeric_md["sens_sol_state_1"])
+print("----")
   
-print "Dual bound multipliers"
-print "z_L = " , var_numeric_md["sens_sol_state_1_z_L"]
-print "z_U = " , var_numeric_md["sens_sol_state_1_z_U"]
-print "----"
+print("Dual bound multipliers")
+print("z_L = " , var_numeric_md["sens_sol_state_1_z_L"])
+print("z_U = " , var_numeric_md["sens_sol_state_1_z_U"])
+print("----")
   
-print "Constraint multipliers"
+print("Constraint multipliers")
 con_numeric_md = solver.getStat("con_numeric_md")
-print "lambda = " , con_numeric_md["sens_sol_state_1"]
-print "----"
+print("lambda = " , con_numeric_md["sens_sol_state_1"])
+print("----")
   

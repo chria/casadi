@@ -65,7 +65,7 @@ CM = []
 SM = []
 
 for sol in solvers:
-  print "testing ", sol
+  print("testing ", sol)
   dur_build = []
   dur_convert = []
   dur_operation = []
@@ -143,16 +143,16 @@ for sol in solvers:
     dur_operation.append(t_operation-t_convert)
     
 
-  print "durations to build:                      ", dur_build
-  print "durations for converting back and forth: ", dur_convert
-  print "durations for operations:                ", dur_operation
-  print "number of non-zeros for the last matrix: ",
+  print("durations to build:                      ", dur_build)
+  print("durations for converting back and forth: ", dur_convert)
+  print("durations for operations:                ", dur_operation)
+  print("number of non-zeros for the last matrix: ", end=' ')
   if sol=="casadi":
-    print M.size()
+    print(M.size())
   else:
-    print M.getnnz()
+    print(M.getnnz())
 
 
 M2_C_S = csr_matrix((M2_C.data(),M2_C.col(),M2_C.rowind()),(M2_C.size1(),M2_C.size2()),dtype=float)
 M2_DIFF = M2_C_S-M2_S
-print "difference is ", repr(M2_DIFF)
+print("difference is ", repr(M2_DIFF))

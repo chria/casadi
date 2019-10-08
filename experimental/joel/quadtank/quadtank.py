@@ -54,8 +54,8 @@ mfile = sfile.extract('modelDescription.xml','.')
 parser = FMIParser('modelDescription.xml')
 
 # Dump representation to screen
-print "XML representation"
-print parser
+print("XML representation")
+print(parser)
 
 # Obtain the symbolic representation of the OCP
 ocp = parser.parse()
@@ -64,13 +64,13 @@ ocp = parser.parse()
 ocp.sortBLT()
 
 # Print the ocp to screen
-print ocp
+print(ocp)
 
 # Make explicit
 ocp.makeExplicit()
   
 # Print again
-print ocp
+print(ocp)
 
 # The right hand side of the ACADO functions
 acado_in = ACADO_FCN_NUM_IN * [[]]
@@ -160,11 +160,11 @@ ocp_solver.solve()
 
 # Optimal cost
 cost = ocp_solver.getOutputData(ACADO_COST)[0]
-print "optimal cost = ", cost
+print("optimal cost = ", cost)
 
 # Print optimal parameters
 popt = ocp_solver.getOutputData(ACADO_P_OPT)
-print "optimal parameter values = ", popt
+print("optimal parameter values = ", popt)
 
 # Time grid
 t_opt = linspace(0,ocp.tf,num_nodes+1)

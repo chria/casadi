@@ -71,7 +71,7 @@ v_lb = NP.concatenate([NPvec(x_lb),NPvec(y_lb)])
 v_ub = NP.concatenate([NPvec(x_ub),NPvec(y_ub)])
 v_guess = NP.concatenate([NPvec(x_guess),NPvec(y_guess)])
 
-print "vars ok"
+print("vars ok")
 
 # Objective function
 f = 0
@@ -83,7 +83,7 @@ for t in range(1,n+1):
     f += (y[t-1,i-1] + 0.25)**4
 
 ffcn = SXFunction([v],[f])
-print "obj ok"
+print("obj ok")
 
 # Constraint functions
 cons1 = []
@@ -99,7 +99,7 @@ for t in range(1,n):
   cons1_lb.append(0)
   cons1_ub.append(0)
 
-print "cons1"
+print("cons1")
 
 cons2 = []
 cons2_lb = []
@@ -115,7 +115,7 @@ for t in range(1,n):
     cons2_lb.append(0)
     cons2_ub.append(0)
 
-print "cons2"
+print("cons2")
 
 cons3 = []
 cons3_lb = []
@@ -130,7 +130,7 @@ for t in range(1,n):
   cons3_lb.append(0)
   cons3_ub.append(0)
 
-print "cons3"
+print("cons3")
 
 g = vertcat([cons1,cons2,cons3])
 g_lb = NP.concatenate([cons1_lb,cons2_lb,cons3_lb])
@@ -139,7 +139,7 @@ g_ub = NP.concatenate([cons1_ub,cons2_ub,cons3_ub])
 gfcn = SXFunction([v],[g])
 
 # NLP solver
-print "ipopt"
+print("ipopt")
 nlp_solver = IpoptSolver(ffcn,gfcn)
 #nlp_solver.setOption("verbose",True)
 #nlp_solver.setOption("max_iter",10)

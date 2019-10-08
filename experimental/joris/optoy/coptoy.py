@@ -154,7 +154,7 @@ def minimize(f,gl=[],verbose=False):
     elif g.isOperation(OP_EQ):
       g_eq.append(g.getDep(0)-g.getDep(1))
     else:
-      print g
+      print(g)
       raise Exception("Constrained type unknown. Use ==, >= or <= .")
       
   # Get an exhausive list of all casadi symbols that make up f and gl

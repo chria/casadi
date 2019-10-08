@@ -1006,7 +1006,7 @@ class MatrixStruct(CasadiStructured,MasterGettable,MasterSettable):
     elif data is None:
       self.master = mtype.nan(self.size,1)
     else:
-      print type(data), data.__class__
+      print(type(data), data.__class__)
       self.master = mtype(data)
       
     if self.master.shape[0]!=self.size:

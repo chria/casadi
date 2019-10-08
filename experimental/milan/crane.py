@@ -63,11 +63,11 @@ w = ssym("w",6)         # disturbances
 
 # State vector
 x = vertcat((xT,vT,xL,vL,theta,omega,uT,uL))
-print "x = ", x
+print("x = ", x)
 
 # Controls
 u = vertcat((duT,duL,w))
-print "u = ", u
+print("u = ", u)
 
 # Set up the MPC - Optimal control problem
 t0 = 0.0
@@ -110,7 +110,7 @@ dot_omega = 1.0 / xL * (-g * sin( theta ) - aT * cos( theta ) - 2 * vL * omega -
 dot_uT = duT
 dot_uL = duL
 xdot = vertcat((dot_xT,dot_vT,dot_xL,dot_vL,dot_theta,dot_omega,dot_uT,dot_uL))
-print "xdot = ", xdot
+print("xdot = ", xdot)
 
 # ODE right hand side function
 f = SXFunction([x,u],[xdot])
@@ -119,12 +119,12 @@ f.init()
 # Create an expression for the Jacobian of rhs with respect to x
 df_dx = f.jac(0,0)
 makeDense(df_dx) # make the expression dense
-print "df_dx = ", df_dx
+print("df_dx = ", df_dx)
 
 # Create an expression for the Jacobian of rhs with respect to u
 df_du = f.jac(1,0)
 makeDense(df_du) # make the expression dense
-print "df_du = ", df_du
+print("df_du = ", df_du)
 
 # Create a function which evaluates f, df_dx and df_du
 jac_f = SXFunction([x,u],[xdot,df_dx,df_du])

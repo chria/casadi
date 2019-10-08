@@ -61,14 +61,14 @@ mfile = sfile.extract('modelDescription.xml','.')
 parser = FMIParser('modelDescription.xml')
 
 # Dump representation to screen
-print "XML representation"
-print parser
+print("XML representation")
+print(parser)
 
 # Obtain the symbolic representation of the OCP
 ocp = parser.parse()
 
 # Print the ocp to screen
-print ocp
+print(ocp)
 
 # Convert stl vector of variables to an array of expressions
 def toArray(v, der=False):
@@ -100,10 +100,10 @@ xa_sca = getNominal(ocp.xa_)
 u_sca = getNominal(ocp.u_)
 p_sca = getNominal(ocp.p_)
 
-print "x_sca = ", repr(x_sca)
-print "xa_sca = ", repr(xa_sca)
-print "u_sca = ", repr(u_sca)
-print "p_sca = ", repr(p_sca)
+print("x_sca = ", repr(x_sca))
+print("xa_sca = ", repr(xa_sca))
+print("u_sca = ", repr(u_sca))
+print("p_sca = ", repr(p_sca))
 
 # The old variables expressed in the normalized variables
 x_old = x_sca*x
@@ -257,15 +257,15 @@ t1 = time.time()
 ocp_solver.solve()
 t2 = time.time()
 
-print 'Optimization took %0.3f ms' % ((t2-t1)*1000.0)
+print('Optimization took %0.3f ms' % ((t2-t1)*1000.0))
 
 # Print optimal cost
 cost = ocp_solver.getOutput("cost")[0]
-print "optimal cost = ", cost
+print("optimal cost = ", cost)
 
 # Print optimal parameters
 popt = ocp_solver.getOutput("p_opt")
-print "optimal parameter values = ", popt
+print("optimal parameter values = ", popt)
 
 # Time grid
 t_opt = NP.linspace(0,ocp.tf,num_nodes+1)
@@ -291,9 +291,9 @@ plt.plot(t_opt,x_opt[:,1])
 plt.subplot(3,1,3)
 plt.plot(t_opt,x_opt[:,2])
 
-print repr(t_opt)
-print repr(x_opt)
-print repr(u_opt)
+print(repr(t_opt))
+print(repr(x_opt))
+print(repr(u_opt))
 
 
 

@@ -41,7 +41,7 @@ def update_source(filename, oldcopyright, copyright):
         if (fdata.startswith(oldcopyright)):
             fdata = fdata[len(oldcopyright):]
     if not (fdata.startswith(copyright)):
-        print "updating "+filename
+        print("updating "+filename)
         fdata = copyright + fdata
         if (isUTF):
             file(filename,"w").write(utfstr+fdata)
@@ -51,7 +51,7 @@ def update_source(filename, oldcopyright, copyright):
 def recursive_traversal(dir,  oldcopyright, copyright):
     global excludedir
     fns = os.listdir(dir)
-    print "listing "+dir
+    print("listing "+dir)
     for fn in fns:
         fullfn = os.path.join(dir,fn)
         if (fullfn in excludedir):

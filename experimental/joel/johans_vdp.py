@@ -43,8 +43,8 @@ oc.set_boolean_option('generate_xml_equations',True)
 parser = casadi.FMIParser('/home/janderss/dev/OPTICON-SOFTWARE/swig_interface/test/xml_files/VDP_pack_VDP_Opt.xml')
 
 # Dump representation to screen
-print "XML representation"
-print parser
+print("XML representation")
+print(parser)
 
 # Obtain the symbolic representation of the OCP
 ocp = parser.parse()
@@ -53,7 +53,7 @@ ocp = parser.parse()
 ocp.sortVariables()
 
 # Print the ocp to screen
-print ocp
+print(ocp)
 
 # Make explicit
 #ocp.makeExplicit()

@@ -120,6 +120,6 @@ if __name__ == "__main__":
 	# Convert to casadi!
 	y_sympy = y
 	y_casadi = sympy2casadi(y_sympy)
-	print y
-	print y_casadi
+	print(y)
+	print(y_casadi)
 

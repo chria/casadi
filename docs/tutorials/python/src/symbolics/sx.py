@@ -32,50 +32,50 @@ from numpy import *
 #! Always provide a name to your symbols.
 #! This name is not used for identification, only for printing.
 a = SX.sym("z")
-print type(a)
-print a
+print(type(a))
+print(a)
 #! You can explicitely create constant SX objects as follows
 c = SX(5)
-print c
+print(c)
 #! Scalar algebra
 #! --------------------------
 #! Any operations on SX objects return SX objects.
 x = SX.sym("x")
 y = SX.sym("y")
 c = x+y
-print type(c)
-print c
+print(type(c))
+print(c)
 #! While you construct ever complex expressions, 
 #! a graph of SX objects is created.
 d = c*2 + x
-print d
+print(d)
 #! Note that, by itself, CasADi does very little expansions or simplifications of expressions.
 #! Only simplifications that do not to introduce new nodes to the graph are allowed.
-print d-x
-print simplify(d-x)
-print SX(5) + SX(7)
-print 0*x + 0*y
-print 1*x
+print(d-x)
+print(simplify(d-x))
+print(SX(5) + SX(7))
+print(0*x + 0*y)
+print(1*x)
 #! SXElement objects are immutable entities.
 #! The assignment and update operators are really creating new object instead of modifying the old ones.
-print "object address before: %d" % id(d)
+print("object address before: %d" % id(d))
 d = d - x
-print d
-print "object address after: %d" % id(d)
+print(d)
+print("object address after: %d" % id(d))
 #! Consequently, updates and assignements don't have side effects for other SXElement objects
 f = x + y
 x *= 2
-print x
-print f
-print x+y
+print(x)
+print(f)
+print(x+y)
 #! Expression substitution
 #! ------------------------------------
 x=SX.sym("x")
 
 y=x*x
-print y
-print substitute(y,x,SX.sym("w"))
-print y
+print(y)
+print(substitute(y,x,SX.sym("w")))
+print(y)
 #! More operators
 #! ------------------------------
 #! Some familiar mathematical operations are supported that mimic the standard numpy functions:
@@ -84,9 +84,9 @@ print y
 y = sin(x**x)
 
 x=SX.sym("x")
-print type(x>0)
+print(type(x>0))
 t = if_else(x>0,-10,10)
-print t
+print(t)
 #! Note that 'a<b' is treated as '!(a>=b)'
 
 

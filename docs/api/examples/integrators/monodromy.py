@@ -101,7 +101,7 @@ jac.evaluate()
 
 Ji = jac.getOutput()
 
-print Ji
+print(Ji)
 
 #! Note the remainder of this file depends on Jacobian of Simulator,
 #!  a feature that is currently disabled 

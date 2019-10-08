@@ -75,13 +75,13 @@ f.setInput(P_,"p")
 f.setInput(X_,"x")
 f.setInput(Z_,"z")
 f.evaluate()
-print f.getOutput("ode") # This should be same as XDOT_
-print f.getOutput("alg") # This should be all zeros
+print(f.getOutput("ode")) # This should be same as XDOT_
+print(f.getOutput("alg")) # This should be all zeros
 
 
 #! Let's check our jacobian $\frac{dg}{dy}$:
 j = jacobian(alg,lambd)
-print j
+print(j)
 #! Note that the jacobian is not invertible: it is not of DAE-index 1
 #!
 #! This system is not solvable with idas, because it is of DAE-index 3.
@@ -104,7 +104,7 @@ I.setInput(Z_,"z0")
 try:
   I.evaluate()
 except Exception as e:
-  print e
+  print(e)
   
 #! We construct a reworked version od the DAE (index reduced), now it is DAE-index 1
 ode = vertcat([u,lambd*x])
@@ -125,8 +125,8 @@ f.setInput(P_,"p")
 f.setInput(X_,"x")
 f.setInput(Z_,"z")
 f.evaluate()
-print f.getOutput("ode") # This should be the same as XDOT_
-print f.getOutput("alg") # This should be all zeros
+print(f.getOutput("ode")) # This should be the same as XDOT_
+print(f.getOutput("alg")) # This should be all zeros
 
 #! Let's check our jacobian:
 j = f.jacobian("z","alg")
@@ -136,7 +136,7 @@ j.setInput(P_,"p")
 j.setInput(X_,"x")
 j.setInput(Z_,"z")
 j.evaluate()
-print array(j.getOutput())
+print(array(j.getOutput()))
 #! $\frac{dg}{dy}$ is invertible this time.
 
 #! We create a DAE system solver
@@ -152,7 +152,7 @@ I.setInput(X_,"x0")
 I.setInput(Z_,"z0")
 I.evaluate()
 
-print I.getOutput("xf")
+print(I.getOutput("xf"))
 
 
 #! Possible problems
@@ -169,7 +169,7 @@ I.setInput(Z_,"z0")
 try:
   I.evaluate()
 except Exception as e:
-  print e 
+  print(e) 
 
 #! Although this initialisation is consistent,
 #! it coincides with a singular point.

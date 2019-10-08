@@ -73,7 +73,7 @@ for j in range(1,ny+1):
   f += y[n-1,j-1]**2
 
 ffcn = SXFunction([v],[f])
-print "obj ok"
+print("obj ok")
 
 # Constraint functions
 cons1 = []
@@ -89,7 +89,7 @@ for t in range(1,n):
     cons1_lb.append(0)
     cons1_ub.append(0)
     
-print "cons3"
+print("cons3")
 
 g = vertcat(cons1)
 g_lb = NP.array(cons1_lb)
@@ -98,7 +98,7 @@ g_ub = NP.array(cons1_ub)
 gfcn = SXFunction([v],[g])
 
 # NLP solver
-print "ipopt"
+print("ipopt")
 nlp_solver = IpoptSolver(ffcn,gfcn)
 #nlp_solver.setOption("verbose",True)
 #nlp_solver.setOption("max_iter",10)

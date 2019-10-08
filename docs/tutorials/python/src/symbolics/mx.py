@@ -29,19 +29,19 @@ from casadi import *
 #! Let's start with some algebra
 x = MX.sym("x",2,3)
 y = MX.sym("y",3,2)
-print x
+print(x)
 for i in range(6):
-	print x.nz[i]
+	print(x.nz[i])
 
 for i in range(2):
 	for j in range(3):
-		print "x[%d,%d] = %s" % (i,j,str(x[i,j]))
+		print("x[%d,%d] = %s" % (i,j,str(x[i,j])))
 		
-print x[1,1]
-print x.nz[3] # Note that index is flattened. x[0,0] is illegal.
-print norm_2(x)
+print(x[1,1])
+print(x.nz[3]) # Note that index is flattened. x[0,0] is illegal.
+print(norm_2(x))
 z= mul(x,y)
-print z
+print(z)
 #! Note how the operations on MXes are lazy on the matrix level.
 #! Any elementwise logic is postponed until evaluation demands it.
 #! Just like, SXFunction, MXFunction can be single or multi input/output.
@@ -56,11 +56,11 @@ f.setInput([1,2,3,4,5,6],0);
 f.setInput([1,3,0,6,0,9],1);
 f.evaluate()
 
-print f.getOutput()
+print(f.getOutput())
 #! Note how this result is related to a numpy approach:
 a=matrix(f.getInput(0)).reshape(3,2)
 b=matrix(f.getInput(1)).reshape(2,3)
-print a.T*b.T
+print(a.T*b.T)
 #! Jacobian
 #! -------------
 #! BUG error
@@ -70,21 +70,21 @@ print a.T*b.T
 #! Numerical matrices
 #! ------------------------------
 X = MX(DMatrix(array([[1,2,3],[4,5,6]])))
-print X
-print outer_prod(X,X)
-print MX(DMatrix([1,2,3]).T)
-print MX([1,2,3])
+print(X)
+print(outer_prod(X,X))
+print(MX(DMatrix([1,2,3]).T))
+print(MX([1,2,3]))
 #! As before, evaluation is lazy on the matrix level
 Y = MX.sym("Y")
 f = MXFunction([Y],[X])
 f.init()
 f.setInput([2])
 f.evaluate()
-print f.getOutput()
+print(f.getOutput())
 
 #! Element assignement
 #! -------------------
 X = MX.sym("x",2,2)
 X[0,0]=MX(5)
-print X
+print(X)
  

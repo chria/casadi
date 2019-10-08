@@ -117,7 +117,7 @@ try:
   LrDleSolver.loadPlugin("smith")
   lrdplesolvers.append(("lifting",{"lrdle_solver": "smith", "form": "B", "lrdle_solver_options": {"max_iter":100,"tol": 1e-13}}))
 except Exception as e:
-  print e
+  print(e)
   pass
 
 
@@ -206,13 +206,13 @@ except:
   pass
 """
   
-print "DpleSolvers", len(dplesolvers), dplesolvers
-print "DleSolvers", len(dlesolvers), dlesolvers
-print "CleSolvers", len(clesolvers), clesolvers
+print("DpleSolvers", len(dplesolvers), dplesolvers)
+print("DleSolvers", len(dlesolvers), dlesolvers)
+print("CleSolvers", len(clesolvers), clesolvers)
 
 
-print "LrDpleSolvers", len(lrdplesolvers),  lrdplesolvers
-print "LrDleSolvers", len(lrdlesolvers), lrdlesolvers
+print("LrDpleSolvers", len(lrdplesolvers),  lrdplesolvers)
+print("LrDleSolvers", len(lrdlesolvers), lrdlesolvers)
 
 if not args.run_slow:
   dplesolvers = dplesolvers[:1]
@@ -237,8 +237,8 @@ class ControlTests(casadiTestCase):
 
     for with_C in [True]:
       for with_H in [True]:
-        print "with_C", with_C
-        print "with_H", with_H
+        print("with_C", with_C)
+        print("with_H", with_H)
         
         numpy.random.seed(1)
         
@@ -272,7 +272,7 @@ class ControlTests(casadiTestCase):
         Vs = V = MX.sym("V",horzcat(V_).sparsity())
         Vs_ = [(i+i.T)/2 for i in horzsplit(V,m)]
         
-        print "Vs_", [i.dimString() for i in Vs_]
+        print("Vs_", [i.dimString() for i in Vs_])
         #V = horzcat([ (i+i.T)/2 for i in Vs_])
 
         N = 100
@@ -316,13 +316,13 @@ class ControlTests(casadiTestCase):
         f.setOption("name","reference")
         f.init()
         
-        print "f",f
+        print("f",f)
         
         
         temp = MXFunction([A],[An])
         temp.init()
         Af_ = temp([horzcat(A_)])[0]
-        print "Af"
+        print("Af")
         Af_.printDense()
         E = numpy.linalg.eig(Af_)[0]
         
@@ -330,20 +330,20 @@ class ControlTests(casadiTestCase):
         
         
         
-        print [ numpy.linalg.eig(i)[0] for i in A_ ] 
+        print([ numpy.linalg.eig(i)[0] for i in A_ ]) 
         
-        print numpy.linalg.eig(mul([i.T for i in reversed(A_)]))[0]
-        print numpy.linalg.eig(mul([i for i in reversed(A_)]))[0]
-        print numpy.linalg.eig(mul([i.T for i in A_]))[0]
-        print numpy.linalg.eig(mul([i for i in A_]))[0]
+        print(numpy.linalg.eig(mul([i.T for i in reversed(A_)]))[0])
+        print(numpy.linalg.eig(mul([i for i in reversed(A_)]))[0])
+        print(numpy.linalg.eig(mul([i.T for i in A_]))[0])
+        print(numpy.linalg.eig(mul([i for i in A_]))[0])
         
         
         for Solver, options in lrdplesolvers:
-          print Solver, options
-          print "c", [i.sparsity() for i in Cs_]
+          print(Solver, options)
+          print("c", [i.sparsity() for i in Cs_])
           g = LrDpleSolver(Solver,lrdpleStruct(a=[i.sparsity() for i in As_],c=[i.sparsity() for i in Cs_],v=[ i.sparsity() for i in Vs_],h=[i.sparsity() for i in Hs_]if with_H else [])  ,[h]*K)
           
-          print g.dictionary()
+          print(g.dictionary())
           g.setOption(options)
           g.init()
           
@@ -372,8 +372,8 @@ class ControlTests(casadiTestCase):
     
     for with_C in [True]:
       for with_H in [True]:
-        print "with_C", with_C
-        print "with_H", with_H
+        print("with_C", with_C)
+        print("with_H", with_H)
         
         n = 5
         
@@ -427,7 +427,7 @@ class ControlTests(casadiTestCase):
         
         
         for Solver, options in lrdlesolvers:
-          print Solver
+          print(Solver)
           g = LrDleSolver(Solver,lrdleStruct(a=A.sparsity(),c=C.sparsity(),v=Vs.sparsity(),h=H.sparsity()),h  if with_H else [])
           g.setOption(options)
           g.init()
@@ -568,9 +568,9 @@ class ControlTests(casadiTestCase):
     for Solver, options in dplesolvers:
       for K in ([1,2,3,4] if args.run_slow else [1,2,3]):
         for n in [2,3]:
-          print Solver, options
+          print(Solver, options)
           numpy.random.seed(1)
-          print (n,K)
+          print((n,K))
           A_ = [randstable(n) for i in range(K)]
           
           V_ = [mul(v,v.T) for v in [DMatrix(numpy.random.random((n,n))) for i in range(K)]]
@@ -642,9 +642,9 @@ class ControlTests(casadiTestCase):
           if "lifting" in Solver and "dple.slicot" in Solver+str(options)  and K>4: continue
           # Somehow, for K>4 we are constructing a system that slicot fails to solve properly
           
-          print Solver, options
+          print(Solver, options)
           numpy.random.seed(1)
-          print (n,K)
+          print((n,K))
           A_ = [randstable(n) for i in range(K)]
           
           V_ = [mul(v,v.T) for v in [DMatrix(numpy.random.random((n,n))) for i in range(K)]]
@@ -658,7 +658,7 @@ class ControlTests(casadiTestCase):
           
           t0 = time.time()
           solver.evaluate()
-          print "eval [ms]: ", (time.time()-t0)*1000
+          print("eval [ms]: ", (time.time()-t0)*1000)
           X = list(horzsplit(solver.getOutput(),n))
 
           def sigma(a):
@@ -693,5 +693,5 @@ class ControlTests(casadiTestCase):
           self.checkarray(mul(z.T,z),DMatrix.eye(n))
           
 if __name__ == '__main__':
-    print sys.argv
+    print(sys.argv)
     unittest.main()

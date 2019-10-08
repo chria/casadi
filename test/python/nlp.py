@@ -36,21 +36,21 @@ solvers= []
 try:
   NlpSolver.loadPlugin("worhp")
   solvers.append(("worhp",{}))
-  print "Will test worhp"
+  print("Will test worhp")
 except:
   pass
   
 try:
   NlpSolver.loadPlugin("ipopt")
   solvers.append(("ipopt",{}))
-  print "Will test ipopt"
+  print("Will test ipopt")
 except:
   pass
 
 try:
   NlpSolver.loadPlugin("snopt")
   solvers.append(("snopt",{"Verify level": 3,"detect_linear": True,"Major optimality tolerance":1e-12,"Minor feasibility tolerance":1e-12,"Major feasibility tolerance":1e-12}))
-  print "Will test snopt"
+  print("Will test snopt")
 except:
   pass
 
@@ -59,7 +59,7 @@ try:
   NlpSolver.loadPlugin("sqpmethod")
   qp_solver_options = {"nlp_solver": "ipopt", "nlp_solver_options": {"tol": 1e-12} }
   solvers.append(("sqpmethod",{"qp_solver": "nlp","qp_solver_options": qp_solver_options}))
-  print "Will test sqpmethod"
+  print("Will test sqpmethod")
 except:
   pass
   
@@ -68,7 +68,7 @@ try:
   NlpSolver.loadPlugin("stabilizedsqp")
   qp_solver_options = {"nlp_solver": "ipopt", "nlp_solver_options": {"tol": 1e-12, "print_level": 0, "print_time": False} }
   solvers.append(("stabilizedsqp",{"tol_pr": 1e-9, "tol_du": 1e-9,"stabilized_qp_solver": "qp", "stabilized_qp_solver_options": {"qp_solver": "nlp", "qp_solver_options": qp_solver_options}}))
-  print "Will test stabilizedsqp"
+  print("Will test stabilizedsqp")
 except:
   pass
   
@@ -77,7 +77,7 @@ try:
   QpSolver.loadPlugin("sqic")
   NlpSolver.loadPlugin("stabilizedsqp")
   solvers.append(("stabilizedsqp",{"tol_pr": 1e-9, "tol_du": 1e-9,"stabilized_qp_solver": "qp", "stabilized_qp_solver_options": {"qp_solver": "sqic"}}))
-  print "Will test stabilizedsqp"
+  print("Will test stabilizedsqp")
 except:
   pass
 
@@ -316,7 +316,7 @@ class NLPtests(casadiTestCase):
     h.setInput(-40,1)
     h.setInput(1,2)
     h.evaluate()
-    print h.getOutput()
+    print(h.getOutput())
     
     solver = None
     for Solver, solver_options in solvers:
@@ -732,9 +732,9 @@ class NLPtests(casadiTestCase):
       solver.setInput([-10]*N,"lbg")
       solver.setInput([10]*N,"ubg")
       solver.evaluate()
-      print "residuals"
-      print array(solver.getOutput("x")).squeeze()-x0
-      print "bazmeg", solver.getOutput("f")
+      print("residuals")
+      print(array(solver.getOutput("x")).squeeze()-x0)
+      print("bazmeg", solver.getOutput("f"))
       self.assertAlmostEqual(solver.getOutput("f")[0],0,10,str(Solver))
       self.checkarray(array(solver.getOutput("x")).squeeze(),x0,str(Solver),digits=8)
       self.checkarray(solver.getOutput("lam_x"),DMatrix([0]*10),8,str(Solver),digits=8)
@@ -1521,5 +1521,5 @@ class NLPtests(casadiTestCase):
       
 if __name__ == '__main__':
     unittest.main()
-    print solvers
+    print(solvers)
 

@@ -65,7 +65,7 @@ ipopt.setInput(0,"ubg")
 ipopt.solve()
 
 
-print "reference sol= ", ipopt.output("x")
+print("reference sol= ", ipopt.output("x"))
 
 g = DMatrix(0,1)
 
@@ -82,7 +82,7 @@ Lambda_k = DMatrix([0])
 x_k = DMatrix([2,3])
 
 for i in range(25):
-  print i, x_k
+  print(i, x_k)
   oracle.setInput(x_k,"x")
   oracle.setInput(lambda_k,"lambd")
   oracle.setInput(Lambda_k,"Lambd")
@@ -92,4 +92,4 @@ for i in range(25):
    
   x_k+= step
   
-print linalg.eig(oracle.output("nsd"))[0]
+print(linalg.eig(oracle.output("nsd"))[0])

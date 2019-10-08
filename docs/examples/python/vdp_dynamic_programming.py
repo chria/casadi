@@ -130,7 +130,7 @@ for k in range(N):
   x2_opt.append(x2[i2])
 
 # Optimal cost
-print "Minimal cost: ", cost
+print("Minimal cost: ", cost)
 assert abs(cost-J[NX-1,NX/2])<1e-8 # Consistency check
 
 # Plot

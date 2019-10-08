@@ -57,7 +57,7 @@ def addExtra(metadata):
     i = NlpSolver("ipopt", f)
     extra(metadata,i,"IpoptInterface")
   except Exception as e:
-    print e 
+    print(e) 
   
   x=SX.sym("x")
   f = SXFunction(nlpIn(x=x),nlpOut(f=x**2))
@@ -67,7 +67,7 @@ def addExtra(metadata):
     i = NlpSolver("worhp", f)
     extra(metadata,i,"WorhpInterface")
   except Exception as e:
-    print e
+    print(e)
     
   x=SX.sym("x")
   f = SXFunction(nlpIn(x=x),nlpOut(f=x**2))
@@ -77,12 +77,12 @@ def addExtra(metadata):
     i = NlpSolver("snopt", f)
     extra(metadata,i,"SnoptInterface")
   except Exception as e:
-    print e
+    print(e)
  
   try:
     i = QpSolver("qpoases", qpStruct(h=Sparsity.dense(3,3),a=Sparsity.dense(1,3)))
     extra(metadata,i,"QpoasesInterface")
   except Exception as e:
-    print e
+    print(e)
     
 

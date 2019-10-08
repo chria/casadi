@@ -29,12 +29,12 @@ from structure import repeated, entry, struct_symSX, struct_symMX, struct_SX, st
 from io import nice_stdout, capture_stdout
 
 def print_subclasses(myclass, depth=0):
-  print ("  " * depth) + " - " + myclass.__name__
+  print(("  " * depth) + " - " + myclass.__name__)
   for s in myclass.__subclasses__():
     print_subclasses(s,depth=depth+1)
     
 def loadAllCompiledPlugins():
   for k in CasadiMeta.getPlugins().split(";"):
     cls, name = k.split("::")
-    print "Testing: ", cls, name
+    print("Testing: ", cls, name)
     getattr(casadi,cls).loadPlugin(name)

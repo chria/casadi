@@ -108,7 +108,7 @@ for j in range(num_eulersteps):
 f = MXFunction([p,uk,vk,hk],[u,v,h])
 f.init()
 
-print "generated discrete dynamics"
+print("generated discrete dynamics")
 
 # Allocate memory
 u = copy.deepcopy(u0)
@@ -158,7 +158,7 @@ for k in range(num_measurements):
   # Save a copy of h
   h_meas.append(copy.deepcopy(h))
 
-print "measurements generated"
+print("measurements generated")
 
 # Parameters in the single shooting problem
 x = msym("x",2)
