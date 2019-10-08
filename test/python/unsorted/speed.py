@@ -146,7 +146,7 @@ for sol in solvers:
   print("durations to build:                      ", dur_build)
   print("durations for converting back and forth: ", dur_convert)
   print("durations for operations:                ", dur_operation)
-  print("number of non-zeros for the last matrix: ", end=' ')
+  print("number of non-zeros for the last matrix: ")
   if sol=="casadi":
     print(M.size())
   else:

@@ -13,7 +13,7 @@ alldata = []
 for d in data[:1]:
 
   H = d["H"]
-  nlp = createNLP(DMatrix([[1.2,0.3],[0.7,1.3]]),DMatrix([[0.2,0.4],[0.77,0.12]],lift=True,simple=False)
+  nlp = createNLP(DMatrix([[1.2,0.3],[0.7,1.3]]),DMatrix([[0.2,0.4],[0.77,0.12]],lift=True,simple=False))
   
   log = []
   dists = []

@@ -390,12 +390,8 @@ for (i,x0) in enumerate([0.08]):
   plt.grid(True)
 
   
-print "u_k = ", u_k
-<<<<<<< HEAD
-print "nlp_solver.getOutput("x_opt") = ", nlp_solver.getOutput("x_opt")
-=======
-print "nlp_solver.getOutput(NLP_SOLVER_X) = ", nlp_solver.getOutput(NLP_SOLVER_X)
->>>>>>> issue_566
+print("u_k = ", u_k)
+print("nlp_solver.getOutput(NLP_SOLVER_X) = ", nlp_solver.getOutput(NLP_SOLVER_X))
 
 plt.show()
 
