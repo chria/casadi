@@ -155,7 +155,7 @@ def monkeypatch(v,cl=True):
           name = name.replace(".__call__","")
         else:
           name = "method"
-        ne = NotImplementedError(pythonify(s)+"You have: %s(%s)\n" % (name,", ".join(map(type_descr,args[1:] if cl else args)+ ["%s=%s" % (k,type_descr(vv)) for k,vv in list(kwargs.items())])))
+        ne = NotImplementedError(pythonify(s)+"You have: %s(%s)\n" % (name,", ".join(list(map(type_descr,args[1:] if cl else args))+ ["%s=%s" % (k,type_descr(vv)) for k,vv in list(kwargs.items())])))
         raise ne.__class__, ne, exc_info[2].tb_next
       else:
         raise exc_info[1], None, exc_info[2].tb_next
@@ -192,7 +192,7 @@ def monkeypatch(v,cl=True):
         raise ne.__class__, ne, exc_info[2].tb_next
       else:
         s = e.args[0]
-        ne = TypeError(s+"\nYou have: (%s)\n" % (", ".join(map(type_descr,args[1:] if cl else args) + ["%s=%s" % (k,type_descr(vv)) for k,vv in list(kwargs.items())]  )))
+        ne = TypeError(s+"\nYou have: (%s)\n" % (", ".join(list(map(type_descr,args[1:] if cl else args)) + ["%s=%s" % (k,type_descr(vv)) for k,vv in list(kwargs.items())]  )))
         raise ne.__class__, ne, exc_info[2].tb_next
     except Exception as e:
       import sys

@@ -73,7 +73,7 @@ for root, dirs, files in os.walk(src):
 	for name in files:
 		if '.svn' in dirs:
 			dirs.remove('.svn') # don't visit svn folders
-		if len(args)>0 and all(map(lambda a: name.find(a)==-1,args)):
+		if len(args)>0 and all([name.find(a)==-1 for a in args]):
 			continue
 		if name.endswith('.py') and name!="temp.py":
 			relroot=os.path.relpath(root,src)

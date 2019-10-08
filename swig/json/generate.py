@@ -268,7 +268,7 @@ for d in r.findall('*//namespace/cdecl'):
 treedata = {"treeClasses": [],"treeFunctions": [], "treeEnums": {}}
 
 code = sum([[i for i in x.attrib["value"].split("\n") if len(i.rstrip())> 0] for x in r.findall("*//insert/attributelist/attribute[@name='code']")],[])
-treedata['treeIncludes'] = sorted(set(map(lambda x: x.rstrip(), [y for y in code if re.search("^\s*#include ",y)])))
+treedata['treeIncludes'] = sorted(set([x.rstrip() for x in [y for y in code if re.search("^\s*#include ",y)]]))
 
 def getAllMethods(name,base=None):
   if base is None:

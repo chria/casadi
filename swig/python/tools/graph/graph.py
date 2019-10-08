@@ -97,7 +97,7 @@ class DotArtist:
     sp = s.sparsity()
     deps = getDeps(s)
     if nzlabels is None:
-      nzlabels = map(str,range(sp.size()))
+      nzlabels = list(map(str,range(sp.size())))
     nzlabelcounter = 0
     if s.size()==s.numel():
       graph.add_node(pydot.Node(id,label="%d x %d" % (s.size1(),s.size2()),shape='rectangle',color=self.sparsitycol,style="filled"))

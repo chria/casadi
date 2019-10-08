@@ -106,7 +106,7 @@ for v in list(metadata.values()): # Remove templating if not in index.xml
 def parents(name):
   if name not in metadata:
     return []
-  return metadata[name]['parents'] + sum(map(parents,metadata[name]['parents']),[])
+  return metadata[name]['parents'] + sum(list(map(parents,metadata[name]['parents'])),[])
 
 # Fill in 'hierarchy'
 for k in list(metadata.keys()):

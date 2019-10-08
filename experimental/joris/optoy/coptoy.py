@@ -190,7 +190,7 @@ def minimize(f,gl=[],verbose=False):
   def linear(g):
     return jacobian(g,X),substitute(g,X,DMatrix.zeros(X.size))
   
-  (A_le,b_le),(A_eq,b_eq),(A_nsd,b_nsd),(A_f,b_f) = map(linear,G)
+  (A_le,b_le),(A_eq,b_eq),(A_nsd,b_nsd),(A_f,b_f) = list(map(linear,G))
   
   if A_le.shape[1]==0:
     A_le = DMatrix.zeros(0,X.size)

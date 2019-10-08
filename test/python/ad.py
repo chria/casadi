@@ -157,12 +157,12 @@ class ADtests(casadiTestCase):
             
             y = SX.sym("y",f.input().sparsity())
             
-            fseeds = map(lambda x: DMatrix(f.input().sparsity(),x), seeds)
-            aseeds = map(lambda x: DMatrix(f.output().sparsity(),x), seeds)
+            fseeds = [DMatrix(f.input().sparsity(),x) for x in seeds]
+            aseeds = [DMatrix(f.output().sparsity(),x) for x in seeds]
             with internalAPI():
-              res,fwdsens,adjsens = f.callDerivative([y],map(lambda x: [x],fseeds),map(lambda x: [x],aseeds))
-            fwdsens = map(lambda x: x[0],fwdsens)
-            adjsens = map(lambda x: x[0],adjsens)
+              res,fwdsens,adjsens = f.callDerivative([y],[[x] for x in fseeds],[[x] for x in aseeds])
+            fwdsens = [x[0] for x in fwdsens]
+            adjsens = [x[0] for x in adjsens]
             
             fe = SXFunction([y],res)
             fe.init()
@@ -204,12 +204,12 @@ class ADtests(casadiTestCase):
             
             y = MX.sym("y",f.input().sparsity())
             
-            fseeds = map(lambda x: DMatrix(f.input().sparsity(),x), seeds)
-            aseeds = map(lambda x: DMatrix(f.output().sparsity(),x), seeds)
+            fseeds = [DMatrix(f.input().sparsity(),x) for x in seeds]
+            aseeds = [DMatrix(f.output().sparsity(),x) for x in seeds]
             with internalAPI():
-              res,fwdsens,adjsens = f.callDerivative([y],map(lambda x: [x],fseeds),map(lambda x: [x],aseeds),True)
-            fwdsens = map(lambda x: x[0],fwdsens)
-            adjsens = map(lambda x: x[0],adjsens)
+              res,fwdsens,adjsens = f.callDerivative([y],[[x] for x in fseeds],[[x] for x in aseeds],True)
+            fwdsens = [x[0] for x in fwdsens]
+            adjsens = [x[0] for x in adjsens]
             
             fe = MXFunction([y],res)
             fe.init()
@@ -252,12 +252,12 @@ class ADtests(casadiTestCase):
             
             y = SX.sym("y",f.input().sparsity())
             
-            fseeds = map(lambda x: DMatrix(f.input().sparsity(),x), seeds)
-            aseeds = map(lambda x: DMatrix(f.output().sparsity(),x), seeds)
+            fseeds = [DMatrix(f.input().sparsity(),x) for x in seeds]
+            aseeds = [DMatrix(f.output().sparsity(),x) for x in seeds]
             with internalAPI():
-              res,fwdsens,adjsens = f.callDerivative([y],map(lambda x: [x],fseeds),map(lambda x: [x],aseeds))
-            fwdsens = map(lambda x: x[0],fwdsens)
-            adjsens = map(lambda x: x[0],adjsens)
+              res,fwdsens,adjsens = f.callDerivative([y],[[x] for x in fseeds],[[x] for x in aseeds])
+            fwdsens = [x[0] for x in fwdsens]
+            adjsens = [x[0] for x in adjsens]
             
             fe = SXFunction([y],res)
             fe.init()

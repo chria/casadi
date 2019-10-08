@@ -72,7 +72,7 @@ def listindices(dims,nest=False):
       return combine(lpack(range(dims[0])),tail)
 
 def intersperseIt(*args):
-  iterators = map(iter,args)
+  iterators = list(map(iter,args))
   active = [True]*len(args)
   i = 0
   while any(active):
@@ -87,7 +87,7 @@ def intersperse(*args):
    
 def canonicalIndexAncestors(ind):
   if len(ind)==0: return []
-  return [ind] + canonicalIndexAncestors(ind[:-(map(isString,ind[::-1]).index(True)+1)])
+  return [ind] + canonicalIndexAncestors(ind[:-(list(map(isString,ind[::-1])).index(True)+1)])
 
 def canonical(ind,s):
   if ind < 0:
@@ -97,7 +97,7 @@ def canonical(ind,s):
     
 def vec(e):
   if any(isinstance(i,list) for i in e):
-    return sum(map(vec,e),[])
+    return sum(list(map(vec,e)),[])
   else:
     return e
     
@@ -1162,7 +1162,7 @@ class CasadiStructEntry(StructEntry):
     if 'repeat' in kwargs:
       self.repeat = kwargs["repeat"] if isinstance(kwargs["repeat"],list) else [kwargs["repeat"]]
     
-    if not all(map(lambda x: isInteger(x),self.repeat)):
+    if not all([isInteger(x) for x in self.repeat]):
       raise Exception("The 'repeat' argument, if present, must be a list of integers, but got %s" % str(self.repeat))
 
       
@@ -1293,7 +1293,7 @@ class EntryList:
     
     for e in arg:
       if isinstance(e,tuple):
-        entries = map(entry,e)
+        entries = list(map(entry,e))
         self.order.append(tuple(x.name for x in entries))
         self.entries+=entries
       else:
@@ -1307,7 +1307,7 @@ class EntryList:
         raise Exception("You supplied an order by using tuple syntax on entries %s, but you overwrite it with the 'order' keyword. Use one or the other, not both.")
       self.order = order
       
-    self.names = map(lambda x : x.name,self.entries)
+    self.names = [x.name for x in self.entries]
     if len(self.names)!=len(set(self.names)):
       duplicates = []
       for i,e in enumerate(self.names):

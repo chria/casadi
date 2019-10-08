@@ -630,9 +630,9 @@ class Toolstests(casadiTestCase):
     x_init['states', int64(0), 'x']
     
   def test_numpyint(self):
-    s = struct_symSX(map(entry, 'xyz')) # OK 
+    s = struct_symSX(list(map(entry, 'xyz'))) # OK 
     print(s['x'])
-    s = struct_symSX(map(entry, u'xyz')) # IndexError: list index out of range
+    s = struct_symSX(list(map(entry, u'xyz'))) # IndexError: list index out of range
     print(s[u'x'])
     
   def test_pickling_null(self):

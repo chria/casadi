@@ -135,7 +135,7 @@ class CASADI_CORE_EXPORT %sIOSchemeVector : public IOSchemeVector<M> {
 """ % (self.enum,self.enum,self.enum)
     #if self.enum.endswith("Struct"):
     #  s+="typedef %sIOSchemeVector<Sparsity> %sure;\n" % (self.enum,self.enum)
-    s+= "\n".join(map(lambda x: ("/// " + x).rstrip(),self.doc.split("\n")))+"\n"
+    s+= "\n".join([("/// " + x).rstrip() for x in self.doc.split("\n")])+"\n"
     s+= "/// \\copydoc scheme_" + self.enum +  "\n"
     s+= "template<class M>" + "\n"
     s+= self.enum + "IOSchemeVector<M> " + self.name + "("
@@ -221,7 +221,7 @@ class CASADI_CORE_EXPORT %sIOSchemeVector : public IOSchemeVector<M> {
     s+= "          all arguments optional\n"
     s+= "     b) %s = %s(arg,%s)\n" % ( ", ".join([name for name, doc, enum in self.entries]), self.name , ", ".join(['"' + name+'"' for name, doc, enum in self.entries]))
     s+= "          all arguments after the first optional\n"
-    s+= "\n".join(map(lambda x: "  " + x.rstrip(),self.getDoc().split("\n"))) + "\n"
+    s+= "\n".join(["  " + x.rstrip() for x in self.getDoc().split("\n")]) + "\n"
     s+= "  Keyword arguments::\n\n"
     maxlenname = max([len(name) for name, doc, enum in self.entries])
     for name, doc, enum in self.entries:
