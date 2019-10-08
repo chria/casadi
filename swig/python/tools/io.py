@@ -74,6 +74,7 @@ def nice_stdout():
 @contextlib.contextmanager
 def capture_stdout():
     import sys
+    # note that this import is from io the standard library and not the current module io
     from io import StringIO
     oldout,olderr = sys.stdout, sys.stderr
     try:
