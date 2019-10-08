@@ -121,7 +121,7 @@ for k,v in functiondict.iteritems():
   v["localtime_sum_external"] = sum([localtime for idnlink, localtime  in zip(v["idnlinks"],v["localtimes_sum"]) if idnlink is not None])
   v["localtime_sum_overhead"] = sum(v["overhead"])
   v["localtime_sum_total"] = sum(v["localtimes_sum"])+v["localtime_sum_overhead"] 
-  v["calls"] = set(filter(lambda x: x is not None,v["idnlinks"]))
+  v["calls"] = set([x for x in v["idnlinks"] if x is not None])
   
   
 graph = pydot.Dot('G', graph_type='digraph',rankdir="LR")

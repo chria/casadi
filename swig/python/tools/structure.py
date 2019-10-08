@@ -322,7 +322,7 @@ class Structure(object):
       return e
       
   def getStructEntryByCanonicalIndex(self,indices):
-    return self.getStructEntryByStructIndex(filter(lambda x: isString(x),indices))
+    return self.getStructEntryByStructIndex([x for x in indices if isString(x)])
 
   def getStruct(self,name):
     if name not in self.struct.dict:
@@ -1102,7 +1102,7 @@ class MXVeccatStruct(CasadiStructured,MasterGettable):
   @property
   def master(self):
     if any(e is None for e in self.storage):
-      missing = filter(lambda k: self.storage[self.mapping[k]] is None,self.mapping.keys())
+      missing = [k for k in self.mapping.keys() if self.storage[self.mapping[k]] is None]
       
       raise Exception("Problem in MX vecNZcat structure cat: missing expressions. The following entries are missing: %s" % str(missing))
       

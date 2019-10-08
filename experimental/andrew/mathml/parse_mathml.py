@@ -46,7 +46,7 @@ if __name__=='__main__':
 	semanticscontents = root.getchildren()[0].getchildren()
 	expressionroots = []
 	for el in semanticscontents:
-		if el.attrib.has_key('encoding') and el.attrib['encoding']=='MathML-Content':
+		if 'encoding' in el.attrib and el.attrib['encoding']=='MathML-Content':
 			expressionroots.append(el)
 	assert len(expressionroots)==1, "Can only handle 1 expression per file!"
 	expressionroot = expressionroots[0]

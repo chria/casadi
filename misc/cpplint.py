@@ -4743,7 +4743,7 @@ def main():
   # This should really be done in cmake.
   # -Greg
   nolint = ['snopt.h', 'snoptProblem.hpp']
-  filenames = filter(lambda x: x not in nolint, filenames)
+  filenames = [x for x in filenames if x not in nolint]
 
   # Change stderr to write with replacement characters so we don't die
   # if we try to print something containing non-ASCII characters.

@@ -267,8 +267,8 @@ for d in r.findall('*//namespace/cdecl'):
 
 treedata = {"treeClasses": [],"treeFunctions": [], "treeEnums": {}}
 
-code = sum([filter(lambda i: len(i.rstrip())> 0 ,x.attrib["value"].split("\n")) for x in r.findall("*//insert/attributelist/attribute[@name='code']")],[])
-treedata['treeIncludes'] = sorted(set(map(lambda x: x.rstrip(), filter(lambda y: re.search("^\s*#include ",y),code))))
+code = sum([[i for i in x.attrib["value"].split("\n") if len(i.rstrip())> 0] for x in r.findall("*//insert/attributelist/attribute[@name='code']")],[])
+treedata['treeIncludes'] = sorted(set(map(lambda x: x.rstrip(), [y for y in code if re.search("^\s*#include ",y)])))
 
 def getAllMethods(name,base=None):
   if base is None:
@@ -281,7 +281,7 @@ def getAllMethods(name,base=None):
   if name!=base:
     #ret = [(dname,params,base if mkind=="Constructor" else rettype,mkind) for (dname,params,rettype,mkind) in ret]
     # Omit baseclass constructors
-    ret = filter(lambda x: x[3]!="Constructor", ret)
+    ret = [x for x in ret if x[3]!="Constructor"]
 
   for b in c["bases"]:
     ret = ret + getAllMethods(b,base)

@@ -237,7 +237,7 @@ class Doxy2SWIG_X(Doxy2SWIG):
                    'detaileddescription', 'includes')
           first = self.get_specific_nodes(node, names)
           for n in names:
-              if first.has_key(n):
+              if n in first:
                   self.parse(first[n])
           self.end_docstring()
           for n in node.childNodes:
@@ -253,7 +253,7 @@ class Doxy2SWIG_X(Doxy2SWIG):
                      'detaileddescription', 'includes')
             first = self.get_specific_nodes(node, names)
             for n in names:
-                if first.has_key(n):
+                if n in first:
                     self.parse(first[n])
             self.end_docstring()
       
@@ -271,7 +271,7 @@ class Doxy2SWIG_X(Doxy2SWIG):
           if name[:8] == 'operator': # Don't handle operators yet.
               return
 
-          if not first.has_key('definition') or \
+          if 'definition' not in first or \
                  kind in ['variable', 'typedef']:
               return
 
@@ -449,8 +449,8 @@ if __name__ == '__main__':
     deprecated = dict()
     groupdoc = dict()
     convert(args[0], args[1], False, options.quiet,internal=internal,deprecated=deprecated,merge=options.merge,groupdoc=groupdoc)
-    file(args[2],'w').write("\n".join(sorted(filter(lambda x: len(x)>0, internal.values()))))
-    file(args[3],'w').write("\n".join(sorted(filter(lambda x: len(x)>0, deprecated.values()))))
+    file(args[2],'w').write("\n".join(sorted([x for x in internal.values() if len(x)>0])))
+    file(args[3],'w').write("\n".join(sorted([x for x in deprecated.values() if len(x)>0])))
     import pickle
     filemap = pickle.load(file('filemap.pkl','r'))
     
