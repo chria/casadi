@@ -1,4 +1,4 @@
-REVISION=$(shell python -c "import casadi;print casadi.__version__")
+REVISION=$(shell python -c "import casadi;print(casadi.__version__)")
 
 default: html pdf
 
