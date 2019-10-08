@@ -29,6 +29,9 @@ import numpy as np
 
 import ctypes
 
+import sys
+python3_flag = True if sys.hexversion > 0x03000000 else False
+
 # add to PATH to make dlopen find the libraries
 if "PATH" in os.environ:
   os.environ["PATH"] = os.path.dirname(__file__) + os.pathsep +  os.environ["PATH"]

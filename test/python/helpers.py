@@ -46,7 +46,7 @@ args = parser.parse_args()
 import sys
 sys.argv[1:] = ['-v'] + args.unittest_args
 
-from StringIO import StringIO
+from io import StringIO
 
 
 class LazyString(object):

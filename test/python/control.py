@@ -30,7 +30,11 @@ from helpers import *
 import random
 import time
 
-import __builtin__
+from casadi import python3_flag
+if python3_flag:
+    import builtins
+else:
+    import __builtin__ as builtins
 import scipy.linalg
 
 clesolvers = []
@@ -251,7 +255,7 @@ class ControlTests(casadiTestCase):
          
         K = 3
 
-        H_ = [DMatrix(numpy.random.random((n,__builtin__.sum(h))))  if with_H else DMatrix() for i in range(K)]
+        H_ = [DMatrix(numpy.random.random((n,builtins.sum(h))))  if with_H else DMatrix() for i in range(K)]
 
         A_ = [ randstable(n,margin=0.2) for i in range(K) ]
   
@@ -260,7 +264,7 @@ class ControlTests(casadiTestCase):
         V_ = [ (i+i.T)/2 for i in V_ ] 
         
         H = MX.sym("H",horzcat(H_).sparsity())
-        Hs_ = horzsplit(H,__builtin__.sum(h))
+        Hs_ = horzsplit(H,builtins.sum(h))
         Hss_ = [ horzsplit(i,Ls) for i in Hs_]
         
         A = MX.sym("A",horzcat(A_).sparsity())
@@ -296,7 +300,7 @@ class ControlTests(casadiTestCase):
 
       
         if with_H:
-          Y = [ blkdiag([ mul([mul(Li.T,DD),blkdiag([Vn]*(N+1)),mul(DD.T,Li)]) for Li in horzsplit(Hnn,Ls)]) for Hnn in horzsplit(Hn,__builtin__.sum(h))]
+          Y = [ blkdiag([ mul([mul(Li.T,DD),blkdiag([Vn]*(N+1)),mul(DD.T,Li)]) for Li in horzsplit(Hnn,Ls)]) for Hnn in horzsplit(Hn,builtins.sum(h))]
         else: 
           Y = diagsplit(mul([DD,blkdiag([Vn]*(N+1)),DD.T]),n)
         
@@ -381,7 +385,7 @@ class ControlTests(casadiTestCase):
         h = [2,3]
         h = [3,1]
 
-        H_ = DMatrix(numpy.random.random((n,__builtin__.sum(h))))  if with_H else DMatrix()
+        H_ = DMatrix(numpy.random.random((n,builtins.sum(h))))  if with_H else DMatrix()
         P_ = numpy.random.random((n,n))
         R_ = numpy.random.random((n,3))
 

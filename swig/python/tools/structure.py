@@ -28,7 +28,11 @@ import numpy as np
 import operator
 import sys
 
-import __builtin__
+from casadi import python3_flag
+if python3_flag:
+    import builtins
+else:
+    import __builtin__ as builtins
 
 def isInteger(a):
   return isinstance(a,int) or isinstance(a,np.integer)
@@ -604,7 +608,7 @@ class SetterDispatcher(Dispatcher):
         else:
           raise Exception("Cannot handle type '%s'." % entry.type)
       except NotImplementedError as e:
-        raise CompatibilityException("Error in canonicalIndex slicing for %s: Incompatible types in a[i]=b with a %s (%s) and b %s (%s) and i %s (%s). Error: %s" % (str(canonicalIndex),str(self.master),str(__builtin__.type(self.master)),str(payload),str(__builtin__.type(payload)),str(i),str(__builtin__.type(i)),str(e)))
+        raise CompatibilityException("Error in canonicalIndex slicing for %s: Incompatible types in a[i]=b with a %s (%s) and b %s (%s) and i %s (%s). Error: %s" % (str(canonicalIndex),str(self.master),str(builtins.type(self.master)),str(payload),str(builtins.type(payload)),str(i),str(builtins.type(i)),str(e)))
       except Exception as e:
         exc_class, exc, tb = sys.exc_info()
         new_exc = Exception("Error in powerIndex slicing for canonicalIndex %s:\n%s" % (str(canonicalIndex),str(e)))

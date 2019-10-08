@@ -29,6 +29,8 @@ from types import *
 from helpers import *
 from copy import deepcopy
 
+from casadi import python3_flag
+
 scipy_available = True
 try:
 	from scipy.sparse import csr_matrix
@@ -2387,21 +2389,24 @@ class MXtests(casadiTestCase):
     self.checkarray(evalvertcat(g+[y]),vertcat([x_[5:],x_[:5],y_]))
     self.checkarray(evalvertcat([z]+g+[y] + g+[z]),vertcat([z_,x_[5:],x_[:5],y_,x_[5:],x_[:5],z_]))
     
-    import __builtin__
+    if python3_flag:
+      import builtins
+    else:
+      import __builtin__ as builtins
 
 
     w = vertsplit(x,2)
-    r = __builtin__.sum([vertsplit(i) for i in w],[])
+    r = builtins.sum([vertsplit(i) for i in w],[])
     
     self.checkarray(evalvertcat(r),x_)
 
     w = vertsplit(x,2)
-    r = __builtin__.sum([vertsplit(i)+[y] for i in w],[])
+    r = builtins.sum([vertsplit(i)+[y] for i in w],[])
     print("vertcat:", r)
     print("result:", vertcat(r))
 
     w = vertsplit(x,2)
-    r = __builtin__.sum([vertsplit(i) for i in w],[])
+    r = builtins.sum([vertsplit(i) for i in w],[])
     print("vertcat:", r)
     print("result:", vertcat(r+[y]))
     
@@ -2438,21 +2443,24 @@ class MXtests(casadiTestCase):
     self.checkarray(evalhorzcat(g+[y]),horzcat([x_[0,5:],x_[0,:5],y_]))
     self.checkarray(evalhorzcat([z]+g+[y] + g+[z]),horzcat([z_,x_[0,5:],x_[0,:5],y_,x_[0,5:],x_[0,:5],z_]))
     
-    import __builtin__
+    if python3_flag:
+      import builtins
+    else:
+      import __builtin__ as builtins
 
 
     w = horzsplit(x,2)
-    r = __builtin__.sum([horzsplit(i) for i in w],[])
+    r = builtins.sum([horzsplit(i) for i in w],[])
     
     self.checkarray(evalhorzcat(r),x_)
 
     w = horzsplit(x,2)
-    r = __builtin__.sum([horzsplit(i)+[y] for i in w],[])
+    r = builtins.sum([horzsplit(i)+[y] for i in w],[])
     print("vertcat:", r)
     print("result:", horzcat(r))
 
     w = horzsplit(x,2)
-    r = __builtin__.sum([horzsplit(i) for i in w],[])
+    r = builtins.sum([horzsplit(i) for i in w],[])
     print("vertcat:", r)
     print("result:", horzcat(r+[y]))
 
