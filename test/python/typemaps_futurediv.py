@@ -157,8 +157,8 @@ class typemaptests(casadiTestCase):
         
       r = fun(z,s)
             
-      if type(z) is type(SXElement()) and type(s) is type(SXElement()):
-        self.assertTrue(type(r) is type(SXElement()))
+      if isinstance(z, type(SXElement())) and isinstance(s, type(SXElement())):
+        self.assertTrue(isinstance(r, type(SXElement())))
         
 
       self.assertTrue(type(r) in ztype)

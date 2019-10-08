@@ -223,7 +223,7 @@ class casadiTestCase(unittest.TestCase):
         name - a descriptor that will be included in error messages
     """
     self.message(":"+ name)
-    if (type(x)==list):
+    if (isinstance(x, list)):
       sample = x[0]
     else :
       sample = x
@@ -237,13 +237,13 @@ class casadiTestCase(unittest.TestCase):
     f.init()
     if (not(fmod is None)):
       f=fmod(f,x)
-    if not(type(x0)==list):
+    if not(isinstance(x0, list)):
       x0=[x0]
     
     if setx0 is None:
       setx0=x0
       
-    if not(type(setx0)==list):
+    if not(isinstance(setx0, list)):
       setx0=[setx0]
       
     for i in range(len(x0)):

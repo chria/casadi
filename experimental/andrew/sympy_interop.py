@@ -53,27 +53,27 @@ def traverse(node, casadi_syms, rootnode):
 	if len(node.args)==1:
 		# Handle unary operators
 		child = traverse(node.args[0], casadi_syms, rootnode) # Recursion!
-		if type(node) == trig.cos:
+		if isinstance(node, trig.cos):
 			return casadi.cos(child)
-		if type(node) == trig.sin:
+		if isinstance(node, trig.sin):
 			return casadi.sin(child)
-		if type(node) == trig.tan:
+		if isinstance(node, trig.tan):
 			return casadi.tan(child)
 
-		if type(node) == trig.cosh:
+		if isinstance(node, trig.cosh):
 			return casadi.cosh(child)
-		if type(node) == trig.sinh:
+		if isinstance(node, trig.sinh):
 			return casadi.sinh(child)
-		if type(node) == trig.tanh:
+		if isinstance(node, trig.tanh):
 			return casadi.tanh(child)
 
-		if type(node) == trig.cot:
+		if isinstance(node, trig.cot):
 			return 1/casadi.tan(child)
-		if type(node) == trig.acos:
+		if isinstance(node, trig.acos):
 			return casadi.arccos(child)
-		if type(node) == trig.asin:
+		if isinstance(node, trig.asin):
 			return casadi.arcsin(child)
-		if type(node) == trig.atan:
+		if isinstance(node, trig.atan):
 			return casadi.arctan(child)
 
 	if len(node.args)==2:
@@ -82,7 +82,7 @@ def traverse(node, casadi_syms, rootnode):
 		right = traverse(node.args[1], casadi_syms, rootnode) # Recursion!
 		if node.is_Pow:
 			return left**right
-		if type(node) == trig.atan2:
+		if isinstance(node, trig.atan2):
 			return casadi.arctan2(left,right)
 
 	if len(node.args)>=2:

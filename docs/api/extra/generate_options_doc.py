@@ -407,8 +407,7 @@ for name,meta in sorted(metadata.items()):
     if 'stats' in metadata[a]:
       update_no_overwrite(allstats,metadata[a]['stats'])
   
-  mystatskeys = list(allstats.keys())
-  mystatskeys.sort()
+  mystatskeys = sorted(allstats.keys())
   if len(mystatskeys)==0:
     continue
     
@@ -469,8 +468,7 @@ for name,meta in sorted(metadata.items()):
     if 'monitors' in metadata[a]:
       update_no_overwrite(allmonitors,metadata[a]['monitors'])
   
-  mymonitorskeys = list(allmonitors.keys())
-  mymonitorskeys.sort()
+  mymonitorskeys = sorted(allmonitors.keys())
   
   if len(mymonitorskeys)==0:
     continue

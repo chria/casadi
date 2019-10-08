@@ -234,12 +234,12 @@ class Misctests(casadiTestCase):
     self.assertTrue(isinstance(opts,list))
     
     n = opts[0]
-    self.assertTrue(type(n)==type(""))
+    self.assertTrue(isinstance(n, type("")))
     
     n = "monitor"
     
     d = i.getOptionDescription(n)
-    self.assertTrue(type(d)==type(""))
+    self.assertTrue(isinstance(d, type("")))
     self.assertTrue(not("d"=="N/A"))
     
     d = i.getOptionTypeName(n)

@@ -36,8 +36,7 @@ import re
 def sortedWalk(top, topdown=True, onerror=None):
   from os.path import join, isdir, islink
 
-  names = os.listdir(top)
-  names.sort()
+  names = sorted(os.listdir(top))
   dirs, nondirs = [], []
   for name in names:
     if isdir(os.path.join(top, name)):
