@@ -257,7 +257,7 @@ class IOSchemeVectorExtractor(object):
       except:
         import sys
         exc_info = sys.exc_info()
-        raise exc_info[1], None, exc_info[2].tb_next
+        raise_(exc_info[0], exc_info[1], exc_info[2])
     
 def extract(self):
   """
