@@ -27,6 +27,7 @@ from casadi import *
 import numpy as np
 import operator
 import sys
+from six import reraise as raise_
 
 from casadi import python3_flag
 if python3_flag:
@@ -38,7 +39,7 @@ def isInteger(a):
   return isinstance(a,int) or isinstance(a,np.integer)
   
 def isString(a):
-  return isinstance(a,str) or isinstance(a,unicode)
+  return isinstance(a,str) or isinstance(a,str)
   
 def isIterable(a):
   return isinstance(a,list) or isinstance(a,tuple)
@@ -69,7 +70,7 @@ def listindices(dims,nest=False):
     if nest:
       return [combine([[i]],tail) for i in range(dims[0])]
     else:
-      return combine(lpack(range(dims[0])),tail)
+      return combine(lpack(list(range(dims[0]))),tail)
 
 def intersperseIt(*args):
   iterators = list(map(iter,args))
@@ -77,7 +78,7 @@ def intersperseIt(*args):
   i = 0
   while any(active):
     try:
-      yield iterators[i].next()
+      yield next(iterators[i])
     except:
       active[i] = False
     i = (i + 1) % len(args)
@@ -221,7 +222,7 @@ class StructEntry:
         p = powerIndex[0]
         s = dims[0]
         if isinstance(p,slice): # Expand slice
-          p = range(*p.indices(s))
+          p = list(range(*p.indices(s)))
         if isInteger(p):
           return self.traverseByPowerIndex(
                    powerIndex[1:],
@@ -268,7 +269,7 @@ class StructEntry:
     except Exception as e:
       exc_class, exc, tb = sys.exc_info()
       new_exc = Exception("Error occured in entry context with powerIndex %s, at canonicalIndex %s:\n%s" % (str(powerIndex),str(canonicalIndex),str(e)))
-      raise new_exc.__class__, new_exc, tb
+      raise_(new_exc.__class__, new_exc, tb)
   
 class Structure(object):
   def __init__(self,entries,order=None):
@@ -368,7 +369,7 @@ class Structure(object):
                         dispatcher=dispatcher,
                         payload=v
                       )
-                    ) for k,v in payload.items()
+                    ) for k,v in list(payload.items())
                    ])
           else:
             return dict([
@@ -379,7 +380,7 @@ class Structure(object):
                         dispatcher=dispatcher,
                         payload=payload
                       )
-                    ) for k,v in self.dict.items()
+                    ) for k,v in list(self.dict.items())
                    ])
         elif isinstance(p,set):
           if isinstance(payload,dict):
@@ -391,7 +392,7 @@ class Structure(object):
                         dispatcher=dispatcher,
                         payload=v
                       )
-                    ) for k,v in payload.items() if k in p
+                    ) for k,v in list(payload.items()) if k in p
                    ])
           else:
             return dict([
@@ -426,7 +427,7 @@ class Structure(object):
       except Exception as e:
         exc_class, exc, tb = sys.exc_info()
         new_exc = Exception("Error occured in struct context with powerIndex %s, at canonicalIndex %s:\n%s" % (str(powerIndex),str(canonicalIndex),str(e)))
-        raise new_exc.__class__, new_exc, tb
+        raise_(new_exc.__class__, new_exc, tb)
       
 # Casadi-dependent Structure framework
     
@@ -581,7 +582,7 @@ class GetterDispatcher(Dispatcher):
       except Exception as e:
         exc_class, exc, tb = sys.exc_info()
         new_exc = Exception("Error in powerIndex slicing for canonicalIndex %s:\n%s" % (str(canonicalIndex),str(e)))
-        raise new_exc.__class__, new_exc, tb
+        raise_(new_exc.__class__, new_exc, tb)
     else:
       raise Exception("Canonical index %s does not exist." % str(canonicalIndex))
 
@@ -612,7 +613,7 @@ class SetterDispatcher(Dispatcher):
       except Exception as e:
         exc_class, exc, tb = sys.exc_info()
         new_exc = Exception("Error in powerIndex slicing for canonicalIndex %s:\n%s" % (str(canonicalIndex),str(e)))
-        raise new_exc.__class__, new_exc, tb
+        raise_(new_exc.__class__, new_exc, tb)
     else:
       raise Exception("Canonical index %s does not exist." % str(canonicalIndex))
       
@@ -627,7 +628,7 @@ class SetterDispatcher(Dispatcher):
     except Exception as e:
       exc_class, exc, tb = sys.exc_info()
       new_exc = Exception("Error in powerIndex slicing for canonicalIndex %s:\n %s" % (str(canonicalIndex),str(e)))
-      raise new_exc.__class__, new_exc, tb
+      raise_(new_exc.__class__, new_exc, tb)
       
 class MasterGettable:
   @properGetitem
@@ -784,7 +785,7 @@ class CasadiStructure(Structure,CasadiStructureDerivable):
     for i in self.traverseCanonicalIndex():
       e = self.getStructEntryByCanonicalIndex(i)
       sp = Sparsity.dense(1,1) if e.sparsity is None else e.sparsity
-      m = IMatrix(sp,range(k,k+sp.size()))
+      m = IMatrix(sp,list(range(k,k+sp.size())))
       k += sp.size()
       it = tuple(i)
       self.map[it] = m
@@ -795,7 +796,7 @@ class CasadiStructure(Structure,CasadiStructureDerivable):
         else:
           hmap[a] = [m]
     self.size = k
-    for k,v in hmap.items():
+    for k,v in list(hmap.items()):
       hmap[k] = vecNZcat(v)
     
     self.map.update(hmap)
@@ -1010,7 +1011,7 @@ class MatrixStruct(CasadiStructured,MasterGettable,MasterSettable):
     elif data is None:
       self.master = mtype.nan(self.size,1)
     else:
-      print(type(data), data.__class__)
+      print((type(data), data.__class__))
       self.master = mtype(data)
       
     if self.master.shape[0]!=self.size:

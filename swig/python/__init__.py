@@ -51,6 +51,7 @@ if 'casadi_core' in failed_modules:
 
 import os
 import types
+from six import reraise as raise_
   
 def wrapper(f, warning,error=False):
     def new(*args, **kwargs):
@@ -156,9 +157,9 @@ def monkeypatch(v,cl=True):
         else:
           name = "method"
         ne = NotImplementedError(pythonify(s)+"You have: %s(%s)\n" % (name,", ".join(list(map(type_descr,args[1:] if cl else args))+ ["%s=%s" % (k,type_descr(vv)) for k,vv in list(kwargs.items())])))
-        raise ne.__class__, ne, exc_info[2].tb_next
+        raise_(ne.__class__, ne, exc_info[2])
       else:
-        raise exc_info[1], None, exc_info[2].tb_next
+        raise_(exc_info[0], exc_info[1], exc_info[2])
     except TypeError as e:
       import sys
       exc_info = sys.exc_info()
@@ -179,7 +180,7 @@ def monkeypatch(v,cl=True):
         else:
           name = "method"
         ne = TypeError(pythonify(s)+" expected.\nYou have: %s(%s)\n" % (name,", ".join(map(type_descr,args[1:] if cl else args))))
-        raise ne.__class__, ne, exc_info[2].tb_next
+        raise_(ne.__class__, ne, exc_info[2])
       elif e.message.startswith("Expecting one of"):
         s = e.args[0]
         conversion = {"mul": "*", "div": "/", "add": "+", "sub": "-","le":"<=","ge":">=","lt":"<","gt":">","eq":"==","pow":"**"}
@@ -189,15 +190,15 @@ def monkeypatch(v,cl=True):
           ne = TypeError(pythonify(s)+"\nYou try to do: %s %s %s.\n" % ( type_descr(args[1]),  conversion[methodname[3:-2]], type_descr(args[0]) ))
         else:
           ne = TypeError(pythonify(s)+"\nYou have: (%s)\n" % (", ".join(map(type_descr,args[1:] if cl else args))))
-        raise ne.__class__, ne, exc_info[2].tb_next
+        raise_(ne.__class__, ne, exc_info[2])
       else:
         s = e.args[0]
         ne = TypeError(s+"\nYou have: (%s)\n" % (", ".join(list(map(type_descr,args[1:] if cl else args)) + ["%s=%s" % (k,type_descr(vv)) for k,vv in list(kwargs.items())]  )))
-        raise ne.__class__, ne, exc_info[2].tb_next
+        raise_(ne.__class__, ne, exc_info[2])
     except Exception as e:
       import sys
       exc_info = sys.exc_info()
-      raise exc_info[1], None, exc_info[2].tb_next
+      raise(exc_info[0], exc_info[1], exc_info[2])
       
   if v.__doc__ is not None:
     foo.__doc__ = pythonify(v.__doc__)
