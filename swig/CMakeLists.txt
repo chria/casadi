@@ -74,6 +74,7 @@ set(CASADI_SWIG_MAIN_MODULE casadi_core)
 
 set(USE_SWIG_FLAGS_python ${USE_SWIG_FLAGS_python} "-DPy_USING_UNICODE")
 set(USE_SWIG_FLAGS_python ${USE_SWIG_FLAGS_python} "-noproxydel")
+set(USE_SWIG_FLAGS_python ${USE_SWIG_FLAGS_python} "-py3")
 
 set(CASADI_SWIG_FLAGS ${CASADI_SWIG_FLAGS} "-DSWIG_TYPE_TABLE=casadi")
 foreach(my_module ${CASADI_SWIG_MODULES})
