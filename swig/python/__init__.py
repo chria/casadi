@@ -143,9 +143,9 @@ def monkeypatch(v,cl=True):
     try:
       return v(*args,**kwargs)
     except NotImplementedError as e:
-      import sys
       exc_info = sys.exc_info()
-      if e.message.startswith("Wrong number or type of arguments for overloaded function"):
+      exception_message = str(e)
+      if exception_message.startswith("Wrong number or type of arguments for overloaded function"):
 
         s = e.args[0]
         s = s.replace("'new_","'")
@@ -161,8 +161,8 @@ def monkeypatch(v,cl=True):
       else:
         raise_(exc_info[0], exc_info[1], exc_info[2])
     except TypeError as e:
-      import sys
       exc_info = sys.exc_info()
+      exception_message=str(e)
       
       methodname = "method"
       try:
@@ -170,7 +170,7 @@ def monkeypatch(v,cl=True):
       except:
         pass
 
-      if e.message.startswith("in method '"):
+      if exception_message.startswith("in method '"):
         s = e.args[0]
         s = re.sub(r"method '(\w+?)_(\w+)'",r"method '\1.\2'",s)
         m = re.search("method '([\w\.]+)'",s)
@@ -181,7 +181,7 @@ def monkeypatch(v,cl=True):
           name = "method"
         ne = TypeError(pythonify(s)+" expected.\nYou have: %s(%s)\n" % (name,", ".join(map(type_descr,args[1:] if cl else args))))
         raise_(ne.__class__, ne, exc_info[2])
-      elif e.message.startswith("Expecting one of"):
+      elif exception_message.startswith("Expecting one of"):
         s = e.args[0]
         conversion = {"mul": "*", "div": "/", "add": "+", "sub": "-","le":"<=","ge":">=","lt":"<","gt":">","eq":"==","pow":"**"}
         if methodname.startswith("__") and methodname[2:-2] in conversion:
@@ -196,9 +196,8 @@ def monkeypatch(v,cl=True):
         ne = TypeError(s+"\nYou have: (%s)\n" % (", ".join(list(map(type_descr,args[1:] if cl else args)) + ["%s=%s" % (k,type_descr(vv)) for k,vv in list(kwargs.items())]  )))
         raise_(ne.__class__, ne, exc_info[2])
     except Exception as e:
-      import sys
       exc_info = sys.exc_info()
-      raise(exc_info[0], exc_info[1], exc_info[2])
+      raise_(exc_info[0], exc_info[1], exc_info[2])
       
   if v.__doc__ is not None:
     foo.__doc__ = pythonify(v.__doc__)
@@ -237,7 +236,6 @@ for name,cl in inspect.getmembers(casadi, inspect.isclass):
 for name,v in inspect.getmembers(casadi, inspect.isfunction):
   p = monkeypatch(v,cl=False)
   setattr(casadi,name,p)
-  import sys
   setattr(sys.modules[__name__], name, p)
   
   
@@ -255,7 +253,6 @@ class IOSchemeVectorExtractor(object):
       try:
         yield self._schemevector[k]
       except:
-        import sys
         exc_info = sys.exc_info()
         raise_(exc_info[0], exc_info[1], exc_info[2])
     
