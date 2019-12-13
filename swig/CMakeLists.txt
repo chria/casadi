@@ -70,11 +70,14 @@ link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../build/lib)
 set(CASADI_SWIG_FLAGS ${CASADI_SWIG_FLAGS} "-I${CMAKE_CURRENT_SOURCE_DIR}/swig_lib")
 set(CASADI_SWIG_FLAGS ${CASADI_SWIG_FLAGS} "-DCASADI_MODULE")
 
+# Test if these flags generates python 3 compatible code
+set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS} "-py3")
+set(CMAKE_SWIG_FLAGS ${CMAKE_SWIG_FLAGS} "-DWITH_PYTHON3")
+
 set(CASADI_SWIG_MAIN_MODULE casadi_core)
 
 set(USE_SWIG_FLAGS_python ${USE_SWIG_FLAGS_python} "-DPy_USING_UNICODE")
 set(USE_SWIG_FLAGS_python ${USE_SWIG_FLAGS_python} "-noproxydel")
-set(USE_SWIG_FLAGS_python ${USE_SWIG_FLAGS_python} "-py3")
 
 set(CASADI_SWIG_FLAGS ${CASADI_SWIG_FLAGS} "-DSWIG_TYPE_TABLE=casadi")
 foreach(my_module ${CASADI_SWIG_MODULES})
