@@ -215,7 +215,7 @@ file(WRITE "${PROJECT_BINARY_DIR}/python/casadi/casadi_loader.py" "failed_module
 foreach(my_module ${CASADI_SWIG_MODULES})
 file(APPEND "${PROJECT_BINARY_DIR}/python/casadi/casadi_loader.py"
 "try:\n"
-"  from .${my_module} import *\n"
+"  from ${my_module} import *\n"
 "  loaded_modules.append('${my_module}')\n"
 "except Exception as e:\n"
 "  failed_modules['${my_module}'] = str(e)\n"
