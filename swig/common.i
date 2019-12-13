@@ -713,7 +713,7 @@ void dummy2(
 
 #ifdef SWIGPYTHON
 %pythoncode %{
-import _casadi_core
+from . import _casadi_core
 %}
 #endif // SWIGPYTHON
 
